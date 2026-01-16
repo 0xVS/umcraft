@@ -1,4 +1,4 @@
-package um.craft;
+package um.craft.test;
 
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
