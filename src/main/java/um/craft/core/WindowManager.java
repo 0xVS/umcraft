@@ -7,7 +7,10 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.*;
+import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
+
+import java.nio.IntBuffer;
 
 
 public class WindowManager {
@@ -84,20 +87,38 @@ public class WindowManager {
         });
         // GLFW.glfwSetCursorPosCallback(window, (window, x, y) -> {})
 
+
+
         if (maximized) {
             GLFW.glfwMaximizeWindow(window);
             // zentriert das fenster in der monitorhälfte (in höhe und breite)
         } else {
-            GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-            GLFW.glfwSetWindowPos(window, (vidmode.width() - width) / 2,  (vidmode.height() - height) / 2);
+            try (MemoryStack stack = MemoryStack.stackPush()) {
+                IntBuffer w = stack.mallocInt(1);
+                IntBuffer h = stack.mallocInt(1);
+
+                //echte werte vom fenster, ohne manuell gesetzte width und height
+                GLFW.glfwGetWindowSize(window, w, h);
+
+                GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+
+                // holt werte aus buffer, zentriert mit echten werten
+                GLFW.glfwSetWindowPos(window,
+                    (vidmode.width() - w.get(0)) / 2,
+                    (vidmode.height() - h.get(0)) / 2);
+            }
         }
+
+
 
         GLFW.glfwMakeContextCurrent(window);
 
         if (vsync) {
+            // schaltet vsync an
             GLFW.glfwSwapInterval(1);
         }
 
+        // macht window sichtbar, siehe Zeile 48
         GLFW.glfwShowWindow(window);
 
         GL.createCapabilities();
