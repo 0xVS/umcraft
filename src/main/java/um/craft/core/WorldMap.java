@@ -26,8 +26,23 @@ public class WorldMap {
 
     final String[] BIOMES = {"PLAINS", "OCEANS", "DESERT"};
 
+    //soll ermitteln welches Biom in dem Chunk enthalten ist
+    //ein Main Biom und eventuell neben Biom für einen möglichen Übergang
     public String biomeFinder() {
 
         return BIOMES[1];
     }
+
+    //soll ermitteln, welches Biom neben dem ausgewählten chunk liegt
+    public String nearBiomes() {
+
+        return BIOMES[1];
+    }
+
+    //gibt die Richtung an in der der ermittelte chunk an den ausgewählten anliegt
+    public String direction() {
+
+        return "west";
+    }
+
 }
