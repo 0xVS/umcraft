@@ -6,7 +6,6 @@ import um.craft.core.input.Inputs;
 import org.lwjgl.Version;
 import um.craft.core.logic.GameLoop;
 import um.craft.core.logic.PlayerController;
-import um.craft.core.window.Window;
 import um.craft.core.window.WindowManager;
 
 
