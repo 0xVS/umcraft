@@ -4,7 +4,6 @@ import org.lwjgl.glfw.GLFW;
 import um.craft.core.input.*;
 
 import org.joml.Vector3f;
-import um.craft.core.window.Window;
 import um.craft.core.window.WindowManager;
 
 public class PlayerController implements InputListener {
@@ -20,6 +19,8 @@ public class PlayerController implements InputListener {
     private boolean isMovingRight = false;
     private boolean isSneaking = false;
     private boolean isSprinting = false;
+    private boolean isMovingUp = false;
+    private boolean isMovingDown = false;
 
     // maus
     private float mouseDeltaX = 0;
@@ -27,41 +28,50 @@ public class PlayerController implements InputListener {
 
     WindowManager window;
 
-     public PlayerController(Inputs rawInput, WindowManager wm) {
-         this.inputHandler = new InputHandler(rawInput);
-         this.inputHandler.addListener(this);
-         this.window = wm;
 
-         // custom bindings, z.B. aus dem load? jetzt erstmal als beispiel
-         inputHandler.bindKey(GLFW.GLFW_KEY_F, "INVENTORY");
+    public PlayerController(Inputs rawInput, WindowManager wm) {
+        this.inputHandler = new InputHandler(rawInput);
+        this.inputHandler.addListener(this);
+        this.window = wm;
 
-         this.position = new Vector3f(0,0,0);
-         this.rotation = new Vector3f(0,0,0);
-     }
+        // custom bindings, z.B. aus dem load? jetzt erstmal als beispiel
+        inputHandler.bindKey(GLFW.GLFW_KEY_F, "INVENTORY");
+
+        this.position = new Vector3f(0, 0, 0);
+        this.rotation = new Vector3f(0, 0, 0);
+    }
 
 
     @Override
     public void onInputEvent(InputEvent event) {
-        handleAction(event.getAction(), event.getType());
+        handleAction(event.action(), event.type());
     }
 
     private void handleAction(String action, InputEvent.Type type) {
-        boolean isActive = (type == InputEvent.Type.PRESSED || type == InputEvent.Type.HELD);
-
-        switch (action) {
-            case "MOVE_FORWARD" -> isMovingForward = isActive;
-            case "MOVE_BACKWARD" -> isMovingBackward = isActive;
-            case "MOVE_LEFT" -> isMovingLeft = isActive;
-            case "MOVE_RIGHT" -> isMovingRight = isActive;
-            case "QUIT" -> window.cleanup();
-            /*
-            case "JUMP":
-                if (type == InputEvent.Type.PRESSED) {
-                    jump();
+        switch (type) {
+            case PRESSED, HELD -> {
+                // setze bewegung auf true bei PRESSED oder HELD
+                switch (action) {
+                    case "MOVE_FORWARD" -> isMovingForward = true;
+                    case "MOVE_BACKWARD" -> isMovingBackward = true;
+                    case "MOVE_LEFT" -> isMovingLeft = true;
+                    case "MOVE_RIGHT" -> isMovingRight = true;
+                    case "MOVE_UP" -> isMovingUp = true;
+                    case "MOVE_DOWN" -> isMovingDown = true;
+                    case "QUIT" -> window.cleanup();
                 }
-                break;
-                */
-            // ... usw
+            }
+            case RELEASED -> {
+                // setze bewegung auf false bei RELEASED
+                switch (action) {
+                    case "MOVE_FORWARD" -> isMovingForward = false;
+                    case "MOVE_BACKWARD" -> isMovingBackward = false;
+                    case "MOVE_LEFT" -> isMovingLeft = false;
+                    case "MOVE_RIGHT" -> isMovingRight = false;
+                    case "MOVE_UP" -> isMovingUp = false;
+                    case "MOVE_DOWN" -> isMovingDown = false;
+                }
+            }
         }
     }
 
@@ -77,12 +87,14 @@ public class PlayerController implements InputListener {
 
     private void updateMovement(float deltaTime) {
         // einfache Bewegung (zum testen)
-        float speed = 5.0f * deltaTime;
+        float speed = 15.0f * deltaTime;
 
         if (isMovingForward) position.z -= speed;
         if (isMovingBackward) position.z += speed;
         if (isMovingLeft) position.x -= speed;
         if (isMovingRight) position.x += speed;
+        if (isMovingUp) position.y += speed;
+        if (isMovingDown) position.y -= speed;
     }
 
     private void debugOutput() {
