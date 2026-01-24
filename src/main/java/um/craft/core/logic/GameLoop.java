@@ -1,10 +1,6 @@
 package um.craft.core.logic;
 
-import org.lwjgl.opengl.GL11;
 import um.craft.core.window.WindowManager;
-import um.craft.core.logic.PlayerController;
-import um.craft.core.input.Inputs;
-
 
 public class GameLoop {
 
@@ -44,7 +40,7 @@ public class GameLoop {
         // main game loop
         while (isRunning && !windowManager.windowShouldClose()) {
             long currentTime = System.nanoTime();
-            
+
             deltaTime = (currentTime - lastTime) / 1_000_000_000.0f;
             lastTime = currentTime;
 
@@ -61,7 +57,7 @@ public class GameLoop {
 
     private void updateFPS() {
         frameCount++;
-        long currentTime =  System.nanoTime();
+        long currentTime = System.nanoTime();
 
         if (currentTime - lastFpsTime >= 1_000_000_000) {
             fps = frameCount;
