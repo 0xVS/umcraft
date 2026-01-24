@@ -14,7 +14,7 @@ public class InputHandler {
     // EventListeners
     private List<InputListener> listeners = new ArrayList<>();
 
-    private Set<String> activeActions = new HashSet<>();
+    private final Set<String> activeActions = new HashSet<>();
 
     private boolean[] keyWasPressed = new boolean[GLFW.GLFW_KEY_LAST];
 
@@ -29,9 +29,11 @@ public class InputHandler {
         bindKey(GLFW.GLFW_KEY_A, "MOVE_LEFT");
         bindKey(GLFW.GLFW_KEY_S, "MOVE_BACKWARD");
         bindKey(GLFW.GLFW_KEY_D, "MOVE_RIGHT");
-        bindKey(GLFW.GLFW_KEY_SPACE, "JUMP");
-        bindKey(GLFW.GLFW_KEY_LEFT_SHIFT, "SNEAK");
-        bindKey(GLFW.GLFW_KEY_LEFT_CONTROL, "SPRINT");
+        //bindKey(GLFW.GLFW_KEY_SPACE, "JUMP");
+        //bindKey(GLFW.GLFW_KEY_LEFT_SHIFT, "SNEAK");
+        //bindKey(GLFW.GLFW_KEY_LEFT_CONTROL, "SPRINT");
+        bindKey(GLFW.GLFW_KEY_LEFT_SHIFT, "MOVE_DOWN");
+        bindKey(GLFW.GLFW_KEY_SPACE, "MOVE_UP");
 
         // maus bindings
 
@@ -62,35 +64,29 @@ public class InputHandler {
 
         // keyboard actions
         for (Map.Entry<Integer, String> entry : keyBindings.entrySet()) {
-             int key = entry.getKey();
-             String action = entry.getValue();
+            int key = entry.getKey();
+            String action = entry.getValue();
 
-             boolean isPressed = rawInput.isKeyDown(key);
-             boolean wasPressed = keyWasPressed[key];
-
-
-             if (rawInput.isKeyDown(key)) {
-                 activeActions.add(action);
-
-                 if (isPressed && !wasPressed) {
-                     // taste wurde GERADE gedrückt
-                     notifyListeners(action, InputEvent.Type.PRESSED);
-                     keyWasPressed[key] = true;
-                     activeActions.add(action);
-
-                 } else if (!isPressed && wasPressed) {
-                     // taste wurde LOSGELASSEN
-                     notifyListeners(action, InputEvent.Type.RELEASED);
-                     keyWasPressed[key] = false;
-
-                 } else if (isPressed && wasPressed) {
-                     // taste wird GEHALTEN
-                     notifyListeners(action, InputEvent.Type.HELD);
-                     activeActions.add(action);
-                 }
-             }
+            boolean isPressed = rawInput.isKeyDown(key);
+            boolean wasPressed = keyWasPressed[key];
 
 
+            if (isPressed && !wasPressed) {
+                // taste wurde GERADE gedrückt
+                notifyListeners(action, InputEvent.Type.PRESSED);
+                keyWasPressed[key] = true;
+                activeActions.add(action);
+
+            } else if (!isPressed && wasPressed) {
+                // taste wurde LOSGELASSEN
+                notifyListeners(action, InputEvent.Type.RELEASED);
+                keyWasPressed[key] = false;
+
+            } else if (isPressed && wasPressed) {
+                // taste wird GEHALTEN
+                notifyListeners(action, InputEvent.Type.HELD);
+                activeActions.add(action);
+            }
         }
 
         // mouse actions
@@ -123,8 +119,13 @@ public class InputHandler {
     }
 
     // TODO: implementieren
-    public float getMouseDeltaX() { return 0.0f; }
-    public float getMouseDeltaY() { return 0.0f; }
+    public float getMouseDeltaX() {
+        return 0.0f;
+    }
+
+    public float getMouseDeltaY() {
+        return 0.0f;
+    }
 
 
     public void addListener(InputListener listener) {
@@ -143,7 +144,10 @@ public class InputHandler {
     }
 
     // für speichern/laden der config für bindings
-    public void saveBindings(String filepath) {}
-    public void loadBindings(String filepath) {}
+    public void saveBindings(String filepath) {
+    }
+
+    public void loadBindings(String filepath) {
+    }
 
 }
