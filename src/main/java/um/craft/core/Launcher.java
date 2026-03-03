@@ -4,14 +4,12 @@ import org.lwjgl.glfw.GLFW;
 import um.craft.core.input.Inputs;
 
 import org.lwjgl.Version;
-import um.craft.core.logic.GameLoop;
 import um.craft.core.logic.PlayerController;
+import um.craft.core.logic.GameLoop;
 import um.craft.core.window.WindowManager;
 
 
 public class Launcher {
-
-
     public static void main(String[] args) {
         System.out.println("LWJGL Version: " + Version.getVersion());
 

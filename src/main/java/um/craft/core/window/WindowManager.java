@@ -53,7 +53,8 @@ public class WindowManager {
 
 
     public void update() {
-        setClearColor(255, 0, 0, 1.0f);
+        // setzt farbe (temporär) für fenster
+        setClearColor(0, 0, 0, 1.0f);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         window.swapBuffers();
         // sagt opengl, dass alle jetzigen objekte in der queue gerendert werden sollen

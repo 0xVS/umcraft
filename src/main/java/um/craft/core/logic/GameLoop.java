@@ -1,5 +1,6 @@
 package um.craft.core.logic;
 
+import um.craft.core.logic.PlayerController;
 import um.craft.core.window.WindowManager;
 
 public class GameLoop {

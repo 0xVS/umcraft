@@ -29,9 +29,6 @@ public class InputHandler {
         bindKey(GLFW.GLFW_KEY_A, "MOVE_LEFT");
         bindKey(GLFW.GLFW_KEY_S, "MOVE_BACKWARD");
         bindKey(GLFW.GLFW_KEY_D, "MOVE_RIGHT");
-        //bindKey(GLFW.GLFW_KEY_SPACE, "JUMP");
-        //bindKey(GLFW.GLFW_KEY_LEFT_SHIFT, "SNEAK");
-        //bindKey(GLFW.GLFW_KEY_LEFT_CONTROL, "SPRINT");
         bindKey(GLFW.GLFW_KEY_LEFT_SHIFT, "MOVE_DOWN");
         bindKey(GLFW.GLFW_KEY_SPACE, "MOVE_UP");
 
