@@ -1,33 +1,25 @@
 package um.craft.core.logic;
 
-import org.lwjgl.glfw.GLFW;
-import um.craft.core.input.*;
-
 import org.joml.Vector3f;
+
+import org.lwjgl.glfw.GLFW;
+
+import um.craft.core.input.InputEvent;
+import um.craft.core.input.InputHandler;
+import um.craft.core.input.InputListener;
+import um.craft.core.input.Inputs;
 import um.craft.core.window.WindowManager;
 
+import java.util.EnumSet;
+
 public class PlayerController implements InputListener {
+
     private InputHandler inputHandler;
 
     private final Vector3f position;
     private final Vector3f rotation;
 
-    // zustände
-    private boolean isMovingForward = false;
-    private boolean isMovingBackward = false;
-    private boolean isMovingLeft = false;
-    private boolean isMovingRight = false;
-    private boolean isSneaking = false;
-    private boolean isSprinting = false;
-    private boolean isMovingUp = false;
-    private boolean isMovingDown = false;
-
-    // maus
-    private float mouseDeltaX = 0;
-    private float mouseDeltaY = 0;
-
     WindowManager window;
-
 
     public PlayerController(Inputs rawInput, WindowManager wm) {
         this.inputHandler = new InputHandler(rawInput);
@@ -41,35 +33,44 @@ public class PlayerController implements InputListener {
         this.rotation = new Vector3f(0, 0, 0);
     }
 
-
-    @Override
-    public void onInputEvent(InputEvent event) {
-        handleAction(event.action(), event.type());
+    private enum PlayerAction {
+        MOVING_FORWARD,
+        MOVING_BACKWARD,
+        MOVING_LEFT,
+        MOVING_RIGHT,
+        MOVING_UP,
+        MOVING_DOWN,
+        IS_SPRINTING,
+        IS_SNEAKING
     }
 
-    private void handleAction(String action, InputEvent.Type type) {
+    private final EnumSet<PlayerAction> activeActions = EnumSet.noneOf(PlayerAction.class);
+
+    @Override
+    public void onInputEvent(InputEvent event) { actionTest(event.action(), event.type());
+    }
+    private void actionTest(String action, InputEvent.Type type) {
         switch (type) {
             case PRESSED, HELD -> {
-                // setze bewegung auf true bei PRESSED oder HELD
                 switch (action) {
-                    case "MOVE_FORWARD" -> isMovingForward = true;
-                    case "MOVE_BACKWARD" -> isMovingBackward = true;
-                    case "MOVE_LEFT" -> isMovingLeft = true;
-                    case "MOVE_RIGHT" -> isMovingRight = true;
-                    case "MOVE_UP" -> isMovingUp = true;
-                    case "MOVE_DOWN" -> isMovingDown = true;
+                    case "MOVE_FORWARD" -> activeActions.add(PlayerAction.MOVING_FORWARD);
+                    case "MOVE_BACKWARD" -> activeActions.add(PlayerAction.MOVING_BACKWARD);
+                    case "MOVE_LEFT" -> activeActions.add(PlayerAction.MOVING_LEFT);
+                    case "MOVE_RIGHT" -> activeActions.add(PlayerAction.MOVING_RIGHT);
+                    case "MOVE_UP" -> activeActions.add(PlayerAction.MOVING_UP);
+                    case "MOVE_DOWN" -> activeActions.add(PlayerAction.MOVING_DOWN);
                     case "QUIT" -> window.cleanup();
                 }
             }
             case RELEASED -> {
-                // setze bewegung auf false bei RELEASED
                 switch (action) {
-                    case "MOVE_FORWARD" -> isMovingForward = false;
-                    case "MOVE_BACKWARD" -> isMovingBackward = false;
-                    case "MOVE_LEFT" -> isMovingLeft = false;
-                    case "MOVE_RIGHT" -> isMovingRight = false;
-                    case "MOVE_UP" -> isMovingUp = false;
-                    case "MOVE_DOWN" -> isMovingDown = false;
+                    case "MOVE_FORWARD" -> activeActions.remove(PlayerAction.MOVING_FORWARD);
+                    case "MOVE_BACKWARD" -> activeActions.remove(PlayerAction.MOVING_BACKWARD);
+                    case "MOVE_LEFT" -> activeActions.remove(PlayerAction.MOVING_LEFT);
+                    case "MOVE_RIGHT" -> activeActions.remove(PlayerAction.MOVING_RIGHT);
+                    case "MOVE_UP" -> activeActions.remove(PlayerAction.MOVING_UP);
+                    case "MOVE_DOWN" -> activeActions.remove(PlayerAction.MOVING_DOWN);
+                    case "QUIT" -> window.cleanup();
                 }
             }
         }
@@ -77,30 +78,24 @@ public class PlayerController implements InputListener {
 
     public void update(float deltaTime) {
         inputHandler.update();
-
-        // bewegung berechnen basierend auf aktuellen zuständen
-        updateMovement(deltaTime);
-
-        // Debug output ?? ka ob wir das brauchen aber ja
+        testMovement(deltaTime);
         debugOutput();
     }
 
-    private void updateMovement(float deltaTime) {
-        // einfache Bewegung (zum testen)
+    private void testMovement(float deltaTime){
         float speed = 15.0f * deltaTime;
 
-        if (isMovingForward) position.z -= speed;
-        if (isMovingBackward) position.z += speed;
-        if (isMovingLeft) position.x -= speed;
-        if (isMovingRight) position.x += speed;
-        if (isMovingUp) position.y += speed;
-        if (isMovingDown) position.y -= speed;
+        if (activeActions.contains(PlayerAction.MOVING_FORWARD)) position.x += speed;
+        if (activeActions.contains(PlayerAction.MOVING_BACKWARD)) position.x -= speed;
+        if (activeActions.contains(PlayerAction.MOVING_LEFT)) position.z -= speed;
+        if (activeActions.contains(PlayerAction.MOVING_RIGHT)) position.z += speed;
+        if (activeActions.contains(PlayerAction.MOVING_UP)) position.y += speed;
+        if (activeActions.contains(PlayerAction.MOVING_DOWN)) position.y -= speed;
     }
 
     private void debugOutput() {
-        // Alle 60 Frames Position ausgeben
-        if (System.currentTimeMillis() % 1000 < 16) { // Ca. jede Sekunde
-            System.out.printf("Player position: (%.2f, %.2f, %.2f)%n",
+        if (System.currentTimeMillis() % 1000 < 16) {
+            System.out.printf("> POS: (%.2f, %.2f, %.2f)%n",
                     position.x, position.y, position.z);
         }
     }
