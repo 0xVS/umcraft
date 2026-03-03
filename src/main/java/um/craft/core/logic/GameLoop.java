@@ -1,7 +1,7 @@
 package um.craft.core.logic;
 
-import um.craft.core.logic.PlayerController;
 import um.craft.core.window.WindowManager;
+import um.craft.core.render.*;
 
 public class GameLoop {
 
@@ -9,6 +9,7 @@ public class GameLoop {
     private final PlayerController playerController;
     private boolean isRunning = false;
 
+    Shader shader = new Shader();
 
     // zeitvariablen für gameloop
     private long lastTime;
@@ -17,7 +18,7 @@ public class GameLoop {
     private long lastFpsTime;
     private int frameCount;
 
-    public GameLoop(WindowManager windowManager, PlayerController playerController) {
+    public GameLoop(WindowManager windowManager, PlayerController playerController) throws Exception {
         this.windowManager = windowManager;
         this.playerController = playerController;
     }
@@ -49,7 +50,7 @@ public class GameLoop {
             updateFPS();
             windowManager.update();
         }
-
+        shader.cleanup();
     }
 
     private void update(float deltaTime) {
@@ -72,5 +73,4 @@ public class GameLoop {
     private void stop() {
         isRunning = false;
     }
-
 }
