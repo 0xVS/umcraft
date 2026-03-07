@@ -16,8 +16,9 @@ public class PlayerController implements InputListener {
 
     private InputHandler inputHandler;
 
-    private final Vector3f position;
-    private final Vector3f rotation;
+    //private final Vector3f position;
+    //private final Vector3f rotation;
+    private final Vector3f position = new Vector3f(0, 0, 0);
 
     WindowManager window;
 
@@ -29,9 +30,11 @@ public class PlayerController implements InputListener {
         // custom bindings, z.B. aus dem load? jetzt erstmal als beispiel
         inputHandler.bindKey(GLFW.GLFW_KEY_F, "INVENTORY");
 
-        this.position = new Vector3f(0, 0, 0);
-        this.rotation = new Vector3f(0, 0, 0);
+        //this.position = new Vector3f(0, 0, 0);
+        //this.rotation = new Vector3f(0, 0, 0);
     }
+
+
 
     private enum PlayerAction {
         MOVING_FORWARD,
@@ -47,7 +50,8 @@ public class PlayerController implements InputListener {
     private final EnumSet<PlayerAction> activeActions = EnumSet.noneOf(PlayerAction.class);
 
     @Override
-    public void onInputEvent(InputEvent event) { actionTest(event.action(), event.type());
+    public void onInputEvent(InputEvent event) {
+        actionTest(event.action(), event.type());
     }
     private void actionTest(String action, InputEvent.Type type) {
         switch (type) {
@@ -83,15 +87,38 @@ public class PlayerController implements InputListener {
     }
 
     private void testMovement(float deltaTime){
-        float speed = 15.0f * deltaTime;
-
+        float speed = 1.2f * deltaTime;
+/*
         if (activeActions.contains(PlayerAction.MOVING_FORWARD)) position.x += speed;
         if (activeActions.contains(PlayerAction.MOVING_BACKWARD)) position.x -= speed;
         if (activeActions.contains(PlayerAction.MOVING_LEFT)) position.z -= speed;
         if (activeActions.contains(PlayerAction.MOVING_RIGHT)) position.z += speed;
         if (activeActions.contains(PlayerAction.MOVING_UP)) position.y += speed;
         if (activeActions.contains(PlayerAction.MOVING_DOWN)) position.y -= speed;
+        */
+
+        if (activeActions.contains(PlayerAction.MOVING_FORWARD)) position.y += speed;
+        if (activeActions.contains(PlayerAction.MOVING_BACKWARD)) position.y -= speed;
+        if (activeActions.contains(PlayerAction.MOVING_LEFT)) position.x -= speed;
+        if (activeActions.contains(PlayerAction.MOVING_RIGHT)) position.x += speed;
+        //if (activeActions.contains(PlayerAction.MOVING_UP)) position.y += 0;
+        if (activeActions.contains(PlayerAction.MOVING_UP)){
+            position.y = 0;
+            position.x = 0;
+        }
+
+        if (activeActions.contains(PlayerAction.MOVING_DOWN)) position.y -= 0;
+
+        position.z = 0.0f;
+
+        position.x = Math.max(-1.0f, Math.min(1.0f, position.x));
+        position.y = Math.max(-1.0f, Math.min(1.0f, position.y));
     }
+
+    public Vector3f getPosition() {
+        return position;
+    }
+
 
     private void debugOutput() {
         if (System.currentTimeMillis() % 1000 < 16) {
