@@ -42,8 +42,8 @@ public class WindowManager {
 
 
         // TODO: für später? mal schauen wa
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glEnable(GL11.GL_STENCIL_TEST);
+        //GL11.glEnable(GL11.GL_DEPTH_TEST);
+        //GL11.glEnable(GL11.GL_STENCIL_TEST);
 
         // cull face -> nur äußere texturen vom objekt werden gerendert, alles andere nicht
         //GL11.glEnable(GL11.GL_CULL_FACE);
@@ -59,7 +59,8 @@ public class WindowManager {
     public void update() {
         // setzt farbe (temporär) für fenster
         //setClearColor(0, 0, 0, 1.0f);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        //GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
         GL11.glClearColor(0.2f, 0.4f, 0.8f, 1.0f);
         rm.render();
         window.swapBuffers();
