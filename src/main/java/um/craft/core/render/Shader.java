@@ -15,6 +15,16 @@ public class Shader {
         }
     }
 
+    public void setVec2(String name, float x, float y){
+        int location = glGetUniformLocation(programId, name);
+        if (location != -1){
+            glUniform2f(location, x, y);
+        } else {
+            System.err.println("Uniform " + name + " nicht gefunden");
+        }
+    }
+
+
     public void createVertexShader(String shaderCode) throws Exception {
         vertexShaderId = createShader(shaderCode, GL_VERTEX_SHADER);
     }
