@@ -1,5 +1,6 @@
 package um.craft.core.render;
 
+import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 import um.craft.core.render.Shader;
 
@@ -7,6 +8,7 @@ import um.craft.core.render.Shader;
 import org.lwjgl.system.MemoryUtil;
 import um.craft.core.util.Utils;
 import um.craft.core.window.WindowManager;
+import um.craft.core.logic.PlayerController;
 
 import java.nio.FloatBuffer;
 
@@ -29,17 +31,26 @@ public class RenderManager {
     private Shader shader;
     static WindowManager wm;
 
+    private PlayerController playerController;
+
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
+    }
+
 
     public void init() throws Exception {
         this.shader = new Shader();
+        float scale = 0.1f;
         float[] vertices = new float[]{
-                0.0f, 0.5f, 0.0f,
-                -0.5f, -0.5f, 0.0f,
-                0.5f, -0.5f, 0.0f,
+                0.0f * scale, 0.5f * scale, 0.0f * scale,
+                -0.5f * scale, -0.5f * scale, 0.0f * scale,
+                0.5f * scale, -0.5f * scale, 0.0f * scale,
         };
 
-        shader.createVertexShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/vertex.vs"));
-        shader.createFragmentShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/fragment.fs"));
+        //shader.createVertexShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/vertex.vs"));
+        shader.createVertexShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/vertex.glsl"));
+        //shader.createFragmentShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/fragment.fs"));
+        shader.createFragmentShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/fragment.glsl"));
         shader.link();
 
         FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(vertices.length);
@@ -69,8 +80,16 @@ public class RenderManager {
 
 
     public void render() {
-        //clear();
+
         shader.bind();
+
+
+        if (playerController != null) {
+            Vector3f position = playerController.getPosition();
+            shader.setVec2("offset", position.x, position.y);
+        } else {
+            System.err.println("PlayerController konnte nicht gesetzt werden");
+        }
 
         // Bind to the VAO
         glBindVertexArray(vaoId);
