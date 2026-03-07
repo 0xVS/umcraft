@@ -29,6 +29,7 @@ public class Launcher {
         PlayerController playerController = new PlayerController(inputs, wm);
         GameLoop gameLoop = new GameLoop(wm, playerController);
 
+        wm.rm.setPlayerController(playerController);
         glfwInit(windowHandle, wm, inputs);
 
         try {
