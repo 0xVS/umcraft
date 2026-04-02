@@ -1,6 +1,5 @@
-package um.craft.core;
+package um.craft.core.WorldGen;
 
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 //speichert die einzelnen blöcke eines chunks
@@ -15,7 +14,21 @@ class chunk {
 
 public class WorldMap {
 
-    final static String[] BIOMES = {"PLAINS", "OCEANS", "DESERT"};
+    enum BIOME {
+        PLAINS,
+        OCEANS,
+        DESERT,
+        TAIGA,
+        JUNGLE,
+        CHERRY_BLOSSOM;
+
+        public static BIOME randomBiome(){
+            BIOME[] biomes = values();
+            int randomizer = ThreadLocalRandom.current().nextInt(0, biomes.length);
+            return biomes[randomizer];
+        }
+    }
+
 
     //größe des zu ladenden chunks in x und y Richtung
     final static int CHUNKSIZE = 16;
@@ -39,20 +52,21 @@ public class WorldMap {
         }
     }
 
-    public static void beginningChunkLoad(){
-        String[][] chunk = new String[CHUNKSIZE][CHUNKSIZE];
+    public static chunk beginningChunkLoad(){
+        String[][] tempchunk = new String[CHUNKSIZE][CHUNKSIZE];
 
-        int randomizer = ThreadLocalRandom.current().nextInt(0, BIOMES.length);;
+        BIOME startingBiome = BIOME.randomBiome();
 
-        while (BIOMES[randomizer].equals("OCEANS")){
-            randomizer = ThreadLocalRandom.current().nextInt(0, BIOMES.length);
+        while (startingBiome.equals(BIOME.OCEANS)){
+            startingBiome = BIOME.randomBiome();
         }
 
-        String startingChunk = BIOMES[randomizer];
+        System.out.println("[LOG] ---- startingChunk: " + startingBiome);
+
+        //hier werden die Blöcke des startenden Chunks geladen
 
 
-
-        chunk chunkBlox = new chunk(chunk);
+        return new chunk(tempchunk);
     }
 
 
@@ -60,13 +74,13 @@ public class WorldMap {
     //ein Main Biom und eventuell neben Biom für einen möglichen Übergang
     public String biomeFinder() {
 
-        return BIOMES[1];
+        return BIOME.randomBiome().toString();
     }
 
     //soll ermitteln, welches Biom neben dem ausgewählten chunk liegt
     public String nearBiomes() {
 
-        return BIOMES[1];
+        return BIOME.randomBiome().toString();
     }
 
     //gibt die Richtung an, in der der ermittelte chunk an den ausgewählten anliegt
@@ -75,7 +89,9 @@ public class WorldMap {
         return "west";
     }
 
+
+    //zum Testen später static entfernen überall und als eine Instanz den Aufbau der startwelt bauen
     public static void main(String[] args){
-        beginningChunkLoad();
+        chunk startingChunk = beginningChunkLoad();
     }
 }

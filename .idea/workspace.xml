@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="grammar" />
+    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="ka">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/um/craft/core/Launcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/um/craft/core/Launcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/um/craft/core/WindowManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/um/craft/core/WorldMap.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,7 +57,9 @@
   "keyToString": {
     "Application.Launcher.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.WorldMap.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "niklas",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/Java/demo",
@@ -89,13 +99,22 @@
       <option name="project" value="LOCAL" />
       <updated>1769129803421</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ka">
+      <option name="closed" value="true" />
+      <created>1775134945621</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1775134945621</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Erster Aufbau einer möglichen Map generierung" />
     <MESSAGE value="erweiterter Aufbau" />
     <MESSAGE value="grammar" />
-    <option name="LAST_COMMIT_MESSAGE" value="grammar" />
+    <MESSAGE value="ka" />
+    <option name="LAST_COMMIT_MESSAGE" value="ka" />
   </component>
 </project>
