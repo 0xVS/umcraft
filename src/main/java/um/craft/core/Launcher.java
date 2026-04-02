@@ -1,17 +1,51 @@
 package um.craft.core;
 
+import org.lwjgl.glfw.GLFW;
+import um.craft.core.input.Inputs;
+
 import org.lwjgl.Version;
+import um.craft.core.logic.PlayerController;
+import um.craft.core.logic.GameLoop;
+import um.craft.core.render.RenderManager;
+import um.craft.core.render.Shader;
+import um.craft.core.window.WindowManager;
+import um.craft.core.util.Utils;
+
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 
 public class Launcher {
-    public static void main(String[] args) {
-        System.out.println(Version.getVersion());
-        WindowManager wm = new WindowManager("umcraft", 500, 300, false);
-        wm.init();
+    static Shader shader;
 
-        while (!wm.windowShouldClose()) {
-            wm.update();
+    public static void main(String[] args) throws Exception {
+        System.out.println("LWJGL Version: " + Version.getVersion());
+        WindowManager wm = new WindowManager("umcraft", 1280, 720, true);
+
+        Inputs inputs = new Inputs();
+        long windowHandle = wm.getWindowHandle();
+
+        PlayerController playerController = new PlayerController(inputs, wm);
+        GameLoop gameLoop = new GameLoop(wm, playerController);
+
+        wm.rm.setPlayerController(playerController);
+        glfwInit(windowHandle, wm, inputs);
+
+        try {
+            gameLoop.start();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            wm.rm.cleanup();
+            wm.cleanup();
         }
+    }
 
-        wm.cleanup();
+    public static void glfwInit(long windowHandle, WindowManager wm, Inputs inputs) {
+        // TODO: input mit fenster verbinden, muss in WindowManager geschehen eig upsi
+        GLFW.glfwSetKeyCallback(windowHandle, inputs.getKeyboardCallback());
+        GLFW.glfwSetMouseButtonCallback(windowHandle, inputs.getMouseButtonsCallback());
+        GLFW.glfwSetCursorPosCallback(windowHandle, inputs.getCursorMovementCallback());
     }
 }
