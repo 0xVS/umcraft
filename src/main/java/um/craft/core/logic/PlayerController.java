@@ -18,6 +18,7 @@ public class PlayerController implements InputListener {
 
     //private final Vector3f position;
     //private final Vector3f rotation;
+    private Vector3f moveDir = new Vector3f();
     private final Vector3f position = new Vector3f(0, 0, 0);
 
     WindowManager window;
@@ -82,7 +83,8 @@ public class PlayerController implements InputListener {
 
     public void update(float deltaTime) {
         inputHandler.update();
-        testMovement(deltaTime);
+        // testMovement(deltaTime);
+        vectorMovement(deltaTime);
         debugOutput();
     }
 
@@ -101,7 +103,6 @@ public class PlayerController implements InputListener {
         if (activeActions.contains(PlayerAction.MOVING_BACKWARD)) position.y -= speed;
         if (activeActions.contains(PlayerAction.MOVING_LEFT)) position.x -= speed;
         if (activeActions.contains(PlayerAction.MOVING_RIGHT)) position.x += speed;
-        //if (activeActions.contains(PlayerAction.MOVING_UP)) position.y += 0;
         if (activeActions.contains(PlayerAction.MOVING_UP)){
             position.y = 0;
             position.x = 0;
@@ -110,6 +111,29 @@ public class PlayerController implements InputListener {
         if (activeActions.contains(PlayerAction.MOVING_DOWN)) position.y -= 0;
 
         position.z = 0.0f;
+
+        position.x = Math.max(-1.0f, Math.min(1.0f, position.x));
+        position.y = Math.max(-1.0f, Math.min(1.0f, position.y));
+    }
+
+    public void vectorMovement(float deltaTime){
+        float moveSpeed = 1.2f * deltaTime;
+
+        moveDir.set(0, 0, 0);
+
+        if (activeActions.contains(PlayerAction.MOVING_FORWARD)) moveDir.y += 1;
+        if (activeActions.contains(PlayerAction.MOVING_BACKWARD)) moveDir.y -= 1;
+        if (activeActions.contains(PlayerAction.MOVING_LEFT)) moveDir.x -= 1;
+        if (activeActions.contains(PlayerAction.MOVING_RIGHT)) moveDir.x += 1;
+
+        if (moveDir.lengthSquared() > 0){
+            moveDir.normalize().mul(moveSpeed);
+            position.add(moveDir);
+        }
+        // leertaste für reset erstmal
+        if (activeActions.contains(PlayerAction.MOVING_UP)){
+            position.set(0, 0, 0);
+        }
 
         position.x = Math.max(-1.0f, Math.min(1.0f, position.x));
         position.y = Math.max(-1.0f, Math.min(1.0f, position.y));

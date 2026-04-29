@@ -50,7 +50,7 @@ public class GameLoop {
             updateFPS();
             windowManager.update();
         }
-        // shader.cleanup();
+        shader.cleanup();
     }
 
     private void update(float deltaTime) {

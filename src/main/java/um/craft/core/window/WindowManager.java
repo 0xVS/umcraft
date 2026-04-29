@@ -32,7 +32,7 @@ public class WindowManager {
         //GL11.glClearColor(100.0f, 0.0f, 0.0f, 100.0f);
         //GL11.glViewport(0, 0, width, height);
 
-        this.rm = new RenderManager();
+        this.rm = new RenderManager(this);
 
         try {
             this.rm.init();

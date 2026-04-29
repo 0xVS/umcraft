@@ -1,19 +1,12 @@
 package um.craft.core;
 
+import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import um.craft.core.input.Inputs;
-
-import org.lwjgl.Version;
-import um.craft.core.logic.PlayerController;
 import um.craft.core.logic.GameLoop;
-import um.craft.core.render.RenderManager;
+import um.craft.core.logic.PlayerController;
 import um.craft.core.render.Shader;
 import um.craft.core.window.WindowManager;
-import um.craft.core.util.Utils;
-
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 
 public class Launcher {
@@ -37,13 +30,12 @@ public class Launcher {
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            wm.rm.cleanup();
+            //wm.rm.cleanup();
             wm.cleanup();
         }
     }
 
     public static void glfwInit(long windowHandle, WindowManager wm, Inputs inputs) {
-        // TODO: input mit fenster verbinden, muss in WindowManager geschehen eig upsi
         GLFW.glfwSetKeyCallback(windowHandle, inputs.getKeyboardCallback());
         GLFW.glfwSetMouseButtonCallback(windowHandle, inputs.getMouseButtonsCallback());
         GLFW.glfwSetCursorPosCallback(windowHandle, inputs.getCursorMovementCallback());
