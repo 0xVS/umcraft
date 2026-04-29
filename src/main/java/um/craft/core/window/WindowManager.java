@@ -7,7 +7,7 @@ import org.lwjgl.opengl.*;
 import um.craft.core.render.RenderManager;
 
 public class WindowManager {
-
+// neues Zeug für commit lol
     private Window window;
     private final Matrix4f projectionMatrix;
 

@@ -16,6 +16,8 @@ import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 
+
+// ERROR: setVec2 throwed error momentan
 public class RenderManager {
     static int vaoId;
     static int vboId;

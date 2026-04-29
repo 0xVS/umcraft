@@ -4,7 +4,7 @@ import org.joml.Matrix4f;
 import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.opengl.GL20.*;
-
+// Shader Klasse überarbeitet
 public class Shader {
     private final int programId;
 
@@ -95,6 +95,6 @@ public class Shader {
     public void cleanup(){
         unbind();
         if (programId != 0) glDeleteProgram(programId);
-        System.out.println(">>>>>>>> Shader cleanup fertig");
+        System.out.println("[SUCCESS] Shader cleanup fertig");
     }
 }

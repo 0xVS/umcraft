@@ -12,6 +12,7 @@ import um.craft.core.window.WindowManager;
 
 import java.util.EnumSet;
 
+// Movement soll Objekt nicht mehr bewegen sondern später den Spieler
 public class PlayerController implements InputListener {
 
     private InputHandler inputHandler;

@@ -2,6 +2,7 @@ package um.craft.core.render;
 
 import org.joml.Matrix4f;
 
+// TODO: projMat implementieren
 public class Projection {
     // FOV = 60 gerade
     private static float FOV = (float) Math.toRadians(60.0f);

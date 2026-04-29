@@ -2,7 +2,7 @@ package um.craft.core.render;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-
+// TODO: Kameraklasse für Maus Movement später
 public class Camera {
     private Vector3f position = new Vector3f(0, 0, -2f);
 
