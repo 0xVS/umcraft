@@ -3,10 +3,10 @@ package um.craft.core.WorldGen;
 import java.util.concurrent.ThreadLocalRandom;
 
 //speichert die einzelnen blöcke eines chunks
-class chunk {
+class Chunk {
     String[][] chunkBlocks;
 
-    public chunk(String[][] chunkBlocks) {
+    public Chunk(String[][] chunkBlocks) {
         this.chunkBlocks = chunkBlocks;
     }
 }
@@ -15,16 +15,26 @@ class chunk {
 public class WorldMap {
 
     enum BIOME {
-        PLAINS,
         OCEANS,
+        SEA,
+        PLAINS,
+        BIRCH_FOREST,
+        FOREST,
+        SWAMP,
+        BEACH,
         DESERT,
         TAIGA,
+        DARK_FOREST,
         JUNGLE,
+        SAVANNA,
         CHERRY_BLOSSOM;
 
         public static BIOME randomBiome(){
             BIOME[] biomes = values();
-            int randomizer = ThreadLocalRandom.current().nextInt(0, biomes.length);
+            for (int i = 0; i < biomes.length; i++) {
+                System.out.println(biomes[i]);
+            }
+            int randomizer = ThreadLocalRandom.current().nextInt(2, biomes.length);
             return biomes[randomizer];
         }
     }
@@ -52,7 +62,7 @@ public class WorldMap {
         }
     }
 
-    public static chunk beginningChunkLoad(){
+    public static Chunk beginningChunkLoad(){
         String[][] tempchunk = new String[CHUNKSIZE][CHUNKSIZE];
 
         BIOME startingBiome = BIOME.randomBiome();
@@ -66,7 +76,7 @@ public class WorldMap {
         //hier werden die Blöcke des startenden Chunks geladen
 
 
-        return new chunk(tempchunk);
+        return new Chunk(tempchunk);
     }
 
 
@@ -92,6 +102,6 @@ public class WorldMap {
 
     //zum Testen später static entfernen überall und als eine Instanz den Aufbau der startwelt bauen
     public static void main(String[] args){
-        chunk startingChunk = beginningChunkLoad();
+        Chunk startingChunk = beginningChunkLoad();
     }
 }

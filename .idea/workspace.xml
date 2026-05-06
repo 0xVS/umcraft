@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="ka">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" afterDir="false" />
+    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="bisschen chunks hinzugefügt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/um/craft/core/Launcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/um/craft/core/Launcher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/um/craft/core/WindowManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/um/craft/core/WorldMap.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,12 +35,12 @@
     &quot;assignee&quot;: &quot;n1kla507&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/0xVS/umcraft.git&quot;,
-    &quot;accountId&quot;: &quot;1072c355-40ea-4d84-88bc-09585bb2f371&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/0xVS/umcraft.git",
+    "accountId": "d775e836-af99-43ca-ac89-0a1b2ed1c722"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -59,11 +55,21 @@
     "Application.Main.executor": "Run",
     "Application.WorldMap.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "niklas",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/Java/demo",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -74,6 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1768845697945</updated>
+      <workItem from="1778075577472" duration="1552000" />
     </task>
     <task id="LOCAL-00001" summary="Erster Aufbau einer möglichen Map generierung">
       <option name="closed" value="true" />
@@ -110,11 +117,19 @@
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Erster Aufbau einer möglichen Map generierung" />
     <MESSAGE value="erweiterter Aufbau" />
     <MESSAGE value="grammar" />
     <MESSAGE value="ka" />
-    <option name="LAST_COMMIT_MESSAGE" value="ka" />
+    <MESSAGE value="bisschen chunks hinzugefügt" />
+    <option name="LAST_COMMIT_MESSAGE" value="bisschen chunks hinzugefügt" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
