@@ -31,10 +31,10 @@ public class RenderManager {
     private PlayerController playerController;
     private float scale = 0.1f;
     private float[] positions = new float[]{
-            -0.5f, 0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.5f, 0.5f, 0.0f,
+            -0.5f * scale, 0.5f * scale, 0.0f * scale,
+            -0.5f * scale, -0.5f * scale, 0.0f * scale,
+            0.5f * scale, -0.5f * scale, 0.0f * scale,
+            0.5f * scale, 0.5f * scale, 0.0f * scale,
     };
     private int[] indices = new int[]{
             0, 1, 3, 3, 1, 2
@@ -84,6 +84,7 @@ public class RenderManager {
         IntBuffer indicesBuffer = MemoryUtil.memAllocInt(indices.length);
         indicesBuffer.put(indices).flip();
 
+        // 1. VAO binden
         vaoId = glGenVertexArrays();
         glBindVertexArray(vaoId);
 
@@ -96,7 +97,10 @@ public class RenderManager {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL_STATIC_DRAW);
 
+
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+
+        glEnableVertexAttribArray(0);
 
         // Unbind the VBO
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -132,7 +136,7 @@ public class RenderManager {
 
         // Bind to the VAO
         glBindVertexArray(vaoId);
-        glEnableVertexAttribArray(0);
+        //glEnableVertexAttribArray(0);
 
         // Draw the vertices
         //glDrawArrays(GL_TRIANGLES, 0, 3);
