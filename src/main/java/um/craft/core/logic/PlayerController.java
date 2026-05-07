@@ -84,41 +84,13 @@ public class PlayerController implements InputListener {
 
     public void update(float deltaTime) {
         inputHandler.update();
-        // testMovement(deltaTime);
         vectorMovement(deltaTime);
         debugOutput();
     }
 
-    private void testMovement(float deltaTime){
-        float speed = 1.2f * deltaTime;
-/*
-        if (activeActions.contains(PlayerAction.MOVING_FORWARD)) position.x += speed;
-        if (activeActions.contains(PlayerAction.MOVING_BACKWARD)) position.x -= speed;
-        if (activeActions.contains(PlayerAction.MOVING_LEFT)) position.z -= speed;
-        if (activeActions.contains(PlayerAction.MOVING_RIGHT)) position.z += speed;
-        if (activeActions.contains(PlayerAction.MOVING_UP)) position.y += speed;
-        if (activeActions.contains(PlayerAction.MOVING_DOWN)) position.y -= speed;
-        */
-
-        if (activeActions.contains(PlayerAction.MOVING_FORWARD)) position.y += speed;
-        if (activeActions.contains(PlayerAction.MOVING_BACKWARD)) position.y -= speed;
-        if (activeActions.contains(PlayerAction.MOVING_LEFT)) position.x -= speed;
-        if (activeActions.contains(PlayerAction.MOVING_RIGHT)) position.x += speed;
-        if (activeActions.contains(PlayerAction.MOVING_UP)){
-            position.y = 0;
-            position.x = 0;
-        }
-
-        if (activeActions.contains(PlayerAction.MOVING_DOWN)) position.y -= 0;
-
-        position.z = 0.0f;
-
-        position.x = Math.max(-1.0f, Math.min(1.0f, position.x));
-        position.y = Math.max(-1.0f, Math.min(1.0f, position.y));
-    }
-
     public void vectorMovement(float deltaTime){
-        float moveSpeed = 1.2f * deltaTime;
+        // old val 1.2
+        float moveSpeed = 5f * deltaTime;
 
         moveDir.set(0, 0, 0);
 
@@ -136,8 +108,8 @@ public class PlayerController implements InputListener {
             position.set(0, 0, 0);
         }
 
-        position.x = Math.max(-1.0f, Math.min(1.0f, position.x));
-        position.y = Math.max(-1.0f, Math.min(1.0f, position.y));
+        //position.x = Math.max(-1.0f, Math.min(1.0f, position.x));
+        //position.y = Math.max(-1.0f, Math.min(1.0f, position.y));
     }
 
     public Vector3f getPosition() {
