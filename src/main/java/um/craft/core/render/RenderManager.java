@@ -1,5 +1,6 @@
 package um.craft.core.render;
 
+import org.joml.Matrix4f;
 import um.craft.core.logic.PlayerController;
 import um.craft.core.util.Utils;
 import um.craft.core.window.WindowManager;
@@ -29,16 +30,30 @@ public class RenderManager {
 
 
     private PlayerController playerController;
-    private float scale = 0.1f;
+    private float scale = 0.10f;
     private float[] positions = new float[]{
             -0.5f * scale, 0.5f * scale, 0.0f * scale,
             -0.5f * scale, -0.5f * scale, 0.0f * scale,
             0.5f * scale, -0.5f * scale, 0.0f * scale,
             0.5f * scale, 0.5f * scale, 0.0f * scale,
     };
+    private float[] positionssss = new float[]{
+            -0.5f * scale, 0.5f * scale, 0.0f * scale,
+            -0.5f * scale, -0.5f * scale, 0.0f * scale,
+            0.5f * scale, -0.5f * scale, 0.0f * scale,
+            0.5f * scale, 0.5f * scale, 0.0f * scale,
+    };
+
+    private float[] poses = new float[]{
+            -0.5f,  0.5f, 0.0f,
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.5f,  0.5f, 0.0f,
+    };
     private int[] indices = new int[]{
             0, 1, 3, 3, 1, 2
     };
+
 
     public RenderManager(WindowManager wm){
         this.wm = wm;
@@ -50,10 +65,11 @@ public class RenderManager {
         this.playerController = playerController;
     }
 
-
     public void init() throws Exception {
         this.shader = new Shader();
         projection = new Projection(wm.getWidth(), wm.getHeight());
+        System.out.println("Window size: " + wm.getWidth() + "x" + wm.getHeight());
+        System.out.println("ProjMatrix: \n" + projection.getProjMatrix());
 
         final float[] VERTICES = new float[]{
                 // V1
@@ -70,11 +86,7 @@ public class RenderManager {
             -0.5f * scale, -0.5f * scale, 0.0f * scale,
         };
 
-
-
-        //shader.createVertexShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/vertex.vs"));
         shader.createVertexShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/vertex.glsl"));
-        //shader.createFragmentShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/fragment.fs"));
         shader.createFragmentShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/fragment.glsl"));
         shader.link();
 
@@ -99,12 +111,10 @@ public class RenderManager {
 
 
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-
         glEnableVertexAttribArray(0);
 
         // Unbind the VBO
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-
         // Unbind the VAO
         glBindVertexArray(0);
 
@@ -116,15 +126,33 @@ public class RenderManager {
 
 
 
+    /* TODO:Cube rendern und VBO anpassen
+        - Struktur:
+            6----7
+           /|   /|
+          2----3 |
+          | 4--|-5
+          |/   |/
+          0----1
+        −
+        - Parameter anpassen:
+            - position (x, y, z)
+            - uv-coords / welcher teil von textur wird gemappt? (u, v)
+            - normale / für licht später (nx, ny, nz)
+    */
+
+
+
+
+
+    /*
     public void render() {
         shader.bind();
         shader.setFloat("aspectRatio", (float) wm.getWidth() / wm.getHeight());
         camera.followPlayer(playerController.getPosition());
         shader.setMat4("viewMatrix", camera.getViewMatrix());
         shader.setMat4("projectionMatrix", projection.getProjMatrix());
-        shader.setVec2("offset", 0f, 0f);
-
-
+        //shader.setVec2("offset", 0f, 0f);
 
         if (playerController != null) {
             //Vector3f position = playerController.getPosition();
@@ -148,6 +176,18 @@ public class RenderManager {
 
         shader.unbind();
     }
+    */
+
+    public void render() {
+        shader.bind();
+        shader.setMat4("projectionMatrix", projection.getProjMatrix());
+        //shader.setMat4("viewMatrix", camera.getViewMatrix());
+        //shader.setVec2("offset", 0f, 0f);
+        glBindVertexArray(vaoId);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+        shader.unbind();
+    }
 
     public void cleanup() {
         if (shader != null){
@@ -165,3 +205,4 @@ public class RenderManager {
         glDeleteVertexArrays(vaoId);
     }
 }
+
