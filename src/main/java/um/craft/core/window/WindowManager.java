@@ -62,6 +62,7 @@ public class WindowManager {
         //GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
         GL11.glClearColor(0.2f, 0.4f, 0.8f, 1.0f);
+
         rm.render();
         window.swapBuffers();
         // sagt opengl, dass alle jetzigen objekte in der queue gerendert werden sollen
