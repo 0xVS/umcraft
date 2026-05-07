@@ -124,7 +124,7 @@ public class RenderManager {
 
         if (playerController != null) {
             //Vector3f position = playerController.getPosition();
-            Vector3f position = new Vector3f(0.0f, 0.0f, 0.0f);
+            Vector3f position = new Vector3f(1.0f, 1.0f, 0.0f);
             shader.setVec2("offset", position.x, position.y);
         } else {
             System.err.println("PlayerController konnte nicht gesetzt werden");
