@@ -24,9 +24,11 @@ public class RenderManager {
     static int vboId;
     static int iboId;
     private Shader shader;
+    private Mesh meshBlock;
     private Camera camera;
     static WindowManager wm;
     private Projection projection;
+
 
 
     private PlayerController playerController;
@@ -57,6 +59,37 @@ public class RenderManager {
 
     private float[] cubeVertices = new float[]{
             1.0f
+    };
+
+    private float[] blockPositions = {
+            // vorne
+            -0.5f, -0.5f,  0.5f,
+            0.5f, -0.5f,  0.5f,
+            0.5f,  0.5f,  0.5f,
+            -0.5f,  0.5f,  0.5f,
+
+            // hinten
+            -0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f,  0.5f, -0.5f,
+            -0.5f,  0.5f, -0.5f
+    };
+
+    // würfel hat 6 flächen = 1 fläche besteht aus 2 dreiecken,
+    // 6 flächen = 12 dreiecke = 36 indices insg.
+    private int[] blockIndices = {
+            // vorne
+            0, 1, 2,  0, 2, 3,
+            // hinten
+            4, 6, 5,  4, 7, 6,
+            // rechts
+            1, 5, 6,  1, 6, 2,
+            // links
+            4, 0, 3,  4, 3, 7,
+            // oben
+            3, 2, 6,  3, 6, 7,
+            // unten
+            4, 5, 1,  4, 1, 0
     };
 
 
@@ -91,44 +124,11 @@ public class RenderManager {
             -0.5f * scale, -0.5f * scale, 0.0f * scale,
         };
 
-        //shader.createVertexShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/vertex.glsl"));
-        //shader.createFragmentShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/fragment.glsl"));
         shader.createVertexShader(Utils.loadResource("vertex.glsl"));
         shader.createFragmentShader(Utils.loadResource("fragment.glsl"));
         shader.link();
 
-        FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(positions.length);
-        verticesBuffer.put(positions).flip();
-
-        IntBuffer indicesBuffer = MemoryUtil.memAllocInt(indices.length);
-        indicesBuffer.put(indices).flip();
-
-        // 1. VAO binden
-        vaoId = glGenVertexArrays();
-        glBindVertexArray(vaoId);
-
-        vboId = glGenBuffers();
-        glBindBuffer(GL_ARRAY_BUFFER, vboId);
-        glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
-        //memFree(verticesBuffer);
-
-        iboId = glGenBuffers();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL_STATIC_DRAW);
-
-
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-        glEnableVertexAttribArray(0);
-
-        // Unbind the VBO
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        // Unbind the VAO
-        glBindVertexArray(0);
-
-        if (verticesBuffer != null && indicesBuffer != null) {
-            MemoryUtil.memFree(verticesBuffer);
-            MemoryUtil.memFree(indicesBuffer);
-        }
+        meshBlock = new Mesh(blockPositions, blockIndices);
     }
 
 
@@ -188,41 +188,23 @@ public class RenderManager {
     public void render() {
         shader.bind();
 
-
-        // Cam soll spieler folgen
         camera.setFirstPersonPosition(playerController.getPosition());
 
         Matrix4f modelMatrix = new Matrix4f()
-                //.translation(playerController.getPosition());
-                        .translation(0f, 0f, -2f);
+                .translation(0f, 0f, -2f);
 
         shader.setMat4("projectionMatrix", projection.getProjMatrix());
         shader.setMat4("viewMatrix", camera.getViewMatrix());
         shader.setMat4("modelMatrix", modelMatrix);
 
-        //shader.setVec2("offset", 0f, 0f);
-
-        glBindVertexArray(vaoId);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
+        meshBlock.render();
 
         shader.unbind();
     }
 
     public void cleanup() {
-        if (shader != null){
-            shader.cleanup();
-        }
-
-        glDisableVertexAttribArray(0);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glDeleteBuffers(vboId);
-
-        glDeleteBuffers(iboId);
-
-        glBindVertexArray(0);
-        glDeleteVertexArrays(vaoId);
+        shader.cleanup();
+        meshBlock.cleanup();
     }
 
     public Camera getCamera() { return camera; }
