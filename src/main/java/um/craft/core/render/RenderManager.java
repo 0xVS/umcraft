@@ -30,7 +30,7 @@ public class RenderManager {
 
 
     private PlayerController playerController;
-    private float scale = 0.10f;
+    private float scale = 0.5f;
     private float[] positions = new float[]{
             -0.5f * scale, 0.5f * scale, 0.0f * scale,
             -0.5f * scale, -0.5f * scale, 0.0f * scale,
@@ -52,6 +52,11 @@ public class RenderManager {
     };
     private int[] indices = new int[]{
             0, 1, 3, 3, 1, 2
+    };
+
+
+    private float[] cubeVertices = new float[]{
+            1.0f
     };
 
 
@@ -86,8 +91,10 @@ public class RenderManager {
             -0.5f * scale, -0.5f * scale, 0.0f * scale,
         };
 
-        shader.createVertexShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/vertex.glsl"));
-        shader.createFragmentShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/fragment.glsl"));
+        //shader.createVertexShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/vertex.glsl"));
+        //shader.createFragmentShader(Utils.loadResource(System.getProperty("user.dir") + "/src/main/java/um/craft/core/render/fragment.glsl"));
+        shader.createVertexShader(Utils.loadResource("vertex.glsl"));
+        shader.createFragmentShader(Utils.loadResource("fragment.glsl"));
         shader.link();
 
         FloatBuffer verticesBuffer = MemoryUtil.memAllocFloat(positions.length);
@@ -180,12 +187,25 @@ public class RenderManager {
 
     public void render() {
         shader.bind();
+
+
+        // Cam soll spieler folgen
+        camera.setFirstPersonPosition(playerController.getPosition());
+
+        Matrix4f modelMatrix = new Matrix4f()
+                //.translation(playerController.getPosition());
+                        .translation(0f, 0f, -2f);
+
         shader.setMat4("projectionMatrix", projection.getProjMatrix());
-        //shader.setMat4("viewMatrix", camera.getViewMatrix());
+        shader.setMat4("viewMatrix", camera.getViewMatrix());
+        shader.setMat4("modelMatrix", modelMatrix);
+
         //shader.setVec2("offset", 0f, 0f);
+
         glBindVertexArray(vaoId);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
+
         shader.unbind();
     }
 
@@ -204,5 +224,7 @@ public class RenderManager {
         glBindVertexArray(0);
         glDeleteVertexArrays(vaoId);
     }
+
+    public Camera getCamera() { return camera; }
 }
 
