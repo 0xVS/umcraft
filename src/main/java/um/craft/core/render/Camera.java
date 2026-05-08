@@ -6,8 +6,7 @@ import um.craft.core.util.Utils;
 
 // TODO: Kameraklasse für Maus Movement später
 public class Camera {
-    private static final float Z_OFFSET = 5f;
-    private Vector3f position = new Vector3f(0, 0, 5f);
+    private final Vector3f position = new Vector3f(0, 0, 5f);
     private float pitch = 0f;
     private float yaw = -90f;
     private static final float SENSITIVITY = Utils.readSettings("settings.json", "mouse.sensitivity");
@@ -35,11 +34,6 @@ public class Camera {
         return new Vector3f(getFrontVector()).cross(0, 1, 0).normalize();
     }
 
-
-
-    public void followPlayer(Vector3f playerPos) {
-        position.set(playerPos.x, playerPos.y, playerPos.z + Z_OFFSET);
-    }
 
     public void setFirstPersonPosition(Vector3f playerPos) {
         position.set(playerPos.x, playerPos.y, playerPos.z);
