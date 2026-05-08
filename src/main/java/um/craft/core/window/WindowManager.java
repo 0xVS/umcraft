@@ -3,6 +3,7 @@ package um.craft.core.window;
 import org.joml.Matrix4f;
 
 
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.*;
 import um.craft.core.render.RenderManager;
 
@@ -77,6 +78,9 @@ public class WindowManager {
         GL11.glClearColor(r, g, b, a);
     }
 
+    public void setShouldClose() {
+        GLFW.glfwSetWindowShouldClose(window.getHandle(), true);
+    }
     public boolean windowShouldClose() {
         return window.shouldClose();
     }
