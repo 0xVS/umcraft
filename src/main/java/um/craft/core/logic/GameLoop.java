@@ -50,7 +50,7 @@ public class GameLoop {
             updateFPS();
             windowManager.update();
         }
-        // shader.cleanup();
+        shader.cleanup();
     }
 
     private void update(float deltaTime) {
@@ -65,7 +65,6 @@ public class GameLoop {
             fps = frameCount;
             frameCount = 0;
             lastFpsTime = currentTime;
-
             System.out.println("FPS: " + fps + " | Delta: " + String.format("%.6f", deltaTime));
         }
     }

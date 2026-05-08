@@ -15,6 +15,10 @@ public class Inputs {
 
     private static double mouseX, mouseY;
 
+    private static double lastMouseX, lastMouseY;
+    private static double mouseDeltaX, mouseDeltaY;
+    private boolean firstMouse = true;
+
     private GLFWKeyCallback keyboard;
     private GLFWCursorPosCallback cursorMovement;
     private GLFWMouseButtonCallback mouseButtons;
@@ -30,13 +34,29 @@ public class Inputs {
                 keys[key] = action != GLFW.GLFW_RELEASE;
             }
         };
+
         cursorMovement = new GLFWCursorPosCallback() {
             @Override
             public void invoke(long window, double xPos, double yPos) {
+                if (firstMouse) {
+                    lastMouseX = xPos;
+                    lastMouseY = yPos;
+                    mouseDeltaX = 0;
+                    mouseDeltaY = 0;
+                    firstMouse = false;
+                    return;
+                }
+
+                mouseDeltaX = xPos - lastMouseX;
+                mouseDeltaY = lastMouseY - yPos;
+
+                lastMouseX = xPos;
+                lastMouseY = yPos;
                 mouseX = xPos;
                 mouseY = yPos;
             }
         };
+
         mouseButtons = new GLFWMouseButtonCallback() {
             @Override
             public void invoke(long window, int button, int action, int mods) {
@@ -58,13 +78,15 @@ public class Inputs {
         cursorMovement.free();
     }
 
-    public double getMouseX() {
-        return mouseX;
+    public double getMouseDeltaX() {
+        return mouseDeltaX;
     }
 
-    public double getMouseY() {
-        return mouseY;
+    public double getMouseDeltaY() {
+        return mouseDeltaY;
     }
+
+    public void resetMouseDelta(){ mouseDeltaX = 0; mouseDeltaY = 0; }
 
     public GLFWKeyCallback getKeyboardCallback() {
         return keyboard;

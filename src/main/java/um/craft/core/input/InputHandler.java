@@ -117,11 +117,11 @@ public class InputHandler {
 
     // TODO: implementieren
     public float getMouseDeltaX() {
-        return 0.0f;
+        return (float) rawInput.getMouseDeltaX();
     }
 
     public float getMouseDeltaY() {
-        return 0.0f;
+        return (float) rawInput.getMouseDeltaY();
     }
 
 

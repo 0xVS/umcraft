@@ -3,11 +3,12 @@ package um.craft.core.window;
 import org.joml.Matrix4f;
 
 
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.*;
 import um.craft.core.render.RenderManager;
 
 public class WindowManager {
-
+// neues Zeug für commit lol
     private Window window;
     private final Matrix4f projectionMatrix;
 
@@ -32,7 +33,7 @@ public class WindowManager {
         //GL11.glClearColor(100.0f, 0.0f, 0.0f, 100.0f);
         //GL11.glViewport(0, 0, width, height);
 
-        this.rm = new RenderManager();
+        this.rm = new RenderManager(this);
 
         try {
             this.rm.init();
@@ -62,6 +63,7 @@ public class WindowManager {
         //GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
         GL11.glClearColor(0.2f, 0.4f, 0.8f, 1.0f);
+
         rm.render();
         window.swapBuffers();
         // sagt opengl, dass alle jetzigen objekte in der queue gerendert werden sollen
@@ -76,6 +78,9 @@ public class WindowManager {
         GL11.glClearColor(r, g, b, a);
     }
 
+    public void setShouldClose() {
+        GLFW.glfwSetWindowShouldClose(window.getHandle(), true);
+    }
     public boolean windowShouldClose() {
         return window.shouldClose();
     }

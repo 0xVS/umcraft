@@ -1,7 +1,10 @@
 package um.craft.core.render;
 
-import static org.lwjgl.opengl.GL20.*;
+import org.joml.Matrix4f;
+import org.lwjgl.system.MemoryStack;
 
+import static org.lwjgl.opengl.GL20.*;
+// Shader Klasse überarbeitet
 public class Shader {
     private final int programId;
 
@@ -24,6 +27,22 @@ public class Shader {
         }
     }
 
+    public void setMat4(String name, Matrix4f matrix){
+        int location = glGetUniformLocation(programId, name);
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+             var buffer = stack.mallocFloat(16);
+             matrix.get(buffer);
+             glUniformMatrix4fv(location, false, buffer);
+        }
+    }
+
+    public void setFloat(String name, float value){
+        int location = glGetUniformLocation(programId, name);
+        if (location != -1){
+            glUniform1f(location, value);
+        }
+    }
+
 
     public void createVertexShader(String shaderCode) throws Exception {
         vertexShaderId = createShader(shaderCode, GL_VERTEX_SHADER);
@@ -40,7 +59,9 @@ public class Shader {
         glCompileShader(shaderId);
 
         if (glGetShaderi(shaderId, GL_COMPILE_STATUS) == 0) {
-            throw new Exception("Ups beim Kompilieren ist was kaputt oder so keine ahnung sorry");
+            String log = glGetShaderInfoLog(shaderId, 1024);
+            System.out.println(log);
+            throw new Exception("Shader Exception");
         }
 
         glAttachShader(programId, shaderId);
@@ -63,7 +84,7 @@ public class Shader {
         }
 
         glValidateProgram(programId);
-        if (glGetShaderi(programId, GL_VALIDATE_STATUS) == 0)  System.err.println("WARNUNG: Validiernug vom Shader code: " + log);
+        if (glGetProgrami(programId, GL_VALIDATE_STATUS) == 0)  System.err.println("WARNUNG: Validiernug vom Shader code: " + log);
     }
     public void bind() {
         glUseProgram(programId);
@@ -74,6 +95,6 @@ public class Shader {
     public void cleanup(){
         unbind();
         if (programId != 0) glDeleteProgram(programId);
-        System.out.println(">>>>>>>> Shader cleanup fertig");
+        System.out.println("[SUCCESS] Shader cleanup fertig");
     }
 }
