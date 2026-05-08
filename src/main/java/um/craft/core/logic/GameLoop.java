@@ -65,7 +65,7 @@ public class GameLoop {
             fps = frameCount;
             frameCount = 0;
             lastFpsTime = currentTime;
-            if (currentTime == 1) System.out.println("FPS: " + fps + " | Delta: " + String.format("%.6f", deltaTime));
+            System.out.println("FPS: " + fps + " | Delta: " + String.format("%.6f", deltaTime));
         }
     }
 
