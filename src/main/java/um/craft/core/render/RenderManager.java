@@ -9,6 +9,7 @@ import um.craft.core.window.WindowManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F3;
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13C.glActiveTexture;
@@ -33,6 +34,9 @@ public class RenderManager {
     private HudMesh crosshairMesh;
     private Texture crosshairTexture;
 
+    private HudManager hudManager;
+    private DebugOverlay debugOverlay;
+    private CrosshairElement crosshairElement;
     // -------------
 
     private PlayerController playerController;
@@ -103,13 +107,25 @@ public class RenderManager {
     public void init() throws Exception {
         this.shader = new Shader();
         projection = new Projection(wm.getWidth(), wm.getHeight());
-        System.out.println("Window size: " + wm.getWidth() + "x" + wm.getHeight());
-        System.out.println("ProjMatrix: \n" + projection.getProjMatrix());
+        System.out.println("[INFO] Window size: " + wm.getWidth() + "x" + wm.getHeight());
+        System.out.println("[DEBUG] ProjMatrix: \n" + projection.getProjMatrix());
 
         hudShader = new Shader();
-        hudShader.createVertexShader(Utils.loadResource("hud_vertex.glsl"));
-        hudShader.createFragmentShader(Utils.loadResource("hud_fragment.glsl"));
+        hudShader.createVertexShader(Utils.loadResource("assets/shaders/hud_vertex.glsl"));
+        hudShader.createFragmentShader(Utils.loadResource("assets/shaders/hud_fragment.glsl"));
         hudShader.link();
+
+        hudManager = new HudManager();
+        debugOverlay = new DebugOverlay(windowWidth, windowHeight);
+        debugOverlay.addLine(() -> String.format("x: %.2f y: %.2f z: %.2f",
+                playerController.getPosition().x,
+                playerController.getPosition().y,
+                playerController.getPosition().z));
+        debugOverlay.addLine(() -> String.format("yaw: %.2f pitch: %.2f",
+                camera.getYaw(),
+                camera.getPitch()));
+        hudManager.add("debugOverlay", debugOverlay);
+        //hudManager.add("crosshair")
 
         float sizeX = 0.05f;
         float sizeY = 0.05f * ((float) windowWidth / windowHeight); // aspect ratio korrektur
@@ -126,8 +142,10 @@ public class RenderManager {
         crosshairMesh = new HudMesh(crosshairVertices, crosshairIndices);
         crosshairTexture = new Texture("gui/crosshair_neutral.png");
 
-        shader.createVertexShader(Utils.loadResource("vertex.glsl"));
-        shader.createFragmentShader(Utils.loadResource("fragment.glsl"));
+        hudManager.add("crosshair", new CrosshairElement(crosshairMesh, crosshairTexture));
+
+        shader.createVertexShader(Utils.loadResource("assets/shaders/vertex.glsl"));
+        shader.createFragmentShader(Utils.loadResource("assets/shaders/fragment.glsl"));
         shader.link();
 
         meshBlock = new Mesh(blockPositions, blockIndices);
@@ -182,7 +200,8 @@ public class RenderManager {
         }
 
         shader.unbind();
-        renderHUD();
+        //renderHUD();
+        hudManager.render(hudShader);
     }
 
     // render() – NACH dem 3D-rendering aufrufen
@@ -200,10 +219,16 @@ public class RenderManager {
         glEnable(GL_DEPTH_TEST);
     }
 
+    public void toggleF3(){
+        hudManager.get("debugOverlay").setVisible(!hudManager.get("debugOverlay").isVisible());
+    }
+
     public void cleanup() {
         shader.cleanup();
         meshBlock.cleanup();
     }
+
+
 
     public Camera getCamera() { return camera; }
 }

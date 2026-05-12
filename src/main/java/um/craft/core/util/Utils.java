@@ -4,6 +4,8 @@ import org.lwjgl.system.MemoryStack;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.*;
 
+import com.google.gson.*;
+
 import java.io.*;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -37,7 +39,6 @@ public class Utils {
 
 
     public static int loadTexture(String path) {
-        System.out.println("Lade Textur: " + path);
 
         int width, height;
         ByteBuffer image;
@@ -74,7 +75,10 @@ public class Utils {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+        // texutr in gpu geladen
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+        System.out.println("[DEBUG] Textur geladen: " + path);
 
         stbi_image_free(image);
         return textureID;
@@ -94,26 +98,21 @@ public class Utils {
     }
      */
 
-    private static String getJsonValue(String file, String key, ValueType type){
+    private static JsonElement getJsonElement(String file, String key) {
         String content = loadResource(file);
+        JsonObject root = JsonParser.parseString(content).getAsJsonObject();
+
         String[] parts = key.split("\\.");
-        StringBuilder regex = new StringBuilder();
+        JsonElement current = root;
 
-        // für inneren block
-        for (int i = 0; i < parts.length - 1; i++) {
-            regex.append("\"")
-                    .append(parts[i])
-                    .append("\"\\s*:\\s*\\{[^}]*");
+        for (String part : parts) {
+            if (!current.isJsonObject())
+                throw new IllegalArgumentException("Key '" + key + "' nicht gefunden");
+            current = current.getAsJsonObject().get(part);
+            if (current == null)
+                throw new IllegalArgumentException("Key '" + key + "' nicht gefunden");
         }
-
-        regex.append("\"")
-                .append(parts[parts.length - 1])
-                .append("\"\\s*:\\s*")
-                .append(type.getPattern());
-
-        Matcher matcher = Pattern.compile(regex.toString()).matcher(content);
-        if (matcher.find()) return matcher.group(1).trim();
-        throw new IllegalArgumentException("Key '" + key + "' nicht gefunden");
+        return current;
     }
 
     /*
@@ -121,39 +120,46 @@ public class Utils {
             -> überladene methoden für jeweils den vorhandenen typ
      */
 
-    public static float readSettings(String path, String key) {
+    public static float readSettings(String path, String key, float defaultValue) {
         try {
-            return Float.parseFloat(getJsonValue(path, key, ValueType.NUMBER)); }
+            return getJsonElement(path, key).getAsFloat(); }
         catch (Exception e) {
-            System.err.printf("float '%s' nicht gefunden%n", key);
-            return 0.0f;
+            return defaultValue;
         }
     }
-
     public static int readSettings(String path, String key, int defaultValue) {
         try {
-            return Integer.parseInt(getJsonValue(path, key, ValueType.NUMBER));
-        }
+            return getJsonElement(path, key).getAsInt(); }
         catch (Exception e) {
             return defaultValue;
         }
     }
-
     public static boolean readSettings(String path, String key, boolean defaultValue) {
         try {
-            return Boolean.parseBoolean(getJsonValue(path, key, ValueType.BOOLEAN));
-        }
+            return getJsonElement(path, key).getAsBoolean(); }
         catch (Exception e) {
             return defaultValue;
         }
     }
-
     public static String readSettings(String path, String key, String defaultValue) {
         try {
-            return getJsonValue(path, key, ValueType.STRING);
-        }
+            return getJsonElement(path, key).getAsString(); }
         catch (Exception e) {
             return defaultValue;
+        }
+    }
+    public static JsonArray readArray(String path, String key){
+        try {
+            return getJsonElement(path, key).getAsJsonArray(); }
+        catch (Exception e) {
+            return new JsonArray();
+        }
+    }
+    public static JsonObject readObject(String path, String key){
+        try {
+            return getJsonElement(path, key).getAsJsonObject();
+        } catch (Exception e) {
+            return new JsonObject();
         }
     }
 }

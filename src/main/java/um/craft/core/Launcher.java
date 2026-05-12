@@ -25,7 +25,6 @@ public class Launcher {
 
         Inputs inputs = new Inputs();
         long windowHandle = wm.getWindowHandle();
-
         PlayerController playerController = new PlayerController(inputs, wm, wm.rm.getCamera());
         GameLoop gameLoop = new GameLoop(wm, playerController);
 

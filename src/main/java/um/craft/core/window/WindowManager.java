@@ -47,7 +47,7 @@ public class WindowManager {
         //GL11.glEnable(GL11.GL_STENCIL_TEST);
 
         // cull face -> nur äußere texturen vom objekt werden gerendert, alles andere nicht
-        //GL11.glEnable(GL11.GL_CULL_FACE);
+        GL11.glEnable(GL11.GL_CULL_FACE);
         // TODO: später in game logic ersetzen durch implementation wie in mc
         //GL11.glCullFace(GL11.GL_BACK);
 

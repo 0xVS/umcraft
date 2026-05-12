@@ -5,9 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="bisschen chunks hinzugefügt">
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/CrosshairElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/DebugOverlay.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/HudElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/HudManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/frag_test.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/vertex_test.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/world/ChunkPos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/world/block/BlockState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/world/block/BlockType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/world/block/Blocks.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/models/cube.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/keybinds_default.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/settings_default.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/worldgen/GeneratingChunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/worldgen/WorldMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/input/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/input/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/input/Inputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/input/Inputs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/logic/GameLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/logic/GameLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/logic/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/logic/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/render/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/render/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/RenderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/util/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/window/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/window/WindowManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/shaders/fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hud_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/shaders/hud_fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hud_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/shaders/hud_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/keybinds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/keybinds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/shaders/vertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +47,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -35,12 +65,12 @@
     &quot;assignee&quot;: &quot;n1kla507&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/0xVS/umcraft.git",
-    "accountId": "d775e836-af99-43ca-ac89-0a1b2ed1c722"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/0xVS/umcraft.git&quot;,
+    &quot;accountId&quot;: &quot;5b08a63c-d5e9-4ecb-844f-4eec2b855303&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -60,18 +90,35 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "niklas",
+    "git-widget-placeholder": "schlachtfeld",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/Java/demo",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\E17K\Work Folders\Eigene Dateien\Dokumente\Privat\Umcraft\src\main\resources\assets\shaders" />
+      <recent name="C:\Users\E17K\Work Folders\Eigene Dateien\Dokumente\Privat\Umcraft\src\main\resources\assets\" />
+      <recent name="C:\Users\E17K\Work Folders\Eigene Dateien\Dokumente\Privat\Umcraft\src\main\resources" />
+      <recent name="C:\Users\E17K\Work Folders\Eigene Dateien\Dokumente\Privat\Umcraft\src\main\assets\textures\resources" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -81,6 +128,10 @@
       <option name="presentableId" value="Default" />
       <updated>1768845697945</updated>
       <workItem from="1778075577472" duration="1552000" />
+      <workItem from="1778580903378" duration="9000" />
+      <workItem from="1778580996042" duration="5125000" />
+      <workItem from="1778586196457" duration="10717000" />
+      <workItem from="1778597046439" duration="80000" />
     </task>
     <task id="LOCAL-00001" summary="Erster Aufbau einer möglichen Map generierung">
       <option name="closed" value="true" />

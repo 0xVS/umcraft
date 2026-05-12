@@ -1,7 +1,9 @@
 package um.craft.core.input;
 
 import org.lwjgl.glfw.GLFW;
+import um.craft.core.util.Utils;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class InputHandler {
@@ -25,14 +27,26 @@ public class InputHandler {
 
     private void setupDefaultBindings() {
         // movement bindings
-        bindKey(GLFW.GLFW_KEY_W, "MOVE_FORWARD");
+        bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.forward", "I")), "MOVE_FORWARD");
+        bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.left", "J")), "MOVE_LEFT");
+        bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.right", "L")), "MOVE_RIGHT");
+        bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.backward", "K")), "MOVE_BACKWARD");
+        bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.jump", "SPACE")), "MOVE_UP");
+        bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.crouch", "RIGHT_SHIFT")), "MOVE_DOWN");
+        /*bindKey(GLFW.GLFW_KEY_W, "MOVE_FORWARD");
         bindKey(GLFW.GLFW_KEY_A, "MOVE_LEFT");
         bindKey(GLFW.GLFW_KEY_S, "MOVE_BACKWARD");
         bindKey(GLFW.GLFW_KEY_D, "MOVE_RIGHT");
         bindKey(GLFW.GLFW_KEY_LEFT_SHIFT, "MOVE_DOWN");
-        bindKey(GLFW.GLFW_KEY_SPACE, "MOVE_UP");
+        bindKey(GLFW.GLFW_KEY_SPACE, "MOVE_UP"); */
+
+        //String test = "GLFW.GLFW_KEY_" + Utils.readSettings("keybinds.json", "movement.forward");
 
         // maus bindings
+
+        String f3Key = Utils.readSettings("keybinds.json", "debug.info", "F3");
+        System.out.println("[DEBUG] debug.info key: '" + f3Key + "'");
+        bindKeySafe(f3Key, "DEBUG_INFO");
 
         bindMouseButton(GLFW.GLFW_MOUSE_BUTTON_LEFT, "ATTACK");
         bindMouseButton(GLFW.GLFW_MOUSE_BUTTON_RIGHT, "USE");
@@ -45,9 +59,32 @@ public class InputHandler {
         bindKey(GLFW.GLFW_KEY_F5, "SWITCH_PERSPECTIVE");
     }
 
+    private int glfwNumConverter(String keybind){
+        String fieldStr = "GLFW_KEY_" + keybind.toUpperCase();
+
+        try {
+            Field field = GLFW.class.getField(fieldStr);
+            return field.getInt(null);
+        } catch (NoSuchFieldException e) {
+            System.err.println("[ERROR] GLFW Key wurde nicht gefunden");
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        return -1;
+    }
+
     // keybinding setzen
     public void bindKey(int glfwKey, String action) {
         keyBindings.put(glfwKey, action);
+    }
+
+    private void bindKeySafe(String keyName, String action) {
+        int key = glfwNumConverter(keyName);
+        if (key == -1) {
+            System.err.println("[WARN] Keybind übersprungen – unbekannte Taste: " + keyName);
+            return;
+        }
+        bindKey(key, action);
     }
 
     // mousebinding setzen

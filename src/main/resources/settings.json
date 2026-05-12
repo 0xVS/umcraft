@@ -3,7 +3,7 @@
     "width": 1280,
     "height": 720,
     "title": "umcraft",
-    "vsync": false
+    "vsync": true
   },
   "render": {
     "fov": 70,

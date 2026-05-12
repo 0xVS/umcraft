@@ -26,6 +26,13 @@ public class PlayerController implements InputListener {
 
     WindowManager window;
 
+    /* FÜR DEBUG OUTPUT ZEUG:
+
+        IM DEBUGPRINT
+    */
+    private float debugTimer = 0f;
+    private static final float DEBUG_INTERVAL = 5.0f; // IN SEKUNDEN
+
     public PlayerController(Inputs rawInput, WindowManager wm, Camera camera) {
         this.inputHandler = new InputHandler(rawInput);
         this.inputHandler.addListener(this);
@@ -44,7 +51,8 @@ public class PlayerController implements InputListener {
         MOVING_UP,
         MOVING_DOWN,
         IS_SPRINTING,
-        IS_SNEAKING
+        IS_SNEAKING,
+        DEBUG_INFO
     }
 
     private final EnumSet<PlayerAction> activeActions = EnumSet.noneOf(PlayerAction.class);
@@ -55,7 +63,19 @@ public class PlayerController implements InputListener {
     }
     private void actionTest(String action, InputEvent.Type type) {
         switch (type) {
-            case PRESSED, HELD -> {
+            case PRESSED -> {
+                switch (action) {
+                    case "MOVE_FORWARD" -> activeActions.add(PlayerAction.MOVING_FORWARD);
+                    case "MOVE_BACKWARD" -> activeActions.add(PlayerAction.MOVING_BACKWARD);
+                    case "MOVE_LEFT" -> activeActions.add(PlayerAction.MOVING_LEFT);
+                    case "MOVE_RIGHT" -> activeActions.add(PlayerAction.MOVING_RIGHT);
+                    case "MOVE_UP" -> activeActions.add(PlayerAction.MOVING_UP);
+                    case "MOVE_DOWN" -> activeActions.add(PlayerAction.MOVING_DOWN);
+                    case "QUIT" -> window.setShouldClose();
+                    case "DEBUG_INFO" -> window.rm.toggleF3();
+                }
+            }
+            case HELD -> {
                 switch (action) {
                     case "MOVE_FORWARD" -> activeActions.add(PlayerAction.MOVING_FORWARD);
                     case "MOVE_BACKWARD" -> activeActions.add(PlayerAction.MOVING_BACKWARD);
@@ -89,7 +109,7 @@ public class PlayerController implements InputListener {
         rawInput.resetMouseDelta();
 
         vectorMovement(deltaTime);
-        debugOutput(dx, dy);
+        debugOutput(deltaTime, dx, dy);
     }
 
     public void vectorMovement(float deltaTime){
@@ -122,12 +142,23 @@ public class PlayerController implements InputListener {
     }
 
 
-    private void debugOutput(float dx, float dy) {
+    /*private void debugOutput(float dx, float dy) {
         if (System.currentTimeMillis() % 1000 < 16) {
             System.out.printf("> COORDS: (%.2f, %.2f, %.2f)%n",
                     position.x, position.y, position.z);
             System.out.printf("\n> MOUSE: (%.2f, %.2f)%n",
                     dx, dy);
         }
+    } */
+
+    private void debugOutput(float deltaTime, float dx, float dy) {
+        debugTimer += deltaTime;
+        if (debugTimer < DEBUG_INTERVAL) return;
+        debugTimer = 0f;
+
+        System.out.printf("> COORDS: (%.2f, %.2f, %.2f)%n",
+                position.x, position.y, position.z);
+        System.out.printf("> MOUSE:  (%.2f, %.2f)%n",
+                dx, dy);
     }
 }

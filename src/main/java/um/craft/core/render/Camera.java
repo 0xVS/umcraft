@@ -9,7 +9,7 @@ public class Camera {
     private final Vector3f position = new Vector3f(0, 0, 5f);
     private float pitch = 0f;
     private float yaw = -90f;
-    private static final float SENSITIVITY = Utils.readSettings("settings.json", "mouse.sensitivity");
+    private static final float SENSITIVITY = Utils.readSettings("settings.json", "mouse.sensitivity", 0.175f);
 
 
     public void handleMouseMovement(float deltaX, float deltaY) {
@@ -56,5 +56,12 @@ public class Camera {
                 new Vector3f(position).add(frontView),
                 new Vector3f(0, 1, 0)
         );
+    }
+
+    public float getPitch() {
+        return pitch;
+    }
+    public float getYaw() {
+        return yaw;
     }
 }

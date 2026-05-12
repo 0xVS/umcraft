@@ -1,4 +1,4 @@
-package um.craft.core.WorldGen;
+package um.craft.core.worldgen;
 
 import java.util.concurrent.ThreadLocalRandom;
 
