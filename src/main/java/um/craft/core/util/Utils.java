@@ -1,25 +1,17 @@
 package um.craft.core.util;
 
+import org.lwjgl.system.MemoryStack;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.stb.STBImage.*;
+
 import java.io.*;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
-    /*
-    public static String loadResource(String path){
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))){
-            String line;
-            while ((line = reader.readLine()) != null){
-                sb.append(line).append("\n");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return sb.toString();
-    } */
-
     public static String loadResource(String file) {
             try {
                 // resource aus java resources im classpath laden
@@ -43,6 +35,50 @@ public class Utils {
             }
     }
 
+
+    public static int loadTexture(String path) {
+        System.out.println("Lade Textur: " + path);
+
+        int width, height;
+        ByteBuffer image;
+
+        String absPath;
+        try {
+            URL url = Utils.class.getClassLoader().getResource("assets/textures/" + path);
+            if (url == null)
+                throw new RuntimeException("Textur nicht im Classpath gefunden: assets/textures/" + path);
+            absPath = java.nio.file.Paths.get(url.toURI()).toFile().getAbsolutePath();
+        } catch (Exception e) {
+            throw new RuntimeException("Fehler beim Pfad-Handling der Textur: " + path, e);
+        }
+
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer w    = stack.mallocInt(1);
+            IntBuffer h    = stack.mallocInt(1);
+            IntBuffer comp = stack.mallocInt(1);
+
+            stbi_set_flip_vertically_on_load(true);
+            image = stbi_load(absPath, w, h, comp, 4);
+            if (image == null)
+                throw new RuntimeException("stbi konnte textur nicht laden: " + path + " , " + stbi_failure_reason());
+
+            width  = w.get(0);
+            height = h.get(0);
+        }
+
+        int textureID = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+        stbi_image_free(image);
+        return textureID;
+    }
     /*
 
      key ist z. B.:

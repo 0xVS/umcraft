@@ -43,7 +43,7 @@ public class WindowManager {
 
 
         // TODO: für später? mal schauen wa
-        //GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         //GL11.glEnable(GL11.GL_STENCIL_TEST);
 
         // cull face -> nur äußere texturen vom objekt werden gerendert, alles andere nicht
