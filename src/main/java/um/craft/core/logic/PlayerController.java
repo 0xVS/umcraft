@@ -8,7 +8,7 @@ import um.craft.core.input.InputEvent;
 import um.craft.core.input.InputHandler;
 import um.craft.core.input.InputListener;
 import um.craft.core.input.Inputs;
-import um.craft.core.render.Camera;
+import um.craft.core.render.scene.Camera;
 import um.craft.core.window.WindowManager;
 
 import java.util.EnumSet;

@@ -1,0 +1,10 @@
+{
+  "id": "umcraft:dirt",
+  "model": "block/cube",
+  "solid": true,
+  "transparent": false,
+  "gravity": false,
+  "textures": {
+    "all": "blocks/dirt"
+  }
+}

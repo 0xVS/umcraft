@@ -1,0 +1,15 @@
+{
+  "id": "umcraft:grass",
+  "model": "block/cube",
+  "solid": true,
+  "transparent": false,
+  "gravity": false,
+  "textures": {
+    "up": "blocks/grass_block_top",
+    "down": "blocks/dirt",
+    "north": "blocks/grass_block_side",
+    "south": "blocks/grass_block_side",
+    "east": "blocks/grass_block_side",
+    "west": "blocks/grass_block_side"
+  }
+}

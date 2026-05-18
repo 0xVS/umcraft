@@ -12,10 +12,11 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 
 public class Mesh {
-    private static int vaoId;
-    private static int vboId;
-    private static int iboId;
-    private static int vertexCounter;
+
+    private final int vaoId;
+    private final int vboId;
+    private final int iboId;
+    private final int vertexCounter;
 
     public Mesh(float[] positions, int[] indices) {
         vertexCounter = indices.length;

@@ -1,15 +1,21 @@
-package um.craft.core.render;
+package um.craft.core.render.scene;
 
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 import um.craft.core.logic.PlayerController;
+import um.craft.core.world.block.BlockState;
+import um.craft.core.render.Mesh;
+import um.craft.core.render.Shader;
+import um.craft.core.render.Texture;
+import um.craft.core.render.hud.CrosshairElement;
+import um.craft.core.render.hud.DebugOverlay;
+import um.craft.core.render.hud.HudManager;
+import um.craft.core.render.hud.HudMesh;
 import um.craft.core.util.Utils;
 import um.craft.core.window.WindowManager;
+import um.craft.core.world.Chunk;
+import um.craft.core.world.ChunkPos;
+import um.craft.core.world.block.Blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_F3;
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13C.glActiveTexture;
@@ -38,6 +44,13 @@ public class RenderManager {
     private DebugOverlay debugOverlay;
     private CrosshairElement crosshairElement;
     // -------------
+
+
+    // CHUNK ZEUG
+    private Chunk testChunk;
+
+
+    //
 
     private PlayerController playerController;
     private final float[] blockPositions = {
@@ -91,7 +104,7 @@ public class RenderManager {
     };
 
 
-    private final List<Block> blocks = new ArrayList<>();
+    //private final List<Block> blocks = new ArrayList<>();
 
     public RenderManager(WindowManager wm){
         this.wm = wm;
@@ -150,16 +163,26 @@ public class RenderManager {
 
         meshBlock = new Mesh(blockPositions, blockIndices);
 
-        blocks.add(new Block(new Vector3f(0, 0, -2), new Texture("blocks/dirt.png")));
-        blocks.add(new Block(new Vector3f(1, 0, -2), new Texture("blocks/dirt_coarse.png")));
-        blocks.add(new Block(new Vector3f(2, 0, -2), new Texture("blocks/grass_block_side.png")));
-        blocks.add(new Block(new Vector3f(3, 0, -2), new Texture("blocks/sand.png")));
-        blocks.add(new Block(new Vector3f(4, 0, -2), new Texture("blocks/stone.png")));
-        blocks.add(new Block(new Vector3f(5, 0, -2), new Texture("blocks/cobblestone.png")));
-        blocks.add(new Block(new Vector3f(6, 0,-2), new Texture("blocks/ore_diamond.png")));
-        blocks.add(new Block(new Vector3f(7, 0,-2), new Texture("blocks/ore_coal.png")));
-        blocks.add(new Block(new Vector3f(8, 0,-2), new Texture("blocks/ore_emerald.png")));
-        blocks.add(new Block(new Vector3f(9, 0,-2), new Texture("blocks/debug.png")));
+        testChunk = new Chunk(new ChunkPos(0, 0));
+        for (int x = 0; x < Chunk.SIZE; x++) {
+            for (int z = 0; z < Chunk.SIZE; z++) {
+                testChunk.setBlock(x, 5, z, Blocks.GRASS);
+                testChunk.setBlock(x, 2, z, Blocks.GRASS);
+                testChunk.setBlock(x, 1, z, Blocks.DIRT);
+                testChunk.setBlock(x, 0, z, Blocks.STONE);
+            }
+        }
+
+//        blocks.add(new Block(new Vector3f(0, 0, -2), new Texture("blocks/dirt.png")));
+//        blocks.add(new Block(new Vector3f(1, 0, -2), new Texture("blocks/dirt_coarse.png")));
+//        blocks.add(new Block(new Vector3f(2, 0, -2), new Texture("blocks/grass_block_side.png")));
+//        blocks.add(new Block(new Vector3f(3, 0, -2), new Texture("blocks/sand.png")));
+//        blocks.add(new Block(new Vector3f(4, 0, -2), new Texture("blocks/stone.png")));
+//        blocks.add(new Block(new Vector3f(5, 0, -2), new Texture("blocks/cobblestone.png")));
+//        blocks.add(new Block(new Vector3f(6, 0,-2), new Texture("blocks/ore_diamond.png")));
+//        blocks.add(new Block(new Vector3f(7, 0,-2), new Texture("blocks/ore_coal.png")));
+//        blocks.add(new Block(new Vector3f(8, 0,-2), new Texture("blocks/ore_emerald.png")));
+//        blocks.add(new Block(new Vector3f(9, 0,-2), new Texture("blocks/debug.png")));
         //texture = new Texture("blocks/cobblestone.png");
     }
 
@@ -188,20 +211,39 @@ public class RenderManager {
         shader.setMat4("projectionMatrix", projection.getProjMatrix());
         shader.setMat4("viewMatrix", camera.getViewMatrix());
 
-        for (Block block : blocks) {
-            Matrix4f modelMatrix = new Matrix4f()
-                    .translation(block.position());
-            glActiveTexture(GL_TEXTURE0);
-
-            block.texture().bind();
-            shader.setInt("textureSampler", 0);
-            shader.setMat4("modelMatrix", modelMatrix);
-            meshBlock.render();
-        }
+            //meshBlock.render();
+        renderChunk(testChunk);
 
         shader.unbind();
         //renderHUD();
         hudManager.render(hudShader);
+    }
+
+    private void renderChunk(Chunk chunk) {
+        int originX = chunk.getPos().worldX();
+        int originZ = chunk.getPos().worldZ();
+
+        for (int x = 0; x < Chunk.SIZE; x++) {
+            for (int y = 0; y < Chunk.HEIGHT; y++) {
+                for (int z = 0; z < Chunk.SIZE; z++) {
+                    BlockState state = chunk.getBlock(x, y, z);
+                    if (state.type() == Blocks.AIR) continue;
+                    float wx = originX + x;
+                    float wy = y;
+                    float wz = originZ + z;
+
+                    Matrix4f modelMatrix = new Matrix4f().translation(wx, wy, wz);
+                    shader.setMat4("modelMatrix", modelMatrix);
+                    glActiveTexture(GL_TEXTURE0);
+
+                    // ausrichtung erstmal north
+                    Texture tex = state.type().textureFor("north");
+                    if (tex != null) tex.bind();
+                    shader.setInt("textureSampler", 0);
+                    meshBlock.render();
+                }
+            }
+        }
     }
 
     // render() – NACH dem 3D-rendering aufrufen

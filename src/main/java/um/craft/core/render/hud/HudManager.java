@@ -1,6 +1,5 @@
-package um.craft.core.render;
+package um.craft.core.render.hud;
 
-import um.craft.core.render.HudElement;
 import um.craft.core.render.Shader;
 
 import java.util.LinkedHashMap;

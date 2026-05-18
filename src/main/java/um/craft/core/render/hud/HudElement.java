@@ -1,4 +1,6 @@
-package um.craft.core.render;
+package um.craft.core.render.hud;
+
+import um.craft.core.render.Shader;
 
 public interface HudElement {
     void render(Shader hudShader);

@@ -1,4 +1,4 @@
-package um.craft.core.render;
+package um.craft.core.render.scene;
 
 import org.joml.Matrix4f;
 

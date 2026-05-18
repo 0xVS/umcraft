@@ -1,0 +1,4 @@
+{
+  "shape": "cube",
+  "faces": ["up", "down", "north", "south", "east", "west"]
+}

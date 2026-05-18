@@ -1,0 +1,10 @@
+{
+  "id": "umcraft:stone",
+  "model": "block/cube",
+  "solid": true,
+  "transparent": false,
+  "gravity": false,
+  "textures": {
+    "all": "blocks/stone"
+  }
+}

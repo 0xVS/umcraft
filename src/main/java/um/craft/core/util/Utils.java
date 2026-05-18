@@ -98,6 +98,13 @@ public class Utils {
     }
      */
 
+    public static JsonObject loadJson(String path) {
+        String content = loadResource(path);
+        return JsonParser.parseString(content).getAsJsonObject();
+    }
+
+
+
     private static JsonElement getJsonElement(String file, String key) {
         String content = loadResource(file);
         JsonObject root = JsonParser.parseString(content).getAsJsonObject();

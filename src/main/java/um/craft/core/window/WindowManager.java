@@ -5,7 +5,7 @@ import org.joml.Matrix4f;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.*;
-import um.craft.core.render.RenderManager;
+import um.craft.core.render.scene.RenderManager;
 
 public class WindowManager {
 // neues Zeug für commit lol

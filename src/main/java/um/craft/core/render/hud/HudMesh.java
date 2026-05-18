@@ -1,4 +1,4 @@
-package um.craft.core.render;
+package um.craft.core.render.hud;
 
 import org.lwjgl.system.MemoryUtil;
 

@@ -1,4 +1,7 @@
-package um.craft.core.render;
+package um.craft.core.render.hud;
+
+import um.craft.core.render.Shader;
+import um.craft.core.render.Texture;
 
 import java.util.ArrayList;
 import java.util.List;
