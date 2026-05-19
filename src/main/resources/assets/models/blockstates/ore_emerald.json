@@ -1,0 +1,10 @@
+{
+  "id": "umcraft:ore_emerald",
+  "model": "block/cube",
+  "solid": true,
+  "transparent": false,
+  "gravity": false,
+  "textures": {
+    "all": "blocks/ore_emerald"
+  }
+}

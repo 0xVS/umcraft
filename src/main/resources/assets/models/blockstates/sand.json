@@ -1,0 +1,10 @@
+{
+  "id": "umcraft:sand",
+  "model": "block/cube",
+  "solid": true,
+  "transparent": false,
+  "gravity": true,
+  "textures": {
+    "all": "blocks/sand"
+  }
+}
