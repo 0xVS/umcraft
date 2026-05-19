@@ -7,7 +7,7 @@
   "textures": {
     "up": "blocks/grass_block_top",
     "down": "blocks/dirt",
-    "north": "blocks/mid_dirt",
+    "north": "blocks/grass_block_side",
     "south": "blocks/grass_block_side",
     "east": "blocks/grass_block_side",
     "west": "blocks/grass_block_side"
