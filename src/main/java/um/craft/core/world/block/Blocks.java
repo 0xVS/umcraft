@@ -14,10 +14,18 @@ public class Blocks {
 
     public static final BlockType DIRT = BlockModelLoader.load("dirt");
 
+    public static final BlockType DIRT_COARSE = BlockModelLoader.load("dirt_coarse");
+
     public static final BlockType STONE = BlockModelLoader.load("stone");
 
     public static final BlockType COBBLESTONE = BlockModelLoader.load("cobblestone");
 
     public static final BlockType ORE_COAL = BlockModelLoader.load("ore_coal");
+
+    public static final BlockType ORE_DIAMOND = BlockModelLoader.load("ore_diamond");
+
+    public static final BlockType ORE_EMERALD = BlockModelLoader.load("ore_emerald");
+
+    public static final BlockType SAND = BlockModelLoader.load("sand");
 
 }

@@ -4,33 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="TODO:fix. BITTE">
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/ARCHITEKTUR.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/Collidable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/Damageable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/Entity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/EntityRegister.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/Interactable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/Rideable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/Tickable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/item/ItemEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/living/LivingEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/living/mob/Mob.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/living/mob/hostile/HostileMob.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/living/mob/passive/PassiveMob.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/living/player/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/projectile/ProjectionEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/storage/ChestEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/storage/StorageEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/vehicle/BoatEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/vehicle/MinecartEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/entity/vehicle/VehicleEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/CameraMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/world/BlockDamageable.java" afterDir="false" />
+    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="bisschen chunks hinzugefügt">
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/util/ObjLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/dirt_coarse.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/ore_diamond.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/ore_emerald.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/sand.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/logic/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/logic/PlayerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/RenderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/world/block/Blocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/world/block/Blocks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/grass.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/grass.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,10 +24,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Record" />
-        <option value="Interface" />
         <option value="Class" />
-        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -66,9 +46,12 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/0xVS/umcraft.git&quot;,
-    &quot;accountId&quot;: &quot;5b08a63c-d5e9-4ecb-844f-4eec2b855303&quot;
+    &quot;accountId&quot;: &quot;eeda368b-f3db-4248-b5bd-7ba47c51aff6&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Eclipse Adoptium/jdk-17.0.17.10-hotspot/lib/src.zip!/java.base/java/lang/RuntimeException.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -84,8 +67,10 @@
   "keyToString": {
     "Application.Launcher.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.Unnamed.executor": "Run",
     "Application.WorldMap.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -99,24 +84,31 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\E17K\Work Folders\Eigene Dateien\Dokumente\Privat\Umcraft\src\main\resources\assets\shaders" />
-      <recent name="C:\Users\E17K\Work Folders\Eigene Dateien\Dokumente\Privat\Umcraft\src\main\resources\assets\" />
-      <recent name="C:\Users\E17K\Work Folders\Eigene Dateien\Dokumente\Privat\Umcraft\src\main\resources" />
-      <recent name="C:\Users\E17K\Work Folders\Eigene Dateien\Dokumente\Privat\Umcraft\src\main\assets\textures\resources" />
+      <recent name="C:\Users\priva\IdeaProjects\Umcraft\src\main\resources\assets\textures\entity\player" />
+      <recent name="C:\Users\priva\IdeaProjects\Umcraft\src\main\resources\assets\models\block" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="um.craft.core.Launcher" />
+      <module name="Umcraft" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28539.33" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28539.33" />
       </set>
     </attachedChunks>
   </component>
@@ -129,12 +121,11 @@
       <option name="presentableId" value="Default" />
       <updated>1768845697945</updated>
       <workItem from="1778075577472" duration="1552000" />
-      <workItem from="1778580903378" duration="9000" />
-      <workItem from="1778580996042" duration="5125000" />
-      <workItem from="1778586196457" duration="10717000" />
-      <workItem from="1778597046439" duration="80000" />
-      <workItem from="1779182319410" duration="1656000" />
-      <workItem from="1779186053006" duration="7240000" />
+      <workItem from="1778678951583" duration="9389000" />
+      <workItem from="1778776948536" duration="2153000" />
+      <workItem from="1778944499811" duration="1154000" />
+      <workItem from="1779020224340" duration="2875000" />
+      <workItem from="1779031596908" duration="253000" />
     </task>
     <task id="LOCAL-00001" summary="Erster Aufbau einer möglichen Map generierung">
       <option name="closed" value="true" />
@@ -173,6 +164,29 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Erster Aufbau einer möglichen Map generierung" />

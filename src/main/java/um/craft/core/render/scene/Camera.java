@@ -16,9 +16,14 @@ public class Camera {
     private float yaw = -90f;
     private static final float SENSITIVITY = Utils.readSettings("settings.json", "mouse.sensitivity", 0.175f);
 
+    public CameraMode getCurrentMode() {
+        return currentMode;
+    }
+
     private CameraMode currentMode = CameraMode.FIRST_PERSON;
     private float THIRD_PERSON_DISTANCE = 3f;
-    private float EYE_HEIGHT = 0.5f;
+    // ansonsten 1.6f probieren
+    private float EYE_HEIGHT = 1.7f;
 
 
     public Camera() {
@@ -66,22 +71,21 @@ public class Camera {
     }
 
     public Matrix4f getViewMatrix() {
-        Vector3f target = new Vector3f(position).add(front);
+        //Vector3f target = new Vector3f(position).add(front);
 
         switch (currentMode) {
-            case FIRST_PERSON -> {
-                position.set(playerPosition);
-                target.set(position).add(front);
-            }
-            case THIRD_PERSON_BACK -> {
-                position.set(playerPosition).sub(new Vector3f(front).mul(THIRD_PERSON_DISTANCE));
-                target.set(position);
-            }
-            case THIRD_PERSON_FRONT -> {
-                position.set(playerPosition).add(new Vector3f(front).mul(THIRD_PERSON_DISTANCE));
-                target.set(position);
-            }
+            case FIRST_PERSON -> //target.set(position).add(front);
+                    position.set(playerPosition);
+            case THIRD_PERSON_BACK -> //target.set(position);
+                    position.set(playerPosition)
+                            .sub(new Vector3f(front)
+                            .mul(THIRD_PERSON_DISTANCE));
+            case THIRD_PERSON_FRONT -> //target.set(position);
+                    position.set(playerPosition)
+                            .add(new Vector3f(front)
+                            .mul(THIRD_PERSON_DISTANCE));
         }
+        Vector3f target = (currentMode == CameraMode.FIRST_PERSON) ? new Vector3f(position).add(front) : new Vector3f(playerPosition);
         return new Matrix4f().lookAt(position, target, up);
     }
 

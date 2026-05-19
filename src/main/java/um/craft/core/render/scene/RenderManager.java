@@ -1,7 +1,9 @@
 package um.craft.core.render.scene;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import um.craft.core.logic.PlayerController;
+import um.craft.core.util.ObjLoader;
 import um.craft.core.world.block.BlockState;
 import um.craft.core.render.Mesh;
 import um.craft.core.render.Shader;
@@ -48,9 +50,17 @@ public class RenderManager {
 
     // CHUNK ZEUG
     private Chunk testChunk;
+    private Chunk chunk;
+    private Chunk chunk2;
 
 
+    private Chunk fullChunk;
     //
+
+    // PLAYER MDOEL TEST ZEUG
+    private Mesh playerMesh;
+    private Texture playerTexture;
+
 
     private PlayerController playerController;
     private final float[] blockPositions = {
@@ -104,6 +114,7 @@ public class RenderManager {
     };
 
 
+
     //private final List<Block> blocks = new ArrayList<>();
 
     public RenderManager(WindowManager wm){
@@ -140,6 +151,7 @@ public class RenderManager {
         hudManager.add("debugOverlay", debugOverlay);
         //hudManager.add("crosshair")
 
+
         float sizeX = 0.05f;
         float sizeY = 0.05f * ((float) windowWidth / windowHeight); // aspect ratio korrektur
 
@@ -153,7 +165,11 @@ public class RenderManager {
 
 
         crosshairMesh = new HudMesh(crosshairVertices, crosshairIndices);
-        crosshairTexture = new Texture("gui/crosshair_neutral.png");
+        //crosshairTexture = new Texture("gui/crosshair_neutral.png");
+        crosshairTexture = new Texture("gui/crosshair.png");
+
+        playerMesh = ObjLoader.load("player_model.obj");
+        playerTexture = new Texture("entity/player/debug_player.png");
 
         hudManager.add("crosshair", new CrosshairElement(crosshairMesh, crosshairTexture));
 
@@ -164,12 +180,39 @@ public class RenderManager {
         meshBlock = new Mesh(blockPositions, blockIndices);
 
         testChunk = new Chunk(new ChunkPos(0, 0));
+        chunk = new Chunk(new ChunkPos(1, 1));
+        chunk2 = new Chunk(new ChunkPos(0, 1));
+        fullChunk = new Chunk(new ChunkPos(5, 5));
+
         for (int x = 0; x < Chunk.SIZE; x++) {
             for (int z = 0; z < Chunk.SIZE; z++) {
-                testChunk.setBlock(x, 5, z, Blocks.GRASS);
+                //testChunk.setBlock(x, 4, z, Blocks.GRASS);
                 testChunk.setBlock(x, 2, z, Blocks.GRASS);
                 testChunk.setBlock(x, 1, z, Blocks.DIRT);
                 testChunk.setBlock(x, 0, z, Blocks.STONE);
+
+                chunk.setBlock(x, 0, z, Blocks.COBBLESTONE);
+                chunk.setBlock(x, 1, z, Blocks.STONE);
+                chunk.setBlock(x, 2, z, Blocks.ORE_COAL);
+                chunk.setBlock(x, 3, z, Blocks.ORE_DIAMOND);
+                chunk.setBlock(x, 4, z, Blocks.ORE_EMERALD);
+                chunk.setBlock(x, 5, z, Blocks.AIR);
+                chunk.setBlock(x, 6, z, Blocks.STONE);
+
+                chunk2.setBlock(x, 0, z, Blocks.DIRT);
+                chunk2.setBlock(x, 1, z, Blocks.DIRT);
+                chunk2.setBlock(x, 2, z, Blocks.DIRT);
+                chunk2.setBlock(x, 3, z, Blocks.DIRT_COARSE);
+                chunk2.setBlock(x, 4, z, Blocks.SAND);
+                chunk2.setBlock(x, 5, z, Blocks.AIR);
+                chunk2.setBlock(x, 6, z, Blocks.DIRT);
+            }
+        }
+        for (int i = 0; i < Chunk.SIZE; i++) {
+            for (int j = 0; j < Chunk.SIZE; j++) {
+                for (int k = 0; k < Chunk.SIZE; k++) {
+                    fullChunk.setBlock(i, k, j, Blocks.DIRT);
+                }
             }
         }
 
@@ -179,9 +222,9 @@ public class RenderManager {
 //        blocks.add(new Block(new Vector3f(3, 0, -2), new Texture("blocks/sand.png")));
 //        blocks.add(new Block(new Vector3f(4, 0, -2), new Texture("blocks/stone.png")));
 //        blocks.add(new Block(new Vector3f(5, 0, -2), new Texture("blocks/cobblestone.png")));
-//        blocks.add(new Block(new Vector3f(6, 0,-2), new Texture("blocks/ore_diamond.png")));
+//        blocks.add(new Block(new Vector3f(6, 0,-2), new Texture("blocks/ore_diamond.json.png")));
 //        blocks.add(new Block(new Vector3f(7, 0,-2), new Texture("blocks/ore_coal.png")));
-//        blocks.add(new Block(new Vector3f(8, 0,-2), new Texture("blocks/ore_emerald.png")));
+//        blocks.add(new Block(new Vector3f(8, 0,-2), new Texture("blocks/ore_emerald.json.png")));
 //        blocks.add(new Block(new Vector3f(9, 0,-2), new Texture("blocks/debug.png")));
         //texture = new Texture("blocks/cobblestone.png");
     }
@@ -213,10 +256,34 @@ public class RenderManager {
 
             //meshBlock.render();
         renderChunk(testChunk);
+        renderChunk(chunk);
+        renderChunk(chunk2);
+
+        renderChunk(fullChunk);
+
+        // SPIELER MODEL TEST ZEUG
+        if (camera.getCurrentMode() != CameraMode.FIRST_PERSON) {
+            renderPlayerCube();
+        }
 
         shader.unbind();
         //renderHUD();
         hudManager.render(hudShader);
+    }
+
+    private void renderPlayerCube() {
+        //Vector3f bodyPos = camera.getPlayerBodyPosition();
+        Vector3f bodyPos = playerController.getPosition();
+
+        Matrix4f modelMatrix = new Matrix4f()
+                .translation(bodyPos.x, bodyPos.y, bodyPos.z)
+                // SPÄTER FÜR DEN KOPF DIE ROTATION EINBAUEN, DER KÖRPER SOLL NUR DIE TRANSLATION HABEN DAMIT DER KOPF DER KAMERA FOLGT
+                .rotateY((float) Math.toRadians(-camera.getYaw() - 90f));;
+        shader.setMat4("modelMatrix", modelMatrix);
+        glActiveTexture(GL_TEXTURE0);
+        playerTexture.bind();
+        shader.setInt("textureSampler", 0);
+        playerMesh.render();
     }
 
     private void renderChunk(Chunk chunk) {
