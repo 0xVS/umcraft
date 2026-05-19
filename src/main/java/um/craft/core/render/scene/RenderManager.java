@@ -206,7 +206,7 @@ public class RenderManager {
     public void render() {
         shader.bind();
 
-        camera.setFirstPersonPosition(playerController.getPosition());
+        camera.updatePosition(playerController.getPosition());
 
         shader.setMat4("projectionMatrix", projection.getProjMatrix());
         shader.setMat4("viewMatrix", camera.getViewMatrix());

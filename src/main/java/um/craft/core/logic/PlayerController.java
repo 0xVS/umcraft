@@ -52,7 +52,8 @@ public class PlayerController implements InputListener {
         MOVING_DOWN,
         IS_SPRINTING,
         IS_SNEAKING,
-        DEBUG_INFO
+        DEBUG_INFO,
+        SWITCH_PERSPECTIVE
     }
 
     private final EnumSet<PlayerAction> activeActions = EnumSet.noneOf(PlayerAction.class);
@@ -73,6 +74,7 @@ public class PlayerController implements InputListener {
                     case "MOVE_DOWN" -> activeActions.add(PlayerAction.MOVING_DOWN);
                     case "QUIT" -> window.setShouldClose();
                     case "DEBUG_INFO" -> window.rm.toggleF3();
+                    case "SWITCH_PERSPECTIVE" -> camera.toggleCameraMode();
                 }
             }
             case HELD -> {
@@ -116,7 +118,7 @@ public class PlayerController implements InputListener {
         // old val 1.2
         float moveSpeed = 5f * deltaTime;
 
-        Vector3f forward = camera.getFrontVector();
+        Vector3f forward = camera.getViewDirection();
         Vector3f right = camera.getRightVector();
 
         Vector3f forwardFlatTest = new Vector3f(forward.x, 0, forward.z).normalize();
