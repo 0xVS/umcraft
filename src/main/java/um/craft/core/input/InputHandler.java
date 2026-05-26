@@ -33,15 +33,7 @@ public class InputHandler {
         bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.backward", "K")), "MOVE_BACKWARD");
         bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.jump", "SPACE")), "MOVE_UP");
         bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.crouch", "RIGHT_SHIFT")), "MOVE_DOWN");
-        /*bindKey(GLFW.GLFW_KEY_W, "MOVE_FORWARD");
-        bindKey(GLFW.GLFW_KEY_A, "MOVE_LEFT");
-        bindKey(GLFW.GLFW_KEY_S, "MOVE_BACKWARD");
-        bindKey(GLFW.GLFW_KEY_D, "MOVE_RIGHT");
-        bindKey(GLFW.GLFW_KEY_LEFT_SHIFT, "MOVE_DOWN");
-        bindKey(GLFW.GLFW_KEY_SPACE, "MOVE_UP"); */
-
-        //String test = "GLFW.GLFW_KEY_" + Utils.readSettings("keybinds.json", "movement.forward");
-
+        bindKey(glfwNumConverter(Utils.readSettings("keybinds.json", "movement.sprint", "LEFT_CONTROL")), "IS_SPRINTING");
         // maus bindings
 
         String f3Key = Utils.readSettings("keybinds.json", "debug.info", "F3");

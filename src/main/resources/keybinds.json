@@ -6,6 +6,7 @@
     "right": "D",
     "crouch": "LEFT_SHIFT",
     "jump": "SPACE",
+    "sprint": "LEFT_CONTROL",
     "showDebug": "F3"
   },
   "interaction": {

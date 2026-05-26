@@ -33,6 +33,9 @@ public class PlayerController implements InputListener {
     private float debugTimer = 0f;
     private static final float DEBUG_INTERVAL = 5.0f; // IN SEKUNDEN
 
+    // test für sprint
+    public boolean isSprinting;
+
     public PlayerController(Inputs rawInput, WindowManager wm, Camera camera) {
         this.inputHandler = new InputHandler(rawInput);
         this.inputHandler.addListener(this);
@@ -66,6 +69,7 @@ public class PlayerController implements InputListener {
         switch (type) {
             case PRESSED -> {
                 switch (action) {
+                    case "IS_SPRINTING" -> activeActions.add(PlayerAction.IS_SPRINTING);
                     case "MOVE_FORWARD" -> activeActions.add(PlayerAction.MOVING_FORWARD);
                     case "MOVE_BACKWARD" -> activeActions.add(PlayerAction.MOVING_BACKWARD);
                     case "MOVE_LEFT" -> activeActions.add(PlayerAction.MOVING_LEFT);
@@ -79,6 +83,7 @@ public class PlayerController implements InputListener {
             }
             case HELD -> {
                 switch (action) {
+                    case "IS_SPRINTING" -> activeActions.add(PlayerAction.IS_SPRINTING);
                     case "MOVE_FORWARD" -> activeActions.add(PlayerAction.MOVING_FORWARD);
                     case "MOVE_BACKWARD" -> activeActions.add(PlayerAction.MOVING_BACKWARD);
                     case "MOVE_LEFT" -> activeActions.add(PlayerAction.MOVING_LEFT);
@@ -90,7 +95,11 @@ public class PlayerController implements InputListener {
             }
             case RELEASED -> {
                 switch (action) {
-                    case "MOVE_FORWARD" -> activeActions.remove(PlayerAction.MOVING_FORWARD);
+                    //case "IS_SPRINTING" -> activeActions.remove(PlayerAction.IS_SPRINTING);
+                    case "MOVE_FORWARD" -> {
+                        activeActions.remove(PlayerAction.IS_SPRINTING);
+                        activeActions.remove(PlayerAction.MOVING_FORWARD);
+                    }
                     case "MOVE_BACKWARD" -> activeActions.remove(PlayerAction.MOVING_BACKWARD);
                     case "MOVE_LEFT" -> activeActions.remove(PlayerAction.MOVING_LEFT);
                     case "MOVE_RIGHT" -> activeActions.remove(PlayerAction.MOVING_RIGHT);
@@ -116,7 +125,7 @@ public class PlayerController implements InputListener {
 
     public void vectorMovement(float deltaTime){
         // old val 1.2
-        float moveSpeed = 5f * deltaTime;
+        float moveSpeed = (activeActions.contains(PlayerAction.IS_SPRINTING)) ? /*7.5f*/ 25f * deltaTime : 5f * deltaTime;
 
         Vector3f forward = camera.getViewDirection();
         Vector3f right = camera.getRightVector();
@@ -162,5 +171,6 @@ public class PlayerController implements InputListener {
                 position.x, position.y, position.z);
         System.out.printf("> MOUSE:  (%.2f, %.2f)%n",
                 dx, dy);
+        System.out.printf("%n> RAM: %f MB%n", (float) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024));
     }
 }
