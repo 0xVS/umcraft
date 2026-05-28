@@ -4,6 +4,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import um.craft.core.logic.PlayerController;
 import um.craft.core.util.ObjLoader;
+import um.craft.core.world.World;
 import um.craft.core.world.block.BlockState;
 import um.craft.core.render.Mesh;
 import um.craft.core.render.Shader;
@@ -17,6 +18,8 @@ import um.craft.core.window.WindowManager;
 import um.craft.core.world.Chunk;
 import um.craft.core.world.ChunkPos;
 import um.craft.core.world.block.Blocks;
+
+import java.util.Map;
 
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
@@ -47,8 +50,11 @@ public class RenderManager {
     private CrosshairElement crosshairElement;
     // -------------
 
-
     // CHUNK ZEUG
+    public final int RENDER_DISTANCE = Utils.readSettings("settings.json", "render.render_distance", 4);
+
+    private World world;
+
     private Chunk testChunk;
     private Chunk chunk;
     private Chunk chunk2;
@@ -171,6 +177,33 @@ public class RenderManager {
         playerMesh = ObjLoader.load("player_model.obj");
         playerTexture = new Texture("entity/player/debug_player.png");
 
+        world = new World();
+
+        /*
+
+            !!!!!!!!!!!!!!
+
+            HIER SPÄTER WORLDGEN?
+
+            !!!!!!!!!!!!!
+
+         */
+        for (int cx = -2; cx <= 2; cx++) {
+            for (int cz = -2; cz <= 2; cz++) {
+                Chunk chunk = new Chunk(new ChunkPos(cx, cz));
+
+                for (int x = 0; x < Chunk.SIZE; x++) {
+                    for (int z = 0; z < Chunk.SIZE; z++) {
+                        chunk.setBlock(x, 0, z, Blocks.STONE);
+                        chunk.setBlock(x, 1, z, Blocks.DIRT);
+                        chunk.setBlock(x, 2, z, Blocks.GRASS);
+                    }
+                }
+
+                world.addChunk(chunk);
+            }
+        }
+
         hudManager.add("crosshair", new CrosshairElement(crosshairMesh, crosshairTexture));
 
         shader.createVertexShader(Utils.loadResource("assets/shaders/vertex.glsl"));
@@ -179,54 +212,7 @@ public class RenderManager {
 
         meshBlock = new Mesh(blockPositions, blockIndices);
 
-        testChunk = new Chunk(new ChunkPos(0, 0));
-        chunk = new Chunk(new ChunkPos(1, 1));
-        chunk2 = new Chunk(new ChunkPos(0, 1));
-        fullChunk = new Chunk(new ChunkPos(5, 5));
 
-        for (int x = 0; x < Chunk.SIZE; x++) {
-            for (int z = 0; z < Chunk.SIZE; z++) {
-                //testChunk.setBlock(x, 4, z, Blocks.GRASS);
-                testChunk.setBlock(x, 2, z, Blocks.GRASS);
-                testChunk.setBlock(x, 1, z, Blocks.DIRT);
-                testChunk.setBlock(x, 0, z, Blocks.STONE);
-
-                chunk.setBlock(x, 0, z, Blocks.COBBLESTONE);
-                chunk.setBlock(x, 1, z, Blocks.STONE);
-                chunk.setBlock(x, 2, z, Blocks.ORE_COAL);
-                chunk.setBlock(x, 3, z, Blocks.ORE_DIAMOND);
-                chunk.setBlock(x, 4, z, Blocks.ORE_EMERALD);
-                chunk.setBlock(x, 5, z, Blocks.AIR);
-                chunk.setBlock(x, 6, z, Blocks.STONE);
-
-                chunk2.setBlock(x, 0, z, Blocks.DIRT);
-                chunk2.setBlock(x, 1, z, Blocks.DIRT);
-                chunk2.setBlock(x, 2, z, Blocks.DIRT);
-                chunk2.setBlock(x, 3, z, Blocks.DIRT_COARSE);
-                chunk2.setBlock(x, 4, z, Blocks.SAND);
-                chunk2.setBlock(x, 5, z, Blocks.AIR);
-                chunk2.setBlock(x, 6, z, Blocks.DIRT);
-            }
-        }
-        for (int i = 0; i < Chunk.SIZE; i++) {
-            for (int j = 0; j < Chunk.SIZE; j++) {
-                for (int k = 0; k < Chunk.SIZE; k++) {
-                    fullChunk.setBlock(i, k, j, Blocks.DIRT);
-                }
-            }
-        }
-
-//        blocks.add(new Block(new Vector3f(0, 0, -2), new Texture("blocks/dirt.png")));
-//        blocks.add(new Block(new Vector3f(1, 0, -2), new Texture("blocks/dirt_coarse.png")));
-//        blocks.add(new Block(new Vector3f(2, 0, -2), new Texture("blocks/grass_block_side.png")));
-//        blocks.add(new Block(new Vector3f(3, 0, -2), new Texture("blocks/sand.png")));
-//        blocks.add(new Block(new Vector3f(4, 0, -2), new Texture("blocks/stone.png")));
-//        blocks.add(new Block(new Vector3f(5, 0, -2), new Texture("blocks/cobblestone.png")));
-//        blocks.add(new Block(new Vector3f(6, 0,-2), new Texture("blocks/ore_diamond.json.png")));
-//        blocks.add(new Block(new Vector3f(7, 0,-2), new Texture("blocks/ore_coal.png")));
-//        blocks.add(new Block(new Vector3f(8, 0,-2), new Texture("blocks/ore_emerald.json.png")));
-//        blocks.add(new Block(new Vector3f(9, 0,-2), new Texture("blocks/debug.png")));
-        //texture = new Texture("blocks/cobblestone.png");
     }
 
 
@@ -246,6 +232,24 @@ public class RenderManager {
             - normale / für licht später (nx, ny, nz)
     */
 
+    public void renderWorld(World world){
+        ChunkPos playerChunk = ChunkPos.fromWorld(
+                (int) playerController.getPosition().x,
+                (int) playerController.getPosition().z
+        );
+
+        for (Map.Entry<ChunkPos, Chunk> entry : world.getChunks().entrySet()) {
+            ChunkPos pos = entry.getKey();
+            int dx = Math.abs(pos.x() - playerChunk.x());
+            int dz = Math.abs(pos.z() - playerChunk.z());
+
+            if (dx <= RENDER_DISTANCE && dz <= RENDER_DISTANCE){
+                renderChunk(entry.getValue());
+            }
+
+        }
+    }
+
     public void render() {
         shader.bind();
 
@@ -255,11 +259,14 @@ public class RenderManager {
         shader.setMat4("viewMatrix", camera.getViewMatrix());
 
             //meshBlock.render();
+        /*
         renderChunk(testChunk);
         renderChunk(chunk);
         renderChunk(chunk2);
 
         renderChunk(fullChunk);
+*/
+        renderWorld(world);
 
         // SPIELER MODEL TEST ZEUG
         if (camera.getCurrentMode() != CameraMode.FIRST_PERSON) {
@@ -287,30 +294,13 @@ public class RenderManager {
     }
 
     private void renderChunk(Chunk chunk) {
-        int originX = chunk.getPos().worldX();
-        int originZ = chunk.getPos().worldZ();
+        Mesh mesh = chunk.getOrBuildMesh(blockPositions, blockIndices);
+        if (mesh == null) return;
 
-        for (int x = 0; x < Chunk.SIZE; x++) {
-            for (int y = 0; y < Chunk.HEIGHT; y++) {
-                for (int z = 0; z < Chunk.SIZE; z++) {
-                    BlockState state = chunk.getBlock(x, y, z);
-                    if (state.type() == Blocks.AIR) continue;
-                    float wx = originX + x;
-                    float wy = y;
-                    float wz = originZ + z;
-
-                    Matrix4f modelMatrix = new Matrix4f().translation(wx, wy, wz);
-                    shader.setMat4("modelMatrix", modelMatrix);
-                    glActiveTexture(GL_TEXTURE0);
-
-                    // ausrichtung erstmal north
-                    Texture tex = state.type().textureFor("north");
-                    if (tex != null) tex.bind();
-                    shader.setInt("textureSampler", 0);
-                    meshBlock.render();
-                }
-            }
-        }
+        shader.setMat4("modelMatrix", new Matrix4f()); // Position schon im Mesh eingebaut
+        glActiveTexture(GL_TEXTURE0);
+        shader.setInt("textureSampler", 0);
+        mesh.render();
     }
 
     // render() – NACH dem 3D-rendering aufrufen

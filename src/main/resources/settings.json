@@ -8,7 +8,8 @@
   "render": {
     "fov": 70,
     "near": 0.1,
-    "far": 1000
+    "far": 1000,
+    "render_distance": 4
   },
   "mouse": {
     "sensitivity": 0.175
