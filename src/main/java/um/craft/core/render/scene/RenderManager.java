@@ -157,22 +157,9 @@ public class RenderManager {
         hudManager.add("debugOverlay", debugOverlay);
         //hudManager.add("crosshair")
 
-
-        float sizeX = 0.05f;
-        float sizeY = 0.05f * ((float) windowWidth / windowHeight); // aspect ratio korrektur
-
-        float[] crosshairVertices = {
-                -sizeX, -sizeY,   0f, 0f,
-                sizeX, -sizeY,   1f, 0f,
-                sizeX,  sizeY,   1f, 1f,
-                -sizeX,  sizeY,   0f, 1f,
-        };
-        int[] crosshairIndices = { 0, 1, 2,  0, 2, 3 };
-
-
-        crosshairMesh = new HudMesh(crosshairVertices, crosshairIndices);
-        //crosshairTexture = new Texture("gui/crosshair_neutral.png");
         crosshairTexture = new Texture("gui/crosshair.png");
+        buildCrosshair(windowWidth, windowHeight);
+
 
         playerMesh = ObjLoader.load("player_model.obj");
         playerTexture = new Texture("entity/player/debug_player.png");
@@ -211,10 +198,37 @@ public class RenderManager {
         shader.link();
 
         meshBlock = new Mesh(blockPositions, blockIndices);
-
-
     }
 
+    public void onResize(int width, int height){
+        windowHeight = height;
+        windowWidth = width;
+        projection.updateProjMatrix(width, height);
+        updateHudAspect();
+    }
+
+    public void updateHudAspect(){
+        hudShader.bind();
+        hudShader.setFloat("aspect_r", (float) windowWidth / windowHeight);
+    }
+
+    private void buildCrosshair(int w, int h){
+        float sizeX = 0.05f;
+        float sizeY = 0.05f * ((float) windowWidth / windowHeight); // aspect ratio korrektur
+        //float sizeY = 0.05f; // * ((float) w / h);
+        System.out.println("[DEBUG] crosshair rebuilt: " + windowWidth + "x" + windowHeight
+                + " sizeY=" + sizeY);
+
+        float[] crosshairVertices = {
+                -sizeX, -sizeY,   0f, 0f,
+                sizeX, -sizeY,   1f, 0f,
+                sizeX,  sizeY,   1f, 1f,
+                -sizeX,  sizeY,   0f, 1f,
+        };
+        int[] crosshairIndices = { 0, 1, 2,  0, 2, 3 };
+
+        crosshairMesh = new HudMesh(crosshairVertices, crosshairIndices);
+    }
 
 
     /* TODO:Cube rendern und VBO anpassen
