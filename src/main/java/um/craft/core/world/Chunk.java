@@ -18,7 +18,7 @@ public class Chunk {
     private Mesh cachedMesh = null;
     // dirty = true, wenn mesh veraltet ist. -> neues rendern
     // dirty = false, wenn mesh aktuell ist. -> cachedMesh verwenden
-    private boolean dirty;
+    private boolean dirty = true;
 
 
     public Chunk(ChunkPos pos){
@@ -88,6 +88,7 @@ public class Chunk {
 
     public void setBlock(int x, int y, int z, BlockType type){
         blocks[x][y][z] = new BlockState(type);
+        markAsDirty();
     }
 
     public BlockState getBlock(int x, int y, int z){
