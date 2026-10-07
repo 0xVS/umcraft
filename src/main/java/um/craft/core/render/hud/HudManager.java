@@ -13,7 +13,8 @@ public class HudManager {
     private final Map<String, HudElement> hudElements = new LinkedHashMap<>();
 
     public void add(String id, HudElement element) {
-        hudElements.put(id, element);
+        HudElement old = hudElements.put(id, element);
+        if (old != null && old != element) old.cleanup();
     }
 
     public void render(Shader hudShader) {
