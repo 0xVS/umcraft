@@ -144,6 +144,7 @@ public class RenderManager {
         hudShader.createVertexShader(Utils.loadResource("assets/shaders/hud_vertex.glsl"));
         hudShader.createFragmentShader(Utils.loadResource("assets/shaders/hud_fragment.glsl"));
         hudShader.link();
+        updateHudAspect();
 
         hudManager = new HudManager();
         debugOverlay = new DebugOverlay(windowWidth, windowHeight);
@@ -160,11 +161,12 @@ public class RenderManager {
         crosshairTexture = new Texture("gui/crosshair.png");
         buildCrosshair(windowWidth, windowHeight);
 
-
         playerMesh = ObjLoader.load("player_model.obj");
         playerTexture = new Texture("entity/player/debug_player.png");
 
         world = new World();
+
+        texture = new Texture("blocks/dirt.png");
 
         /*
 
@@ -214,8 +216,8 @@ public class RenderManager {
 
     private void buildCrosshair(int w, int h){
         float sizeX = 0.05f;
-        float sizeY = 0.05f * ((float) windowWidth / windowHeight); // aspect ratio korrektur
-        //float sizeY = 0.05f; // * ((float) w / h);
+        //float sizeY = 0.05f * ((float) windowWidth / windowHeight); // aspect ratio korrektur
+        float sizeY = 0.05f; // * ((float) w / h);
         System.out.println("[DEBUG] crosshair rebuilt: " + windowWidth + "x" + windowHeight
                 + " sizeY=" + sizeY);
 
@@ -280,7 +282,14 @@ public class RenderManager {
 
         renderChunk(fullChunk);
 */
+
+        // MARKER
+        glActiveTexture(GL_TEXTURE0);
+        texture.bind();
+        shader.setInt("textureSampler", 0);
         renderWorld(world);
+
+
 
         // SPIELER MODEL TEST ZEUG
         if (camera.getCurrentMode() != CameraMode.FIRST_PERSON) {
