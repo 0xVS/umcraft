@@ -17,15 +17,13 @@ public class TextureAtlasMaker {
     }
 
     public static void getAllTextures() throws URISyntaxException, IOException {
-        URL url = Utils.class.getClassLoader().getResource("assets/textures/");
+        URL url = Utils.class.getClassLoader().getResource("assets/textures/blocks");
 
         if (url != null) {
             List<String> pngFiles = Files.list(Paths.get(url.toURI()))
                     .map(path -> path.getFileName().toString())
                     .filter(n -> n.endsWith(".png"))
                     .toList();
-
-            pngFiles.forEach(System.out::println);
         }
         //return pngFiles;
     }
