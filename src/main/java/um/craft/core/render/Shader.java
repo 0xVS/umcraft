@@ -27,6 +27,10 @@ public class Shader {
         }
     }
 
+    public void setInt(String name, int value){
+        glUniform1i(glGetUniformLocation(programId, name), value);
+    }
+
     public void setMat4(String name, Matrix4f matrix){
         int location = glGetUniformLocation(programId, name);
         try (MemoryStack stack = MemoryStack.stackPush()) {

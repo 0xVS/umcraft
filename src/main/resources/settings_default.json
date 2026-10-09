@@ -1,0 +1,19 @@
+{
+  "window": {
+    "width": 1280,
+    "height": 720,
+    "title": "umcraft",
+    "vsync": true
+  },
+  "render": {
+    "fov": 70,
+    "near": 0.1,
+    "far": 1000
+  },
+  "mouse": {
+    "sensitivity": 0.175
+  },
+  "debug": {
+    "showFps": true
+  }
+}

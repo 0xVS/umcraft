@@ -31,6 +31,7 @@ public class Inputs {
                 scancode =
              */
             public void invoke(long window, int key, int scancode, int action, int mods) {
+                if (key < 0 || key >= keys.length) return;
                 keys[key] = action != GLFW.GLFW_RELEASE;
             }
         };

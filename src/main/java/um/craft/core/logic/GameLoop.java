@@ -32,8 +32,7 @@ public class GameLoop {
         lastFpsTime = System.nanoTime();
         frameCount = 0;
 
-        System.out.println("Gameloop gestartet");
-
+        System.out.println("[DEBUG] Gameloop wurde gestartet");
 
         run();
     }

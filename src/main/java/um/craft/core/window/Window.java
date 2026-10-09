@@ -12,6 +12,7 @@ public class Window {
     private final String title;
     private int width, height;
     private boolean vsync;
+    private boolean resized;
 
     public Window(String title, int width, int height, boolean vsync) {
         this.title = title;
@@ -60,6 +61,7 @@ public class Window {
         centerWindow(window, maximized);
 
         GLFW.glfwMakeContextCurrent(window);
+        GL.createCapabilities();
 
         if (vsync) {
             GLFW.glfwSwapInterval(1);
@@ -72,30 +74,50 @@ public class Window {
 
 
     private void onFramebufferResize(long window, int width, int height) {
+        System.out.println(">> [NOTI] Resized: "+width+" x "+height);
+        if (height == 0 || width == 0) return;
         this.width = width;
         this.height = height;
+        this.resized = true;
         GL11.glViewport(0, 0, width, height);
     }
 
     private void centerWindow(long window, boolean maximized) {
         if (maximized) {
             GLFW.glfwMaximizeWindow(window);
+            return;
             // zentriert das fenster in der monitorhälfte (in höhe und breite)
-        } else {
-            try (MemoryStack stack = MemoryStack.stackPush()) {
-                IntBuffer w = stack.mallocInt(1);
-                IntBuffer h = stack.mallocInt(1);
+        }
 
-                //echte werte vom fenster, ohne manuell gesetzte width und height
-                GLFW.glfwGetWindowSize(window, w, h);
+        // mein wayland compositor auf arch macht probleme wenn ich es centern will, deswegen muss ich returnen lolol
+        if (GLFW.glfwGetPlatform() == GLFW.GLFW_PLATFORM_WAYLAND) return;
 
-                GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+        long monitor = GLFW.glfwGetPrimaryMonitor();
+        if (monitor == MemoryUtil.NULL) return;
 
-                // holt werte aus buffer, zentriert mit echten werten
-                GLFW.glfwSetWindowPos(window,
-                        (vidmode.width() - w.get(0)) / 2,
-                        (vidmode.height() - h.get(0)) / 2);
-            }
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer mx = stack.mallocInt(1);
+            IntBuffer my = stack.mallocInt(1);
+            IntBuffer mw = stack.mallocInt(1);
+            IntBuffer mh = stack.mallocInt(1);
+
+            // die size reicht nicht aus, kann bugs auslösen bei multi monitor setups
+            //GLFW.glfwGetWindowSize(window, w, h);
+            //GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+
+            GLFW.glfwGetMonitorWorkarea(monitor, mx, my, mw, mh);
+
+            IntBuffer w = stack.mallocInt(1);
+            IntBuffer h = stack.mallocInt(1);
+            GLFW.glfwGetWindowSize(window, w, h);
+
+            // holt werte aus buffer, zentriert mit echten werten
+            /*GLFW.glfwSetWindowPos(window,
+                    (vidmode.width() - w.get(0)) / 2,
+                    (vidmode.height() - h.get(0)) / 2); */
+            GLFW.glfwSetWindowPos(window,
+                    mx.get(0) + (mw.get(0) - w.get(0)) / 2,
+                    my.get(0) + (mh.get(0) - h.get(0)) / 2);
         }
     }
 
@@ -117,9 +139,31 @@ public class Window {
     }
 
     // getter
-    public long getHandle() { return handle; }
-    public int getWidth() { return width; }
-    public int getHeight() { return height; }
-    public String getTitle() { return title; }
-    public boolean isVsync() { return vsync; }
+    public long getHandle() {
+        return handle;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean isVsync() {
+        return vsync;
+    }
+
+    public boolean isResized(){
+        return resized;
+    }
+
+    public void resetResized(){
+        resized = false;
+    }
 }

@@ -5,7 +5,9 @@ import org.joml.Matrix4f;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.*;
-import um.craft.core.render.RenderManager;
+import um.craft.core.logic.PlayerController;
+import um.craft.core.render.scene.Camera;
+import um.craft.core.render.scene.RenderManager;
 
 public class WindowManager {
 // neues Zeug für commit lol
@@ -25,7 +27,13 @@ public class WindowManager {
 
     }
 
+    public void setPlayerController(PlayerController pc){
+        rm.setPlayerController(pc);
+    }
 
+    public Camera getCamera(){
+        return rm.getCamera();
+    }
 
     public void initOpenGL() {
         GL.createCapabilities();
@@ -43,11 +51,11 @@ public class WindowManager {
 
 
         // TODO: für später? mal schauen wa
-        //GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         //GL11.glEnable(GL11.GL_STENCIL_TEST);
 
         // cull face -> nur äußere texturen vom objekt werden gerendert, alles andere nicht
-        //GL11.glEnable(GL11.GL_CULL_FACE);
+        GL11.glEnable(GL11.GL_CULL_FACE);
         // TODO: später in game logic ersetzen durch implementation wie in mc
         //GL11.glCullFace(GL11.GL_BACK);
 
@@ -61,8 +69,14 @@ public class WindowManager {
         // setzt farbe (temporär) für fenster
         //setClearColor(0, 0, 0, 1.0f);
         //GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
+        if (window.isResized()){
+            rm.onResize(window.getWidth(), window.getHeight());
+            window.resetResized();
+        }
+
         GL11.glClearColor(0.2f, 0.4f, 0.8f, 1.0f);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
+
 
         rm.render();
         window.swapBuffers();
@@ -87,6 +101,7 @@ public class WindowManager {
 
     public Matrix4f updateProjectionMatrix() {
         float aspectRatio = (float) window.getWidth() / window.getHeight();
+        System.out.println("[DEBUG] Projection Aspect Ratio = " + aspectRatio);
         return projectionMatrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
     }
 

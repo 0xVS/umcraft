@@ -25,11 +25,10 @@ public class Launcher {
 
         Inputs inputs = new Inputs();
         long windowHandle = wm.getWindowHandle();
-
-        PlayerController playerController = new PlayerController(inputs, wm, wm.rm.getCamera());
+        PlayerController playerController = new PlayerController(inputs, wm, wm.getCamera());
         GameLoop gameLoop = new GameLoop(wm, playerController);
 
-        wm.rm.setPlayerController(playerController);
+        wm.setPlayerController(playerController);
         glfwInit(windowHandle, wm, inputs);
         GLFW.glfwSetInputMode(windowHandle, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
 
@@ -38,7 +37,6 @@ public class Launcher {
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            //wm.rm.cleanup();
             wm.cleanup();
         }
     }

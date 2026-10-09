@@ -8,7 +8,7 @@ import um.craft.core.input.InputEvent;
 import um.craft.core.input.InputHandler;
 import um.craft.core.input.InputListener;
 import um.craft.core.input.Inputs;
-import um.craft.core.render.Camera;
+import um.craft.core.render.scene.Camera;
 import um.craft.core.window.WindowManager;
 
 import java.util.EnumSet;
@@ -25,6 +25,16 @@ public class PlayerController implements InputListener {
     private final Vector3f position = new Vector3f(0, 0, 0);
 
     WindowManager window;
+
+    /* FÜR DEBUG OUTPUT ZEUG:
+
+        IM DEBUGPRINT
+    */
+    private float debugTimer = 0f;
+    private static final float DEBUG_INTERVAL = 5.0f; // IN SEKUNDEN
+
+    // test für sprint
+    public boolean isSprinting;
 
     public PlayerController(Inputs rawInput, WindowManager wm, Camera camera) {
         this.inputHandler = new InputHandler(rawInput);
@@ -44,7 +54,9 @@ public class PlayerController implements InputListener {
         MOVING_UP,
         MOVING_DOWN,
         IS_SPRINTING,
-        IS_SNEAKING
+        IS_SNEAKING,
+        DEBUG_INFO,
+        SWITCH_PERSPECTIVE
     }
 
     private final EnumSet<PlayerAction> activeActions = EnumSet.noneOf(PlayerAction.class);
@@ -55,8 +67,23 @@ public class PlayerController implements InputListener {
     }
     private void actionTest(String action, InputEvent.Type type) {
         switch (type) {
-            case PRESSED, HELD -> {
+            case PRESSED -> {
                 switch (action) {
+                    case "IS_SPRINTING" -> activeActions.add(PlayerAction.IS_SPRINTING);
+                    case "MOVE_FORWARD" -> activeActions.add(PlayerAction.MOVING_FORWARD);
+                    case "MOVE_BACKWARD" -> activeActions.add(PlayerAction.MOVING_BACKWARD);
+                    case "MOVE_LEFT" -> activeActions.add(PlayerAction.MOVING_LEFT);
+                    case "MOVE_RIGHT" -> activeActions.add(PlayerAction.MOVING_RIGHT);
+                    case "MOVE_UP" -> activeActions.add(PlayerAction.MOVING_UP);
+                    case "MOVE_DOWN" -> activeActions.add(PlayerAction.MOVING_DOWN);
+                    case "QUIT" -> window.setShouldClose();
+                    case "DEBUG_INFO" -> window.rm.toggleF3();
+                    case "SWITCH_PERSPECTIVE" -> camera.toggleCameraMode();
+                }
+            }
+            case HELD -> {
+                switch (action) {
+                    case "IS_SPRINTING" -> activeActions.add(PlayerAction.IS_SPRINTING);
                     case "MOVE_FORWARD" -> activeActions.add(PlayerAction.MOVING_FORWARD);
                     case "MOVE_BACKWARD" -> activeActions.add(PlayerAction.MOVING_BACKWARD);
                     case "MOVE_LEFT" -> activeActions.add(PlayerAction.MOVING_LEFT);
@@ -68,7 +95,11 @@ public class PlayerController implements InputListener {
             }
             case RELEASED -> {
                 switch (action) {
-                    case "MOVE_FORWARD" -> activeActions.remove(PlayerAction.MOVING_FORWARD);
+                    //case "IS_SPRINTING" -> activeActions.remove(PlayerAction.IS_SPRINTING);
+                    case "MOVE_FORWARD" -> {
+                        activeActions.remove(PlayerAction.IS_SPRINTING);
+                        activeActions.remove(PlayerAction.MOVING_FORWARD);
+                    }
                     case "MOVE_BACKWARD" -> activeActions.remove(PlayerAction.MOVING_BACKWARD);
                     case "MOVE_LEFT" -> activeActions.remove(PlayerAction.MOVING_LEFT);
                     case "MOVE_RIGHT" -> activeActions.remove(PlayerAction.MOVING_RIGHT);
@@ -89,14 +120,14 @@ public class PlayerController implements InputListener {
         rawInput.resetMouseDelta();
 
         vectorMovement(deltaTime);
-        debugOutput(dx, dy);
+        debugOutput(deltaTime, dx, dy);
     }
 
     public void vectorMovement(float deltaTime){
         // old val 1.2
-        float moveSpeed = 5f * deltaTime;
+        float moveSpeed = (activeActions.contains(PlayerAction.IS_SPRINTING)) ? /*7.5f*/ 25f * deltaTime : 5f * deltaTime;
 
-        Vector3f forward = camera.getFrontVector();
+        Vector3f forward = camera.getViewDirection();
         Vector3f right = camera.getRightVector();
 
         Vector3f forwardFlatTest = new Vector3f(forward.x, 0, forward.z).normalize();
@@ -122,12 +153,24 @@ public class PlayerController implements InputListener {
     }
 
 
-    private void debugOutput(float dx, float dy) {
+    /*private void debugOutput(float dx, float dy) {
         if (System.currentTimeMillis() % 1000 < 16) {
             System.out.printf("> COORDS: (%.2f, %.2f, %.2f)%n",
                     position.x, position.y, position.z);
             System.out.printf("\n> MOUSE: (%.2f, %.2f)%n",
                     dx, dy);
         }
+    } */
+
+    private void debugOutput(float deltaTime, float dx, float dy) {
+        debugTimer += deltaTime;
+        if (debugTimer < DEBUG_INTERVAL) return;
+        debugTimer = 0f;
+
+        System.out.printf("> COORDS: (%.2f, %.2f, %.2f)%n",
+                position.x, position.y, position.z);
+        System.out.printf("> MOUSE:  (%.2f, %.2f)%n",
+                dx, dy);
+        System.out.printf("%n> RAM: %f MB%n", (float) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024));
     }
 }
