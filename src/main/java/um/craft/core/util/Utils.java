@@ -1,40 +1,60 @@
 package um.craft.core.util;
 
 import org.lwjgl.system.MemoryStack;
+
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.*;
 
 import com.google.gson.*;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class Utils {
+
+    public static List<String> fetchPngs() {
+        URL url = Utils.class.getClassLoader().getResource("assets/textures/blocks");
+        if (url == null) return List.of();
+        try (Stream<Path> stream = Files.list(Paths.get(url.toURI()))) {
+            return stream.map(path -> path.getFileName().toString())
+                    .filter(f -> f.endsWith(".png"))
+                    .toList();
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static String loadResource(String file) {
-            try {
-                // resource aus java resources im classpath laden
-                URL url = Utils.class.getClassLoader().getResource(file);
-                if (url == null) throw new FileNotFoundException("Resource nicht gefunden: " + file);
+        try {
+            // resource aus java resources im classpath laden
+            URL url = Utils.class.getClassLoader().getResource(file);
+            if (url == null) throw new FileNotFoundException("Resource nicht gefunden: " + file);
 
 
-                try (InputStream is = url.openStream();
-                     BufferedReader reader = new BufferedReader(
-                             new InputStreamReader(is))) {
+            try (InputStream is = url.openStream();
+                 BufferedReader reader = new BufferedReader(
+                         new InputStreamReader(is))) {
 
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line).append("\n");
-                    }
-                    return sb.toString();
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
                 }
-            } catch (Exception e) {
-                throw new RuntimeException("Resource '" + file + "' nicht gefunden", e);
+                return sb.toString();
             }
+        } catch (Exception e) {
+            throw new RuntimeException("Resource '" + file + "' nicht gefunden", e);
+        }
     }
 
 
@@ -54,8 +74,8 @@ public class Utils {
         }
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            IntBuffer w    = stack.mallocInt(1);
-            IntBuffer h    = stack.mallocInt(1);
+            IntBuffer w = stack.mallocInt(1);
+            IntBuffer h = stack.mallocInt(1);
             IntBuffer comp = stack.mallocInt(1);
 
             stbi_set_flip_vertically_on_load(true);
@@ -63,7 +83,7 @@ public class Utils {
             if (image == null)
                 throw new RuntimeException("stbi konnte textur nicht laden: " + path + " , " + stbi_failure_reason());
 
-            width  = w.get(0);
+            width = w.get(0);
             height = h.get(0);
         }
 
@@ -104,7 +124,6 @@ public class Utils {
     }
 
 
-
     private static JsonElement getJsonElement(String file, String key) {
         String content = loadResource(file);
         JsonObject root = JsonParser.parseString(content).getAsJsonObject();
@@ -129,40 +148,45 @@ public class Utils {
 
     public static float readSettings(String path, String key, float defaultValue) {
         try {
-            return getJsonElement(path, key).getAsFloat(); }
-        catch (Exception e) {
+            return getJsonElement(path, key).getAsFloat();
+        } catch (Exception e) {
             return defaultValue;
         }
     }
+
     public static int readSettings(String path, String key, int defaultValue) {
         try {
-            return getJsonElement(path, key).getAsInt(); }
-        catch (Exception e) {
+            return getJsonElement(path, key).getAsInt();
+        } catch (Exception e) {
             return defaultValue;
         }
     }
+
     public static boolean readSettings(String path, String key, boolean defaultValue) {
         try {
-            return getJsonElement(path, key).getAsBoolean(); }
-        catch (Exception e) {
+            return getJsonElement(path, key).getAsBoolean();
+        } catch (Exception e) {
             return defaultValue;
         }
     }
+
     public static String readSettings(String path, String key, String defaultValue) {
         try {
-            return getJsonElement(path, key).getAsString(); }
-        catch (Exception e) {
+            return getJsonElement(path, key).getAsString();
+        } catch (Exception e) {
             return defaultValue;
         }
     }
-    public static JsonArray readArray(String path, String key){
+
+    public static JsonArray readArray(String path, String key) {
         try {
-            return getJsonElement(path, key).getAsJsonArray(); }
-        catch (Exception e) {
+            return getJsonElement(path, key).getAsJsonArray();
+        } catch (Exception e) {
             return new JsonArray();
         }
     }
-    public static JsonObject readObject(String path, String key){
+
+    public static JsonObject readObject(String path, String key) {
         try {
             return getJsonElement(path, key).getAsJsonObject();
         } catch (Exception e) {
