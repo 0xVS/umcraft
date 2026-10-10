@@ -5,7 +5,6 @@ import org.joml.Vector3f;
 import um.craft.core.logic.PlayerController;
 import um.craft.core.util.ObjLoader;
 import um.craft.core.world.World;
-import um.craft.core.world.block.BlockState;
 import um.craft.core.render.Mesh;
 import um.craft.core.render.Shader;
 import um.craft.core.render.Texture;
@@ -32,7 +31,7 @@ public class RenderManager {
     private Mesh meshBlock;
     private Texture texture;
     private final Camera camera;
-    private WindowManager wm;
+    private final WindowManager wm;
     private Projection projection;
     float scale = 0.5f;
 
@@ -46,7 +45,6 @@ public class RenderManager {
     private Texture crosshairTexture;
 
     private HudManager hudManager;
-    private DebugOverlay debugOverlay;
     private CrosshairElement crosshairElement;
     // -------------
 
@@ -147,7 +145,7 @@ public class RenderManager {
         updateHudAspect();
 
         hudManager = new HudManager();
-        debugOverlay = new DebugOverlay(windowWidth, windowHeight);
+        DebugOverlay debugOverlay = new DebugOverlay(windowWidth, windowHeight);
         debugOverlay.addLine(() -> String.format("x: %.2f y: %.2f z: %.2f",
                 playerController.getPosition().x,
                 playerController.getPosition().y,
@@ -308,7 +306,7 @@ public class RenderManager {
         Matrix4f modelMatrix = new Matrix4f()
                 .translation(bodyPos.x, bodyPos.y, bodyPos.z)
                 // SPÄTER FÜR DEN KOPF DIE ROTATION EINBAUEN, DER KÖRPER SOLL NUR DIE TRANSLATION HABEN DAMIT DER KOPF DER KAMERA FOLGT
-                .rotateY((float) Math.toRadians(-camera.getYaw() - 90f));;
+                .rotateY((float) Math.toRadians(-camera.getYaw() - 90f));
         shader.setMat4("modelMatrix", modelMatrix);
         glActiveTexture(GL_TEXTURE0);
         playerTexture.bind();

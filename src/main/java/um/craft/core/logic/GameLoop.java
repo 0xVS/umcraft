@@ -9,12 +9,11 @@ public class GameLoop {
     private final PlayerController playerController;
     private boolean isRunning = false;
 
-    Shader shader = new Shader();
+    final Shader shader = new Shader();
 
     // zeitvariablen für gameloop
     private long lastTime;
     private float deltaTime;
-    private int fps;
     private long lastFpsTime;
     private int frameCount;
 
@@ -61,7 +60,7 @@ public class GameLoop {
         long currentTime = System.nanoTime();
 
         if (currentTime - lastFpsTime >= 1_000_000_000) {
-            fps = frameCount;
+            int fps = frameCount;
             frameCount = 0;
             lastFpsTime = currentTime;
             System.out.println("FPS: " + fps + " | Delta: " + String.format("%.6f", deltaTime));

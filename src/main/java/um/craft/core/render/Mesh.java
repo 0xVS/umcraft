@@ -5,10 +5,6 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.system.MemoryUtil;
 import static org.lwjgl.opengl.ARBVertexArrayObject.*;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
-import static org.lwjgl.opengl.GL11.GL_FLOAT;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 
 public class Mesh {

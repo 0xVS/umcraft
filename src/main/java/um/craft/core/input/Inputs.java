@@ -8,20 +8,18 @@ import org.lwjgl.glfw.GLFWMouseButtonCallback;
 
 public class Inputs {
     // array mit größe der anzahl von allen unterstützen tasten von glfw
-    private boolean[] keys =  new boolean[GLFW.GLFW_KEY_LAST];
+    private final boolean[] keys =  new boolean[GLFW.GLFW_KEY_LAST];
 
     // das gleiche für mouse buttons
-    private boolean[] buttons =  new boolean[GLFW.GLFW_MOUSE_BUTTON_LAST];
-
-    private static double mouseX, mouseY;
+    private final boolean[] buttons =  new boolean[GLFW.GLFW_MOUSE_BUTTON_LAST];
 
     private static double lastMouseX, lastMouseY;
     private static double mouseDeltaX, mouseDeltaY;
     private boolean firstMouse = true;
 
-    private GLFWKeyCallback keyboard;
-    private GLFWCursorPosCallback cursorMovement;
-    private GLFWMouseButtonCallback mouseButtons;
+    private final GLFWKeyCallback keyboard;
+    private final GLFWCursorPosCallback cursorMovement;
+    private final GLFWMouseButtonCallback mouseButtons;
 
     public Inputs() {
         keyboard = new GLFWKeyCallback() {
@@ -53,8 +51,6 @@ public class Inputs {
 
                 lastMouseX = xPos;
                 lastMouseY = yPos;
-                mouseX = xPos;
-                mouseY = yPos;
             }
         };
 

@@ -14,9 +14,8 @@ public class BlockModelLoader {
 
         List<String> validFaces = new ArrayList<>();
         modelAsJson.get("faces").getAsJsonArray()
-                .forEach(face -> {
-                    validFaces.add(face.getAsString());
-                });
+                .forEach(face -> validFaces.add(face.getAsString()));
+
 
         String id = blockAsJson.get("id").getAsString();
         boolean solid = blockAsJson.get("solid").getAsBoolean();

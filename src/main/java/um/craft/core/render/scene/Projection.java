@@ -9,7 +9,7 @@ public class Projection {
     private static final float Z_NEAR = 0.01f;
     private static final float Z_FAR = 1000.0f;
 
-    private Matrix4f projMatrix;
+    private final Matrix4f projMatrix;
 
     public Projection(int width, int height){
         projMatrix = new Matrix4f();

@@ -16,15 +16,15 @@ import java.util.EnumSet;
 // Movement soll Objekt nicht mehr bewegen sondern später den Spieler
 public class PlayerController implements InputListener {
 
-    private InputHandler inputHandler;
-    private Inputs rawInput;
-    private Camera camera;
+    private final InputHandler inputHandler;
+    private final Inputs rawInput;
+    private final Camera camera;
     //private final Vector3f position;
     //private final Vector3f rotation;
-    private Vector3f moveDir = new Vector3f();
+    private final Vector3f moveDir = new Vector3f();
     private final Vector3f position = new Vector3f(0, 0, 0);
 
-    WindowManager window;
+    final WindowManager window;
 
     /* FÜR DEBUG OUTPUT ZEUG:
 

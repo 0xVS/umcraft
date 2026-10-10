@@ -21,9 +21,6 @@ public class Camera {
     }
 
     private CameraMode currentMode = CameraMode.FIRST_PERSON;
-    private float THIRD_PERSON_DISTANCE = 3f;
-    // ansonsten 1.6f probieren
-    private float EYE_HEIGHT = 1.7f;
 
 
     public Camera() {
@@ -73,6 +70,7 @@ public class Camera {
     public Matrix4f getViewMatrix() {
         //Vector3f target = new Vector3f(position).add(front);
 
+        float THIRD_PERSON_DISTANCE = 3f;
         switch (currentMode) {
             case FIRST_PERSON -> //target.set(position).add(front);
                     position.set(playerPosition);
@@ -98,6 +96,8 @@ public class Camera {
 
     public void updatePosition(Vector3f playerPos) {
         this.playerBodyPosition.set(playerPos);
+        // ansonsten 1.6f probieren
+        float EYE_HEIGHT = 1.7f;
         this.playerPosition.set(playerPos.x, playerPos.y + EYE_HEIGHT, playerPos.z);
     }
 

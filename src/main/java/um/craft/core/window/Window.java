@@ -11,7 +11,7 @@ public class Window {
     private final long handle;
     private final String title;
     private int width, height;
-    private boolean vsync;
+    private final boolean vsync;
     private boolean resized;
 
     public Window(String title, int width, int height, boolean vsync) {
