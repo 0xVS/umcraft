@@ -49,12 +49,11 @@ public class Chunk {
                     if (state.type() == Blocks.AIR) continue;
 
                     float wx = originX + x;
-                    float wy = y;
                     float wz = originZ + z;
 
                     for (int i = 0; i < blockVertices.length; i += 5) {
                         vertices.add(blockVertices[i]     + wx);
-                        vertices.add(blockVertices[i + 1] + wy);
+                        vertices.add(blockVertices[i + 1] + (float) y);
                         vertices.add(blockVertices[i + 2] + wz);
                         vertices.add(blockVertices[i + 3]); // u
                         vertices.add(blockVertices[i + 4]); // v

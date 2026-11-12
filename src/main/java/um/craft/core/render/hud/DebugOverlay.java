@@ -9,8 +9,8 @@ import java.util.function.Supplier;
 
 public class DebugOverlay implements HudElement {
     private boolean visible = false;
-    private HudMesh backgroundMesh;
-    private Texture backgroundTexture;
+    private final HudMesh backgroundMesh;
+    private final Texture backgroundTexture;
 
     private final List<Supplier<String>> lines = new ArrayList<>();
 

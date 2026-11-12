@@ -10,15 +10,15 @@ public class InputHandler {
 
     private final Inputs rawInput;
 
-    private Map<Integer, String> keyBindings = new HashMap<>();
-    private Map<Integer, String> mouseBindings = new HashMap<>();
+    private final Map<Integer, String> keyBindings = new HashMap<>();
+    private final Map<Integer, String> mouseBindings = new HashMap<>();
 
     // EventListeners
-    private List<InputListener> listeners = new ArrayList<>();
+    private final List<InputListener> listeners = new ArrayList<>();
 
     private final Set<String> activeActions = new HashSet<>();
 
-    private boolean[] keyWasPressed = new boolean[GLFW.GLFW_KEY_LAST];
+    private final boolean[] keyWasPressed = new boolean[GLFW.GLFW_KEY_LAST];
 
     public InputHandler(Inputs rawInput) {
         this.rawInput = rawInput;
@@ -108,7 +108,7 @@ public class InputHandler {
                 notifyListeners(action, InputEvent.Type.RELEASED);
                 keyWasPressed[key] = false;
 
-            } else if (isPressed && wasPressed) {
+            } else if (isPressed) {
                 // taste wird GEHALTEN
                 notifyListeners(action, InputEvent.Type.HELD);
                 activeActions.add(action);

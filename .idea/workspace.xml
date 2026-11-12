@@ -4,13 +4,53 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="????">
+    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="Added: polling methode, die window.pollEvents() aufruft in GameLoop.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/render/hud/HudManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/hud/HudManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/RenderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/TextureAtlas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/scene/TextureAtlas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/util/ObjLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/util/ObjLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/util/TextureAtlasMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/util/TextureAtlasMaker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/util/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/test/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/block/cross.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/block/cross.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/block/cube.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/block/cube.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/block/slab.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/block/slab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/block/stair.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/block/stair.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/cobblestone.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/cobblestone.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/dirt.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/dirt.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/dirt_coarse.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/dirt_coarse.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/grass.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/grass.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/ore_coal.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/ore_coal.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/ore_diamond.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/ore_diamond.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/ore_emerald.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/ore_emerald.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/sand.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/sand.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/blockstates/stone.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/blockstates/stone.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/entity/player/player_model.mtl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/entity/player/player_model.mtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/entity/player/player_model.obj" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/entity/player/player_model.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/models/temp.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/models/temp.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/shaders/fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/shaders/fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/shaders/hud_fragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/shaders/hud_fragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/shaders/hud_vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/shaders/hud_vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/shaders/vertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/shaders/vertex.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/cobblestone.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/cobblestone.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/debug.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/debug.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/dirt.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/dirt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/dirt_coarse.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/dirt_coarse.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/grass_block_side.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/grass_block_side.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/grass_block_top.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/grass_block_top.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/ore_.mdp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/ore_.mdp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/ore_coal.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/ore_coal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/ore_diamond.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/ore_diamond.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/ore_emerald.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/ore_emerald.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/sand.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/sand.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/stone.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/stone.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/test.mdp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/test.mdp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/entity/player/debug_player.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/entity/player/debug_player.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/gui/crosshair.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/gui/crosshair.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/gui/debug_bg.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/gui/debug_bg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/keybinds.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/keybinds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/keybinds_default.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/keybinds_default.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/settings_default.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/settings_default.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +67,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="vincent" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -47,6 +87,69 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$PROJECT_DIR$/../../../../Program Files/Eclipse Adoptium/jdk-17.0.17.10-hotspot/lib/src.zip!/java.base/java/lang/RuntimeException.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0029604169762456" />
+      <entry key="MS500" value="1.3640592187793055" />
+      <entry key="S2" value="3.0978141789865052" />
+      <entry key="S5" value="6.693891211108738" />
+      <entry key="S10" value="12.295856461273107" />
+      <entry key="S30" value="24.584508815099728" />
+      <entry key="S60" value="30.939509648107652" />
+      <entry key="M2" value="35.11646632975512" />
+      <entry key="M5" value="39.64385123664447" />
+      <entry key="M10" value="44.564609843878536" />
+      <entry key="M15" value="47.6911136050678" />
+      <entry key="M30" value="52.24805985992137" />
+      <entry key="H1" value="55.287523599046956" />
+      <entry key="H2" value="57.05027456341334" />
+      <entry key="H4" value="58.00047789149403" />
+      <entry key="D1" value="58.82987281656691" />
+      <entry key="W1" value="58.97560787391207" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="5.266492609616747E-138" />
+      <entry key="S5" value="1.579003100551374E-55" />
+      <entry key="S10" value="5.5589635380735865E-28" />
+      <entry key="S30" value="1.5303342363416007E-9" />
+      <entry key="S60" value="6.63449786256729E-5" />
+      <entry key="M2" value="0.014025899222495277" />
+      <entry key="M5" value="0.35027411658292623" />
+      <entry key="M10" value="1.0248404709587013" />
+      <entry key="M15" value="1.4659540406485592" />
+      <entry key="M30" value="2.0970493250673985" />
+      <entry key="H1" value="2.5081984973799414" />
+      <entry key="H2" value="2.743094797217577" />
+      <entry key="H4" value="2.8686716721129097" />
+      <entry key="D1" value="2.9777015013441672" />
+      <entry key="W1" value="2.996804301362953" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.8144346247667227" />
+      <entry key="MS500" value="1.3024421026044535" />
+      <entry key="S2" value="3.0586778252681635" />
+      <entry key="S5" value="6.66048048307084" />
+      <entry key="S10" value="12.261442255382438" />
+      <entry key="S30" value="24.556363362998674" />
+      <entry key="S60" value="30.920817202913398" />
+      <entry key="M2" value="35.11899212827325" />
+      <entry key="M5" value="39.983228941216346" />
+      <entry key="M10" value="45.5778830274016" />
+      <entry key="M15" value="49.14667236414947" />
+      <entry key="M30" value="54.337981504974465" />
+      <entry key="H1" value="57.79152679217903" />
+      <entry key="H2" value="59.79109089313947" />
+      <entry key="H4" value="60.86796193719363" />
+      <entry key="D1" value="61.80736937204734" />
+      <entry key="W1" value="61.97238272181084" />
+    </decayedShown>
   </component>
   <component name="ProblemsViewState">
     <hideBySeverity>
@@ -218,7 +321,9 @@
     <MESSAGE value="bisschen chunks hinzugefügt" />
     <MESSAGE value="sprinten hinzugefügt glaub ich" />
     <MESSAGE value="aspect hinzugefügt, damit das crosshair im fall onResize() nicht gestretched wird (besonders im fullscreen)" />
-    <option name="LAST_COMMIT_MESSAGE" value="aspect hinzugefügt, damit das crosshair im fall onResize() nicht gestretched wird (besonders im fullscreen)" />
+    <MESSAGE value="Added: Window polling jetzt in GameLoop vor dem update" />
+    <MESSAGE value="Added: polling methode, die window.pollEvents() aufruft in GameLoop.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added: polling methode, die window.pollEvents() aufruft in GameLoop.java" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

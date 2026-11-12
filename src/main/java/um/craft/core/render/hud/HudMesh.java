@@ -13,7 +13,10 @@ import static org.lwjgl.opengl.GL30C.glGenVertexArrays;
 import static org.lwjgl.opengl.GL30C.glBindVertexArray;
 
 public class HudMesh {
-    private int vaoId, vboId, iboId, vertexCounter;
+    private final int vaoId;
+    private final int vboId;
+    private final int iboId;
+    private final int vertexCounter;
 
     public HudMesh(float[] vertices, int[] indices) {
         vertexCounter = indices.length;

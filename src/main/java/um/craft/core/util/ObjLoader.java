@@ -17,10 +17,11 @@ public class ObjLoader {
         List<Float>   vertices = new ArrayList<>();
         List<Integer> indices  = new ArrayList<>();
 
-        System.out.println("Obj path?: " + ObjLoader.class.getClassLoader().getResource(path));
+        String resourcePath = "resources/assets/models/entity/player/" + path;
+        System.out.println("Obj path?: " + ObjLoader.class.getClassLoader().getResource(resourcePath));
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                ObjLoader.class.getClassLoader().getResourceAsStream("assets/models/entity/player/" + path)))) {
+                ObjLoader.class.getClassLoader().getResourceAsStream(resourcePath)))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.strip();

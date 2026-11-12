@@ -1,7 +1,5 @@
 package um.craft.core.render.scene;
 
-import um.craft.core.world.block.BlockType;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

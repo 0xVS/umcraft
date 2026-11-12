@@ -9,12 +9,19 @@ import um.craft.core.render.Shader;
 import um.craft.core.util.Utils;
 import um.craft.core.window.WindowManager;
 
+import java.util.logging.Logger;
+
 
 public class Launcher {
     static Shader shader;
 
+    private static final Logger LOGGER = Logger.getLogger(Launcher.class.getName());
+
     public static void main(String[] args) throws Exception {
+
+
         System.out.println("[INFO] LWJGL Version: " + Version.getVersion());
+        LOGGER.info("--- LOGGER Test Msg");
 
         WindowManager wm = new WindowManager(
                 Utils.readSettings("settings.json", "window.title", "default_craft"),

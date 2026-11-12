@@ -1,7 +1,5 @@
 package um.craft.core.world.block;
 
-import org.joml.Vector2d;
-import um.craft.core.render.Texture;
 import um.craft.core.util.BlockModelLoader;
 
 import java.util.Map;

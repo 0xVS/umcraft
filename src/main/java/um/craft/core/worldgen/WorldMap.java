@@ -3,12 +3,7 @@ package um.craft.core.worldgen;
 import java.util.concurrent.ThreadLocalRandom;
 
 //speichert die einzelnen blöcke eines chunks
-class Chunk {
-    String[][] chunkBlocks;
-
-    public Chunk(String[][] chunkBlocks) {
-        this.chunkBlocks = chunkBlocks;
-    }
+record Chunk(String[][] chunkBlocks) {
 }
 
 
@@ -31,8 +26,8 @@ public class WorldMap {
 
         public static BIOME randomBiome(){
             BIOME[] biomes = values();
-            for (int i = 0; i < biomes.length; i++) {
-                System.out.println(biomes[i]);
+            for (BIOME biome : biomes) {
+                System.out.println(biome);
             }
             int randomizer = ThreadLocalRandom.current().nextInt(2, biomes.length);
             return biomes[randomizer];

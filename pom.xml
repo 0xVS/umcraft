@@ -202,4 +202,14 @@
             </properties>
         </profile>
     </profiles>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>resources/**</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>
