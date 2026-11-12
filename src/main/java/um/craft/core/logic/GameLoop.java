@@ -44,6 +44,7 @@ public class GameLoop {
             deltaTime = (currentTime - lastTime) / 1_000_000_000.0f;
             lastTime = currentTime;
 
+            windowManager.pollEvents();
             update(deltaTime);
             updateFPS();
             windowManager.update();
