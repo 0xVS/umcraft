@@ -69,7 +69,7 @@ public class WindowManager {
         // setzt farbe (temporär) für fenster
         //setClearColor(0, 0, 0, 1.0f);
         //GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-        if (window.isResized()){
+        if (window.isResized()) {
             rm.onResize(window.getWidth(), window.getHeight());
             window.resetResized();
         }
@@ -80,8 +80,8 @@ public class WindowManager {
 
         rm.render();
         window.swapBuffers();
-        // sagt opengl, dass alle jetzigen objekte in der queue gerendert werden sollen
-        window.pollEvents();
+        // sagt opengl, dass alle jetzigea
+        //window.pollEvents();
     }
 
     public void cleanup() {
@@ -97,6 +97,10 @@ public class WindowManager {
     }
     public boolean windowShouldClose() {
         return window.shouldClose();
+    }
+
+    public void pollEvents() {
+        window.pollEvents();
     }
 
     public void updateProjectionMatrix() {
