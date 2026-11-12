@@ -14,7 +14,7 @@ public class TextureAtlasMaker {
     }
 
     public static void getAllTextures() throws URISyntaxException, IOException {
-        URL url = Utils.class.getClassLoader().getResource("assets/textures/blocks");
+        URL url = Utils.class.getClassLoader().getResource("resources/assets/textures/blocks");
 
         if (url != null) {
             List<String> pngFiles = Files.list(Paths.get(url.toURI()))
