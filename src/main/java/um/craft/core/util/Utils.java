@@ -20,8 +20,10 @@ import java.util.stream.Stream;
 
 public class Utils {
 
+    private static final String RESOURCES = "resources/";
+
     public static List<String> fetchPngs() {
-        URL url = Utils.class.getClassLoader().getResource("assets/textures/blocks");
+        URL url = Utils.class.getClassLoader().getResource(RESOURCES + "assets/textures/blocks");
         if (url == null) return List.of();
         try (Stream<Path> stream = Files.list(Paths.get(url.toURI()))) {
             return stream.map(path -> path.getFileName().toString())
@@ -35,8 +37,8 @@ public class Utils {
     public static String loadResource(String file) {
         try {
             // resource aus java resources im classpath laden
-            URL url = Utils.class.getClassLoader().getResource(file);
-            if (url == null) throw new FileNotFoundException("Resource nicht gefunden: " + file);
+            URL url = Utils.class.getClassLoader().getResource(RESOURCES + file);
+            if (url == null) throw new FileNotFoundException("Resource nicht gefunden: " + RESOURCES + file);
 
 
             try (InputStream is = url.openStream();
@@ -63,9 +65,9 @@ public class Utils {
 
         String absPath;
         try {
-            URL url = Utils.class.getClassLoader().getResource("assets/textures/" + path);
+            URL url = Utils.class.getClassLoader().getResource(RESOURCES + "assets/textures/" + path);
             if (url == null)
-                throw new RuntimeException("Textur nicht im Classpath gefunden: assets/textures/" + path);
+                throw new RuntimeException("Textur nicht im Classpath gefunden: " + RESOURCES + "assets/textures/" + path);
             absPath = java.nio.file.Paths.get(url.toURI()).toFile().getAbsolutePath();
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Pfad-Handling der Textur: " + path, e);
