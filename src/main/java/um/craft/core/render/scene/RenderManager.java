@@ -2,7 +2,9 @@ package um.craft.core.render.scene;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import um.craft.core.debug.DebugContext;
 import um.craft.core.logic.PlayerController;
+import um.craft.core.render.font.NanoVGFontRenderer;
 import um.craft.core.util.ObjLoader;
 import um.craft.core.world.World;
 import um.craft.core.render.Mesh;
@@ -12,6 +14,7 @@ import um.craft.core.render.hud.CrosshairElement;
 import um.craft.core.render.hud.DebugOverlay;
 import um.craft.core.render.hud.HudManager;
 import um.craft.core.render.hud.HudMesh;
+import um.craft.core.util.Log;
 import um.craft.core.util.Utils;
 import um.craft.core.window.WindowManager;
 import um.craft.core.world.Chunk;
@@ -38,6 +41,12 @@ public class RenderManager {
     private int windowWidth;
     private int windowHeight;
 
+
+    // FONT
+
+    private NanoVGFontRenderer font;
+
+
     // GUI zeug
 
     private Shader hudShader;
@@ -45,8 +54,9 @@ public class RenderManager {
     private Texture crosshairTexture;
 
     private HudManager hudManager;
+    private DebugOverlay debugOverlay;
     private CrosshairElement crosshairElement;
-    // -------------
+
 
     // CHUNK ZEUG
     public final int RENDER_DISTANCE = Utils.readSettings("settings.json", "render.render_distance", 4);
@@ -126,17 +136,19 @@ public class RenderManager {
         this.camera = new Camera();
         this.windowWidth = wm.getWidth();
         this.windowHeight = wm.getHeight();
+        DebugContext.setCamera(camera);
     }
 
     public void setPlayerController(PlayerController playerController) {
         this.playerController = playerController;
+        DebugContext.setPlayer(playerController);
     }
 
     public void init() throws Exception {
         this.shader = new Shader();
         projection = new Projection(wm.getWidth(), wm.getHeight());
-        System.out.println("[INFO] Window size: " + wm.getWidth() + "x" + wm.getHeight());
-        System.out.println("[DEBUG] ProjMatrix: \n" + projection.getProjMatrix());
+        Log.info("Window size: " + wm.getWidth() + "x" + wm.getHeight());
+        Log.debug("ProjMatrix: \n" + projection.getProjMatrix());
 
         hudShader = new Shader();
         hudShader.createVertexShader(Utils.loadResource("assets/shaders/hud_vertex.glsl"));
@@ -145,26 +157,26 @@ public class RenderManager {
         updateHudAspect();
 
         hudManager = new HudManager();
-        DebugOverlay debugOverlay = new DebugOverlay(windowWidth, windowHeight);
-        debugOverlay.addLine(() -> String.format("x: %.2f y: %.2f z: %.2f",
-                playerController.getPosition().x,
-                playerController.getPosition().y,
-                playerController.getPosition().z));
-        debugOverlay.addLine(() -> String.format("yaw: %.2f pitch: %.2f",
-                camera.getYaw(),
-                camera.getPitch()));
+        debugOverlay = new DebugOverlay(windowWidth, windowHeight);
+
         hudManager.add("debugOverlay", debugOverlay);
         //hudManager.add("crosshair")
 
-        crosshairTexture = new Texture("gui/crosshair.png");
+
+        font = new NanoVGFontRenderer("fonts/minogram_6x10.ttf");
+
+        font.resize(windowWidth, windowHeight);
+
+        crosshairTexture = new Texture("textures/gui/crosshair.png");
         buildCrosshair(windowWidth, windowHeight);
 
         playerMesh = ObjLoader.load("player_model.obj");
-        playerTexture = new Texture("entity/player/debug_player.png");
+        playerTexture = new Texture("textures/entity/player/debug_player.png");
 
         world = new World();
+        DebugContext.setWorld(world);
 
-        texture = new Texture("blocks/dirt.png");
+        texture = new Texture("textures/blocks/dirt.png");
 
         /*
 
@@ -198,11 +210,14 @@ public class RenderManager {
         shader.link();
 
         meshBlock = new Mesh(blockPositions, blockIndices);
+
     }
 
     public void onResize(int width, int height){
         windowHeight = height;
         windowWidth = width;
+        font.resize(width, height);
+        hudManager.resize(width, height);
         projection.updateProjMatrix(width, height);
         updateHudAspect();
     }
@@ -216,7 +231,7 @@ public class RenderManager {
         float sizeX = 0.05f;
         //float sizeY = 0.05f * ((float) windowWidth / windowHeight); // aspect ratio korrektur
         float sizeY = 0.05f; // * ((float) w / h);
-        System.out.println("[DEBUG] crosshair rebuilt: " + windowWidth + "x" + windowHeight
+        Log.debug("crosshair rebuilt: " + windowWidth + "x" + windowHeight
                 + " sizeY=" + sizeY);
 
         float[] crosshairVertices = {
@@ -281,6 +296,8 @@ public class RenderManager {
         renderChunk(fullChunk);
 */
 
+
+
         // MARKER
         glActiveTexture(GL_TEXTURE0);
         texture.bind();
@@ -297,6 +314,13 @@ public class RenderManager {
         shader.unbind();
         //renderHUD();
         hudManager.render(hudShader);
+
+        font.beginFrame(windowWidth, windowHeight, 1f);
+        try {
+            hudManager.renderText(font);
+        } finally {
+            font.endFrame();
+        }
     }
 
     private void renderPlayerCube() {
@@ -346,6 +370,8 @@ public class RenderManager {
     public void cleanup() {
         shader.cleanup();
         meshBlock.cleanup();
+        hudManager.cleanup();
+        font.trash();
     }
 
 
