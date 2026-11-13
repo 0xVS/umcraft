@@ -63,12 +63,10 @@ public class Camera {
 
 
     public void setFirstPersonPosition(Vector3f playerPos) {
-        - Changed: Überflüssige Leerzeile in "setFirstPersonPosition" entfernt        position.set(playerPos.x, playerPos.y, playerPos.z);
+        position.set(playerPos.x, playerPos.y, playerPos.z);
     }
 
     public Matrix4f getViewMatrix() {
-        //Vector3f target = new Vector3f(position).add(front);
-
         float THIRD_PERSON_DISTANCE = 3f;
         switch (currentMode) {
             case FIRST_PERSON -> //target.set(position).add(front);
