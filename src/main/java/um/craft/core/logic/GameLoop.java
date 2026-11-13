@@ -1,5 +1,7 @@
 package um.craft.core.logic;
 
+import um.craft.core.debug.DebugContext;
+import um.craft.core.util.Log;
 import um.craft.core.window.WindowManager;
 import um.craft.core.render.*;
 
@@ -16,6 +18,7 @@ public class GameLoop {
     private float deltaTime;
     private long lastFpsTime;
     private int frameCount;
+    private int fps;
 
     public GameLoop(WindowManager windowManager, PlayerController playerController) throws Exception {
         this.windowManager = windowManager;
@@ -26,12 +29,13 @@ public class GameLoop {
         if (isRunning) return;
 
         isRunning = true;
+        DebugContext.setFpsSupplier(this::getFps);
 
         lastTime = System.nanoTime();
         lastFpsTime = System.nanoTime();
         frameCount = 0;
 
-        System.out.println("[DEBUG] Gameloop wurde gestartet");
+        Log.debug("Gameloop wurde gestartet");
 
         run();
     }
@@ -61,11 +65,14 @@ public class GameLoop {
         long currentTime = System.nanoTime();
 
         if (currentTime - lastFpsTime >= 1_000_000_000) {
-            int fps = frameCount;
+            fps = frameCount;
             frameCount = 0;
             lastFpsTime = currentTime;
-            System.out.println("FPS: " + fps + " | Delta: " + String.format("%.6f", deltaTime));
         }
+    }
+
+    public int getFps() {
+        return fps;
     }
 
     private void stop() {
