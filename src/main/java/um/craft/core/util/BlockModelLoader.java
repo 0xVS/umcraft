@@ -32,7 +32,7 @@ public class BlockModelLoader {
 
         // "all" unter "textures":... für alle faces vom block
         if (textures.has("all")) {
-            Texture fallback = new Texture(textures.get("all").getAsString() + ".png");
+            Texture fallback = new Texture("textures/" + textures.get("all").getAsString() + ".png");
             validFaces.forEach(face -> result.put(face, fallback));
         }
 
@@ -40,7 +40,7 @@ public class BlockModelLoader {
         for (var entry : textures.entrySet()) {
             if (entry.getKey().equals("all")) continue;
             if (validFaces.contains(entry.getKey())) {
-                result.put(entry.getKey(), new Texture(entry.getValue().getAsString() + ".png"));
+                result.put(entry.getKey(), new Texture("textures/" + entry.getValue().getAsString() + ".png"));
             }
         }
 
