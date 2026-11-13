@@ -8,6 +8,7 @@ import org.lwjgl.opengl.*;
 import um.craft.core.logic.PlayerController;
 import um.craft.core.render.scene.Camera;
 import um.craft.core.render.scene.RenderManager;
+import um.craft.core.util.Log;
 
 public class WindowManager {
 // neues Zeug für commit lol
@@ -105,7 +106,7 @@ public class WindowManager {
 
     public void updateProjectionMatrix() {
         float aspectRatio = (float) window.getWidth() / window.getHeight();
-        System.out.println("[DEBUG] Projection Aspect Ratio = " + aspectRatio);
+        Log.debug("Projection Aspect Ratio = " + aspectRatio);
         projectionMatrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
     }
 
