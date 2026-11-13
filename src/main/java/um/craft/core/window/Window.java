@@ -4,6 +4,7 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.MemoryUtil;
 import org.lwjgl.system.MemoryStack;
+import um.craft.core.util.Log;
 
 import java.nio.IntBuffer;
 
@@ -24,7 +25,8 @@ public class Window {
 
 
     private long createWindow() {
-        GLFWErrorCallback.createPrint(System.err).set();
+        GLFWErrorCallback.create((error, description) ->
+                Log.error("GLFW Error [" + error + "]: " + MemoryUtil.memUTF8(description))).set();
 
         // wenn GLFW nicht initted wurde, dann throw
         if (!GLFW.glfwInit()) throw new IllegalStateException("Fehler beim Initialisieren von GLFW");
@@ -74,7 +76,7 @@ public class Window {
 
 
     private void onFramebufferResize(long window, int width, int height) {
-        System.out.println(">> [NOTI] Resized: "+width+" x "+height);
+        Log.noti("Resized: " + width + " x " + height);
         if (height == 0 || width == 0) return;
         this.width = width;
         this.height = height;
