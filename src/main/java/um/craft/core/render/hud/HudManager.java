@@ -1,6 +1,7 @@
 package um.craft.core.render.hud;
 
 import um.craft.core.render.Shader;
+import um.craft.core.render.font.NanoVGFontRenderer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,6 +12,16 @@ import static org.lwjgl.opengl.GL13C.glActiveTexture;
 
 public class HudManager {
     private final Map<String, HudElement> hudElements = new LinkedHashMap<>();
+
+    public void renderText(NanoVGFontRenderer font) {
+        hudElements.values().stream()
+                .filter(HudElement::isVisible)
+                .forEach(e -> e.renderText(font));
+    }
+
+    public void resize(int width, int height) {
+        hudElements.values().forEach(e -> e.resize(width, height));
+    }
 
     public void add(String id, HudElement element) {
         HudElement old = hudElements.put(id, element);
