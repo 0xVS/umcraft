@@ -63,8 +63,7 @@ public class Camera {
 
 
     public void setFirstPersonPosition(Vector3f playerPos) {
-
-        position.set(playerPos.x, playerPos.y, playerPos.z);
+        - Changed: Überflüssige Leerzeile in "setFirstPersonPosition" entfernt        position.set(playerPos.x, playerPos.y, playerPos.z);
     }
 
     public Matrix4f getViewMatrix() {
