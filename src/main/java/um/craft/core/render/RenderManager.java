@@ -1,15 +1,15 @@
-package um.craft.core.render.scene;
+package um.craft.core.render;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import um.craft.core.debug.DebugContext;
 import um.craft.core.logic.PlayerController;
 import um.craft.core.render.font.NanoVGFontRenderer;
+import um.craft.core.render.cam.Camera;
+import um.craft.core.render.cam.CameraMode;
+import um.craft.core.render.cam.Projection;
 import um.craft.core.util.ObjLoader;
 import um.craft.core.world.World;
-import um.craft.core.render.Mesh;
-import um.craft.core.render.Shader;
-import um.craft.core.render.Texture;
 import um.craft.core.render.hud.CrosshairElement;
 import um.craft.core.render.hud.DebugOverlay;
 import um.craft.core.render.hud.HudManager;
