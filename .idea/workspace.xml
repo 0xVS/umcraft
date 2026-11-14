@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="- Changed: Texture Path mit &quot;textures/&quot; prefix">
+    <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="Moved: für klarere Struktur">
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/ui/Button.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/ui/Label.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/ui/Panel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/ui/UIElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/render/ui/UIManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/scene/Scene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/scene/SceneManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/scene/menu/MainMenuScene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/scene/world/WorldScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/test/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/ore_.mdp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/ore_.mdp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/textures/blocks/test.mdp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/assets/textures/blocks/test.mdp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/debug/DebugContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/debug/DebugContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/logic/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/logic/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/window/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/window/WindowManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +27,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -38,6 +48,13 @@
     &quot;assignee&quot;: &quot;n1kla507&quot;
   }
 }</component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="pattern" />
+      </list>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/0xVS/umcraft.git&quot;,
@@ -54,60 +71,60 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000689396840512" />
-      <entry key="S2" value="1.1320168318533943" />
-      <entry key="S5" value="1.80735795101434" />
-      <entry key="S10" value="2.6117701835923763" />
-      <entry key="S30" value="4.348170798153577" />
-      <entry key="S60" value="6.329834518288401" />
-      <entry key="M2" value="10.536336048764298" />
-      <entry key="M5" value="19.56673959755117" />
-      <entry key="M10" value="29.853706769609364" />
-      <entry key="M15" value="40.43609361611129" />
-      <entry key="M30" value="72.78244845974358" />
-      <entry key="H1" value="131.40724370486427" />
-      <entry key="H2" value="233.96638853436497" />
-      <entry key="H4" value="366.62327688485675" />
-      <entry key="D1" value="593.893926962807" />
-      <entry key="W1" value="651.6549274584848" />
+      <entry key="MS500" value="1.0000000000000182" />
+      <entry key="S2" value="1.000614031637854" />
+      <entry key="S5" value="1.0790882646903988" />
+      <entry key="S10" value="1.4240629327036833" />
+      <entry key="S30" value="3.127612261473537" />
+      <entry key="S60" value="5.242990527930281" />
+      <entry key="M2" value="7.5533399960716565" />
+      <entry key="M5" value="14.205550254204253" />
+      <entry key="M10" value="28.19230400779513" />
+      <entry key="M15" value="41.59637267733317" />
+      <entry key="M30" value="78.18279109393616" />
+      <entry key="H1" value="140.9333036605138" />
+      <entry key="H2" value="247.41802553136327" />
+      <entry key="H4" value="386.01366280266075" />
+      <entry key="D1" value="628.3429274388347" />
+      <entry key="W1" value="690.7845624055356" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="7.49510892398366E-226" />
-      <entry key="S10" value="2.737719657668347E-113" />
-      <entry key="S30" value="3.0139057609400467E-38" />
-      <entry key="S60" value="1.736419305510671E-19" />
-      <entry key="M2" value="4.2684775075890583E-10" />
-      <entry key="M5" value="2.653012197267319E-4" />
-      <entry key="M10" value="0.03288289555830092" />
-      <entry key="M15" value="0.18548970343894824" />
-      <entry key="M30" value="1.381960715516141" />
-      <entry key="H1" value="5.652193298515824" />
-      <entry key="H2" value="15.074865458003845" />
-      <entry key="H4" value="27.256808027395554" />
-      <entry key="D1" value="47.204319115354224" />
-      <entry key="W1" value="52.12417116414983" />
+      <entry key="S5" value="1.727076277636794E-293" />
+      <entry key="S10" value="4.155810724319385E-147" />
+      <entry key="S30" value="1.6077502915455662E-49" />
+      <entry key="S60" value="4.010505071515704E-25" />
+      <entry key="M2" value="6.487019887665934E-13" />
+      <entry key="M5" value="1.9790106871018452E-5" />
+      <entry key="M10" value="0.00898099592835947" />
+      <entry key="M15" value="0.07808293053236719" />
+      <entry key="M30" value="0.8966311991554758" />
+      <entry key="H1" value="4.552773871782277" />
+      <entry key="H2" value="13.52953847383514" />
+      <entry key="H4" value="25.82199329390635" />
+      <entry key="D1" value="46.78078793664646" />
+      <entry key="W1" value="52.05710231595132" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8293195458144417" />
-      <entry key="MS500" value="0.963328949663799" />
-      <entry key="S2" value="1.1218150279358015" />
-      <entry key="S5" value="1.8014780303036289" />
-      <entry key="S10" value="2.6077517437173134" />
-      <entry key="S30" value="4.345980833662817" />
-      <entry key="S60" value="6.32816358946786" />
-      <entry key="M2" value="10.534874526700372" />
-      <entry key="M5" value="19.56581334688877" />
-      <entry key="M10" value="29.885074797017" />
-      <entry key="M15" value="40.61890353254568" />
-      <entry key="M30" value="74.15824001651181" />
-      <entry key="H1" value="137.05004434028905" />
-      <entry key="H2" value="249.03048581551204" />
-      <entry key="H4" value="393.87085568923425" />
-      <entry key="D1" value="641.0956509543656" />
-      <entry key="W1" value="703.7786903666372" />
+      <entry key="MS100" value="0.9395227492140118" />
+      <entry key="MS500" value="0.9876008614453905" />
+      <entry key="S2" value="0.997497479466138" />
+      <entry key="S5" value="1.0777251975644124" />
+      <entry key="S10" value="1.4230546264402442" />
+      <entry key="S30" value="3.1248377799144444" />
+      <entry key="S60" value="5.239176253116024" />
+      <entry key="M2" value="7.5500098450316715" />
+      <entry key="M5" value="14.20318777110172" />
+      <entry key="M10" value="28.19919646215378" />
+      <entry key="M15" value="41.67200572176881" />
+      <entry key="M30" value="79.07461829220877" />
+      <entry key="H1" value="145.47806660685967" />
+      <entry key="H2" value="260.937664473186" />
+      <entry key="H4" value="411.82679176025044" />
+      <entry key="D1" value="675.1211228961112" />
+      <entry key="W1" value="742.8412540302046" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -129,41 +146,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.FontRenderer.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestClass.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TextureAtlasMaker.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;Application.WorldMap.executor&quot;: &quot;Run&quot;,
-    &quot;JavaVariableFindUsagesOptions.isSearchForAccessors&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.rust.reset.selective.auto.import&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;schlachtfeld&quot;,
-    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;2&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/vince/IdeaProjects/umcraft/src/main/java/resources/assets/fonts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FontRenderer.executor": "Run",
+    "Application.Launcher.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.TestClass.executor": "Run",
+    "Application.TextureAtlasMaker.executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "Application.WorldMap.executor": "Run",
+    "JavaVariableFindUsagesOptions.isSearchForAccessors": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "schlachtfeld",
+    "git.auto.fetch.suggestion.counter": "2",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/vince/IdeaProjects/umcraft/src/main/java/resources/assets/fonts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/resources/assets/fonts" />
@@ -284,10 +301,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changed: Utils class now uses the new resource path" />
-    <MESSAGE value="Changed: Now uses the new resource path" />
-    <MESSAGE value="." />
-    <MESSAGE value="Changes: Utils.loadTexture liest nun PNGs als InputStream, dadurch .jar kompatibel für später. Dann mem clear in finally." />
     <MESSAGE value="Changes:&#10; - Utils.loadTexture liest nun PNGs als InputStream, dadurch .jar kompatibel für später. Dann mem clear in finally.&#10; &#10; - fetchPngs() ist nicht .jar sicher und wird nicht aufgerufen. Erstmal durch Annotationen markiert." />
     <MESSAGE value="Added: default-Methoden für Font Rendering" />
     <MESSAGE value="- Changed: Ausgaben auf &quot;Log&quot; umgestellt und Fehler mit Stacktrace gelogged&#10;- Added: Statische version const &quot;VERSION&quot; inklusive &quot;getVersion()&quot;" />
@@ -307,9 +320,13 @@
     <MESSAGE value="- Added: Enum mit dynamischen Debug Infos&#10;  - VERSION, POSITION, ROTATION, FPS, RAM, CHUNK_POS und LOADED_CHUNKS&#10;  - Jeder Eintrag liefert seinen Text über einen &quot;Supplier&lt;String&gt;&quot;" />
     <MESSAGE value="- Added: &quot;NanoVGFontRenderer&quot; init, resizen und HUD Text zeichnen&#10;- Added: &quot;DebugOverlay&quot; als field und DebugContext für Camera, Player und World&#10;- Changed: Ressource Path auf &quot;textures/...&quot; umgestellt&#10;- Changed: Outputs auf &quot;Log&quot; umgestellt" />
     <MESSAGE value="- Added: &quot;add&quot;, &quot;remove&quot;, &quot;setEnabled&quot; und &quot;isEnabled&quot; zur Steuerung vom Display&#10;- Changed: Text wird über &quot;NanoVGFontRenderer&quot; gerendert&#10;- Added: &quot;resize(int, int)&quot; für  Anpassung an Fenstergröße" />
-    <MESSAGE value="- Changed: Überflüssiges entfernt" />
     <MESSAGE value="- Changed: Texture Path mit &quot;textures/&quot; prefix" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Changed: Texture Path mit &quot;textures/&quot; prefix" />
+    <MESSAGE value="- Changed: Überflüssiges entfernt" />
+    <MESSAGE value="- Removed: Test File" />
+    <MESSAGE value="- Removed: Unused File" />
+    <MESSAGE value="." />
+    <MESSAGE value="Moved: für klarere Struktur" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved: für klarere Struktur" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
