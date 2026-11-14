@@ -1,5 +1,7 @@
 package um.craft.core.worldgen;
 
+import um.craft.core.util.Log;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 //speichert die einzelnen blöcke eines chunks
@@ -27,7 +29,7 @@ public class WorldMap {
         public static BIOME randomBiome(){
             BIOME[] biomes = values();
             for (BIOME biome : biomes) {
-                System.out.println(biome);
+                Log.debug(String.valueOf(biome));
             }
             int randomizer = ThreadLocalRandom.current().nextInt(2, biomes.length);
             return biomes[randomizer];
@@ -66,7 +68,7 @@ public class WorldMap {
             startingBiome = BIOME.randomBiome();
         }
 
-        System.out.println("[LOG] ---- startingChunk: " + startingBiome);
+        Log.log("---- startingChunk: " + startingBiome);
 
         //hier werden die Blöcke des startenden Chunks geladen
 

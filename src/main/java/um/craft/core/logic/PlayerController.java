@@ -8,7 +8,7 @@ import um.craft.core.input.InputEvent;
 import um.craft.core.input.InputHandler;
 import um.craft.core.input.InputListener;
 import um.craft.core.input.Inputs;
-import um.craft.core.render.scene.Camera;
+import um.craft.core.render.cam.Camera;
 import um.craft.core.window.WindowManager;
 
 import java.util.EnumSet;
@@ -25,13 +25,6 @@ public class PlayerController implements InputListener {
     private final Vector3f position = new Vector3f(0, 0, 0);
 
     final WindowManager window;
-
-    /* FÜR DEBUG OUTPUT ZEUG:
-
-        IM DEBUGPRINT
-    */
-    private float debugTimer = 0f;
-    private static final float DEBUG_INTERVAL = 5.0f; // IN SEKUNDEN
 
     // test für sprint
     public boolean isSprinting;
@@ -120,7 +113,6 @@ public class PlayerController implements InputListener {
         rawInput.resetMouseDelta();
 
         vectorMovement(deltaTime);
-        debugOutput(deltaTime, dx, dy);
     }
 
     public void vectorMovement(float deltaTime){
@@ -150,27 +142,5 @@ public class PlayerController implements InputListener {
 
     public Vector3f getPosition() {
         return position;
-    }
-
-
-    /*private void debugOutput(float dx, float dy) {
-        if (System.currentTimeMillis() % 1000 < 16) {
-            System.out.printf("> COORDS: (%.2f, %.2f, %.2f)%n",
-                    position.x, position.y, position.z);
-            System.out.printf("\n> MOUSE: (%.2f, %.2f)%n",
-                    dx, dy);
-        }
-    } */
-
-    private void debugOutput(float deltaTime, float dx, float dy) {
-        debugTimer += deltaTime;
-        if (debugTimer < DEBUG_INTERVAL) return;
-        debugTimer = 0f;
-
-        System.out.printf("> COORDS: (%.2f, %.2f, %.2f)%n",
-                position.x, position.y, position.z);
-        System.out.printf("> MOUSE:  (%.2f, %.2f)%n",
-                dx, dy);
-        System.out.printf("%n> RAM: %f MB%n", (float) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024));
     }
 }

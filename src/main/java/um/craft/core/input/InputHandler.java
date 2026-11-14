@@ -1,6 +1,9 @@
 package um.craft.core.input;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.lwjgl.glfw.GLFW;
+import um.craft.core.util.Log;
 import um.craft.core.util.Utils;
 
 import java.lang.reflect.Field;
@@ -37,8 +40,10 @@ public class InputHandler {
         // maus bindings
 
         String f3Key = Utils.readSettings("keybinds.json", "debug.info", "F3");
-        System.out.println("[DEBUG] debug.info key: '" + f3Key + "'");
+        Log.debug("debug.info key: '" + f3Key + "'");
         bindKeySafe(f3Key, "DEBUG_INFO");
+
+
 
         bindMouseButton(GLFW.GLFW_MOUSE_BUTTON_LEFT, "ATTACK");
         bindMouseButton(GLFW.GLFW_MOUSE_BUTTON_RIGHT, "USE");
@@ -51,6 +56,8 @@ public class InputHandler {
         bindKey(GLFW.GLFW_KEY_F5, "SWITCH_PERSPECTIVE");
     }
 
+
+
     private int glfwNumConverter(String keybind){
         String fieldStr = "GLFW_KEY_" + keybind.toUpperCase();
 
@@ -58,7 +65,7 @@ public class InputHandler {
             Field field = GLFW.class.getField(fieldStr);
             return field.getInt(null);
         } catch (NoSuchFieldException e) {
-            System.err.println("[ERROR] GLFW Key wurde nicht gefunden");
+            Log.error("GLFW Key wurde nicht gefunden");
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -73,7 +80,7 @@ public class InputHandler {
     private void bindKeySafe(String keyName, String action) {
         int key = glfwNumConverter(keyName);
         if (key == -1) {
-            System.err.println("[WARN] Keybind übersprungen – unbekannte Taste: " + keyName);
+            Log.warn("Keybind übersprungen – unbekannte Taste: " + keyName);
             return;
         }
         bindKey(key, action);

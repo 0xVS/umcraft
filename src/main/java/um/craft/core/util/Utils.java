@@ -40,7 +40,7 @@ public class Utils {
 
     public static String loadResource(String file) {
         try {
-            // resource aus java resources im classpath laden
+            // resource aus java resource ordner laden
             URL url = Utils.class.getClassLoader().getResource(RESOURCES + file);
             if (url == null) throw new FileNotFoundException("Resource nicht gefunden: " + RESOURCES + file);
 
@@ -61,8 +61,21 @@ public class Utils {
         }
     }
 
+    public static byte[] loadResourceBytes(String file) {
+        String path = RESOURCES + file;
+
+        try (InputStream is = Utils.class.getClassLoader().getResourceAsStream(path)) {
+            if (is == null)
+                throw new RuntimeException("Resource nicht im Classpath gefunden: " + path);
+            return is.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("Fehler beim Lesen der Resource: " + path, e);
+        }
+    }
+
+    // assets/ als einstiegspunkt
     public static int loadTexture(String path) {
-        String resourcePath = RESOURCES + "assets/textures/" + path;
+        String resourcePath = RESOURCES + "assets/" + path;
 
         byte[] encoded;
         try (InputStream is = Utils.class.getClassLoader().getResourceAsStream(resourcePath)) {
@@ -108,7 +121,7 @@ public class Utils {
 
             stbi_image_free(image);
 
-            System.out.println("[DEBUG] Textur geladen: " + path);
+            Log.debug("Textur geladen: " + path);
             return textureId;
         } finally {
             MemoryUtil.memFree(fileBuffer);

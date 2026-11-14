@@ -18,7 +18,6 @@ public class ObjLoader {
         List<Integer> indices  = new ArrayList<>();
 
         String resourcePath = "resources/assets/models/entity/player/" + path;
-        System.out.println("Obj path?: " + ObjLoader.class.getClassLoader().getResource(resourcePath));
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 ObjLoader.class.getClassLoader().getResourceAsStream(resourcePath)))) {
@@ -79,8 +78,7 @@ public class ObjLoader {
             }
 
         } catch (Exception e) {
-            System.err.println("[ObjLoader] Fehler beim Laden: " + path);
-            e.printStackTrace();
+            Log.error("ObjLoader: Fehler beim Laden: " + path, e);
         }
 
         // in primitive arrays umwandeln für Mesh

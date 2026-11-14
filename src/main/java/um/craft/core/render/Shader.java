@@ -2,6 +2,7 @@ package um.craft.core.render;
 
 import org.joml.Matrix4f;
 import org.lwjgl.system.MemoryStack;
+import um.craft.core.util.Log;
 
 import static org.lwjgl.opengl.GL20.*;
 // Shader Klasse überarbeitet
@@ -23,7 +24,7 @@ public class Shader {
         if (location != -1){
             glUniform2f(location, x, y);
         } else {
-            System.err.println("Uniform " + name + " nicht gefunden");
+            Log.warn("Uniform " + name + " nicht gefunden");
         }
     }
 
@@ -64,7 +65,7 @@ public class Shader {
 
         if (glGetShaderi(shaderId, GL_COMPILE_STATUS) == 0) {
             String log = glGetShaderInfoLog(shaderId, 1024);
-            System.out.println(log);
+            Log.error("Shader-Kompilierung fehlgeschlagen:\n" + log);
             throw new Exception("Shader Exception");
         }
 
@@ -88,7 +89,7 @@ public class Shader {
         }
 
         glValidateProgram(programId);
-        if (glGetProgrami(programId, GL_VALIDATE_STATUS) == 0)  System.err.println("WARNUNG: Validiernug vom Shader code: " + log);
+        if (glGetProgrami(programId, GL_VALIDATE_STATUS) == 0)  Log.warn("Validierung vom Shader-Code: " + log);
     }
     public void bind() {
         glUseProgram(programId);
@@ -99,6 +100,6 @@ public class Shader {
     public void cleanup(){
         unbind();
         if (programId != 0) glDeleteProgram(programId);
-        System.out.println("[SUCCESS] Shader cleanup fertig");
+        Log.success("Shader cleanup fertig");
     }
 }
