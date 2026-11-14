@@ -1,4 +1,4 @@
-package um.craft.core.render.scene;
+package um.craft.core.render.cam;
 
 public enum CameraMode {
     FIRST_PERSON,
