@@ -1,8 +1,7 @@
 package um.craft.core.debug;
 
-import um.craft.core.Launcher;
 import um.craft.core.logic.PlayerController;
-import um.craft.core.render.scene.Camera;
+import um.craft.core.render.cam.Camera;
 import um.craft.core.world.World;
 
 import java.util.function.IntSupplier;

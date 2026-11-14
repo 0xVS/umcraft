@@ -6,8 +6,8 @@ import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.*;
 import um.craft.core.logic.PlayerController;
-import um.craft.core.render.scene.Camera;
-import um.craft.core.render.scene.RenderManager;
+import um.craft.core.render.cam.Camera;
+import um.craft.core.render.RenderManager;
 import um.craft.core.util.Log;
 
 public class WindowManager {
