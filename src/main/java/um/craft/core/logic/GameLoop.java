@@ -1,17 +1,19 @@
 package um.craft.core.logic;
 
 import um.craft.core.debug.DebugContext;
+import um.craft.core.input.InputHandler;
+import um.craft.core.scene.SceneManager;
 import um.craft.core.util.Log;
 import um.craft.core.window.WindowManager;
-import um.craft.core.render.*;
+// import um.craft.core.render.*;
 
 public class GameLoop {
 
     private final WindowManager windowManager;
-    private final PlayerController playerController;
+    // private final PlayerController playerController;
     private boolean isRunning = false;
 
-    final Shader shader = new Shader();
+    // final Shader shader = new Shader();
 
     // zeitvariablen für gameloop
     private long lastTime;
@@ -19,10 +21,17 @@ public class GameLoop {
     private long lastFpsTime;
     private int frameCount;
     private int fps;
+    private SceneManager sceneManager;
+    private InputHandler inputHandler;
 
-    public GameLoop(WindowManager windowManager, PlayerController playerController) throws Exception {
+    // public GameLoop(WindowManager windowManager, PlayerController playerController, InputHandler inputHandler, SceneManager sceneManager) throws Exception {
+    //     this.windowManager = windowManager;
+    //     this.playerController = playerController;
+    // }
+    public GameLoop(WindowManager windowManager, InputHandler inputHandler, SceneManager sceneManager) {
         this.windowManager = windowManager;
-        this.playerController = playerController;
+        this.inputHandler = inputHandler;
+        this.sceneManager = sceneManager;
     }
 
     public void start() {
@@ -49,16 +58,26 @@ public class GameLoop {
             lastTime = currentTime;
 
             windowManager.pollEvents();
-            update(deltaTime);
+
+            // update(deltaTime);
+            inputHandler.update();
+            sceneManager.update(deltaTime);
+
+            if (windowManager.beginFrame()) {
+                sceneManager.resize(windowManager.getWidth(), windowManager.getHeight());
+            }
+            sceneManager.render();
+
             updateFPS();
-            windowManager.update();
+            // windowManager.update();
+            windowManager.endFrame();
         }
-        shader.cleanup();
+        // shader.cleanup();
     }
 
-    private void update(float deltaTime) {
-        playerController.update(deltaTime);
-    }
+    // private void update(float deltaTime) {
+    //     playerController.update(deltaTime);
+    // }
 
     private void updateFPS() {
         frameCount++;
