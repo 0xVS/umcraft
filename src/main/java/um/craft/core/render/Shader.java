@@ -6,7 +6,6 @@ import org.lwjgl.system.MemoryStack;
 import um.craft.core.util.Log;
 
 import static org.lwjgl.opengl.GL20.*;
-// Shader Klasse überarbeitet
 public class Shader {
     private final int programId;
 

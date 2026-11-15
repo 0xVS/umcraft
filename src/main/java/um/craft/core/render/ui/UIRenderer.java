@@ -101,8 +101,7 @@ public class UIRenderer {
     }
 
     public void drawQuad(float x, float y, float w, float h, Texture texture, Vector4f tint) {
-        // Texturen werden mit stbi_set_flip_vertically_on_load(true) geladen,
-        // daher muss die V-Achse fuer die UI (oben-links Ursprung) invertiert werden.
+        // Texturen laden wir mit stbi_set_flip_vertically_on_load(true) -> V-Achse für UI invertieren
         drawQuad(x, y, w, h, texture, tint, 0f, 1f, 1f, 0f);
     }
 
