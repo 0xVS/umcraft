@@ -5,6 +5,9 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
+import org.lwjgl.system.MemoryStack;
+
+import java.nio.IntBuffer;
 
 public class Inputs {
     // array mit größe der anzahl von allen unterstützen tasten von glfw
@@ -15,6 +18,12 @@ public class Inputs {
 
     private static double lastMouseX, lastMouseY;
     private static double mouseDeltaX, mouseDeltaY;
+    private static double mouseX, mouseY;
+
+
+
+
+
     private boolean firstMouse = true;
 
     private final GLFWKeyCallback keyboard;
@@ -40,6 +49,7 @@ public class Inputs {
                 if (firstMouse) {
                     lastMouseX = xPos;
                     lastMouseY = yPos;
+                    updateMousePosition(window, xPos, yPos);
                     mouseDeltaX = 0;
                     mouseDeltaY = 0;
                     firstMouse = false;
@@ -48,6 +58,8 @@ public class Inputs {
 
                 mouseDeltaX = xPos - lastMouseX;
                 mouseDeltaY = lastMouseY - yPos;
+
+                updateMousePosition(window, xPos, yPos);
 
                 lastMouseX = xPos;
                 lastMouseY = yPos;
@@ -62,6 +74,33 @@ public class Inputs {
         };
     }
 
+    // GLFW liefert Cursor Pos in Fenster Koordinaten
+    // UI wird jedoch in Framebuffer/Pixel Koordinaten gerendert -> umrechnen
+    private static void updateMousePosition(long window, double xPos, double yPos) {
+        float scaleX = 1f;
+        float scaleY = 1f;
+
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer windowWidth = stack.mallocInt(1);
+            IntBuffer windowHeight = stack.mallocInt(1);
+            IntBuffer framebufferWidth = stack.mallocInt(1);
+            IntBuffer framebufferHeight = stack.mallocInt(1);
+
+            GLFW.glfwGetWindowSize(window, windowWidth, windowHeight);
+            GLFW.glfwGetFramebufferSize(window, framebufferWidth, framebufferHeight);
+
+            if (windowWidth.get(0) > 0) {
+                scaleX = (float) framebufferWidth.get(0) / windowWidth.get(0);
+            }
+            if (windowHeight.get(0) > 0) {
+                scaleY = (float) framebufferHeight.get(0) / windowHeight.get(0);
+            }
+        }
+
+        mouseX = xPos * scaleX;
+        mouseY = yPos * scaleY;
+    }
+
     public boolean isKeyDown(int key) {
         return keys[key];
     }
@@ -74,6 +113,9 @@ public class Inputs {
         mouseButtons.free();
         cursorMovement.free();
     }
+
+    public float getMouseX() { return (float) mouseX; }
+    public float getMouseY() { return (float) mouseY; }
 
     public double getMouseDeltaX() {
         return mouseDeltaX;
