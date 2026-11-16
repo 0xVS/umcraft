@@ -4,15 +4,21 @@ import java.util.concurrent.ThreadLocalRandom;
 
 //speichert die einzelnen blöcke eines chunks
 class Chunk {
-    String[][] chunkBlocks;
+    //ein Chunk besteht aus den Blöcken auf der x y und z koordinate
+    //x und z sind hier jeweils 16 blöcke und y 384, da dies die höhe in mc wiedergibt
+    String[][][] chunkBlocks;
 
-    public Chunk(String[][] chunkBlocks) {
+    public Chunk(String[][][] chunkBlocks) {
         this.chunkBlocks = chunkBlocks;
     }
 }
 
 
 public class WorldMap {
+    //Werte für die Generierung eines Chunks
+    private static final int CHUNK_HEIGHT = 384;
+    private static final int CHUNK_WIDTH = 16;
+    private static final int SEA_LEVEL = 62;
 
     enum BIOME {
         OCEANS,
@@ -39,10 +45,6 @@ public class WorldMap {
         }
     }
 
-
-    //größe des zu ladenden chunks in x und y Richtung
-    final static int CHUNKSIZE = 16;
-
     //Anzahl an chunks die geladen werden auf normaler map
     final int MAPSIZE = 128;
 
@@ -54,8 +56,8 @@ public class WorldMap {
 
         //hier das Prüfen welche Biom in dem chunk enthalten sind und in welche Richtung
         //die chunks kombinieren
-        for (int i = 0; i < CHUNKSIZE; i++) {
-            for (int j = 0; j < CHUNKSIZE; j++) {
+        for (int i = 0; i < CHUNK_WIDTH; i++) {
+            for (int j = 0; j < CHUNK_WIDTH; j++) {
 
             }
 
@@ -63,7 +65,7 @@ public class WorldMap {
     }
 
     public static Chunk beginningChunkLoad(){
-        String[][] tempchunk = new String[CHUNKSIZE][CHUNKSIZE];
+        String[][][] tempchunk = new String[CHUNK_WIDTH][CHUNK_HEIGHT][CHUNK_WIDTH];
 
         BIOME startingBiome = BIOME.randomBiome();
 

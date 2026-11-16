@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec3df321-9a7b-4f4b-a89d-4ed98e3d9967" name="Changes" comment="bisschen chunks hinzugefügt">
+      <change afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/noises/Perlin_noises.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/GeneratingChunk.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/um/craft/core/WorldGen/WorldMap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,12 +35,12 @@
     &quot;assignee&quot;: &quot;n1kla507&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/0xVS/umcraft.git",
-    "accountId": "d775e836-af99-43ca-ac89-0a1b2ed1c722"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/0xVS/umcraft.git&quot;,
+    &quot;accountId&quot;: &quot;d775e836-af99-43ca-ac89-0a1b2ed1c722&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -49,29 +49,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Launcher.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.WorldMap.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "niklas",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/Java/demo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Perlin_noises.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.WorldMap.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;niklas&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Java/demo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -80,7 +82,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1768845697945</updated>
-      <workItem from="1778075577472" duration="1552000" />
+      <workItem from="1778075577472" duration="1867000" />
+      <workItem from="1778180110880" duration="2385000" />
+      <workItem from="1778234087445" duration="865000" />
+      <workItem from="1778417613183" duration="600000" />
+      <workItem from="1778488767980" duration="1628000" />
+      <workItem from="1778583252448" duration="11031000" />
+      <workItem from="1778663412140" duration="1800000" />
+      <workItem from="1779088584950" duration="3647000" />
+      <workItem from="1779190006149" duration="844000" />
+      <workItem from="1780042381557" duration="2290000" />
+      <workItem from="1780300945994" duration="635000" />
+      <workItem from="1780312293409" duration="628000" />
+      <workItem from="1780912929360" duration="8000" />
+      <workItem from="1794819015262" duration="313000" />
     </task>
     <task id="LOCAL-00001" summary="Erster Aufbau einer möglichen Map generierung">
       <option name="closed" value="true" />
@@ -114,7 +129,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775134945621</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="bisschen chunks hinzugefügt">
+      <option name="closed" value="true" />
+      <created>1778077217685</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778077217688</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,6 +150,21 @@
     <MESSAGE value="ka" />
     <MESSAGE value="bisschen chunks hinzugefügt" />
     <option name="LAST_COMMIT_MESSAGE" value="bisschen chunks hinzugefügt" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/um/craft/core/noises/Perlin_noises.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
