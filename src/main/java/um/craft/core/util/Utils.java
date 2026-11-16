@@ -24,6 +24,68 @@ public class Utils {
 
     private static final String RESOURCES = "resources/";
 
+    public record LoadedTexture(int id, int width, int height) {}
+
+    // assets/ als einstiegspunkt
+    public static LoadedTexture loadTextureData(String path) {
+
+        String resourcePath = RESOURCES + "assets/" + path;
+
+        byte[] encoded;
+        try (InputStream is = Utils.class.getClassLoader().getResourceAsStream(resourcePath)) {
+            if (is == null)
+                throw new RuntimeException("Textur nicht im Classpath gefunden: " + resourcePath);
+            encoded = is.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("Fehler beim Lesen der Textur: " + resourcePath, e);
+        }
+        if (encoded.length == 0)
+            throw new RuntimeException("Textur ist leer: " + resourcePath);
+
+        ByteBuffer fileBuffer = MemoryUtil.memAlloc(encoded.length);
+        try {
+            fileBuffer.put(encoded).flip();
+
+            int width, height;
+            ByteBuffer image;
+            try (MemoryStack stack = MemoryStack.stackPush()) {
+                IntBuffer w = stack.mallocInt(1);
+                IntBuffer h = stack.mallocInt(1);
+                IntBuffer comp = stack.mallocInt(1);
+
+                stbi_set_flip_vertically_on_load(true);
+                image = stbi_load_from_memory(fileBuffer, w, h, comp, 4);
+                if (image == null)
+                    throw new RuntimeException("stbi konnte Textur nicht laden: " + resourcePath + " , " + stbi_failure_reason());
+
+                width = w.get(0);
+                height = h.get(0);
+            }
+
+            int textureId = glGenTextures();
+            glBindTexture(GL_TEXTURE_2D, textureId);
+
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+            // texutr in gpu geladen
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+            stbi_image_free(image);
+
+            Log.debug("Textur geladen: " + path);
+            return new LoadedTexture(textureId, width, height);
+        } finally {
+            MemoryUtil.memFree(fileBuffer);
+        }
+    }
+
+    public static int loadTexture(String path) {
+        return loadTextureData(path).id();
+    }
+
     @Deprecated
     @DoNotCall
     public static List<String> fetchPngs() {
@@ -73,60 +135,7 @@ public class Utils {
         }
     }
 
-    // assets/ als einstiegspunkt
-    public static int loadTexture(String path) {
-        String resourcePath = RESOURCES + "assets/" + path;
 
-        byte[] encoded;
-        try (InputStream is = Utils.class.getClassLoader().getResourceAsStream(resourcePath)) {
-            if (is == null)
-                throw new RuntimeException("Textur nicht im Classpath gefunden: " + resourcePath);
-            encoded = is.readAllBytes();
-        } catch (IOException e) {
-            throw new RuntimeException("Fehler beim Lesen der Textur: " + resourcePath, e);
-        }
-        if (encoded.length == 0)
-            throw new RuntimeException("Textur ist leer: " + resourcePath);
-
-        ByteBuffer fileBuffer = MemoryUtil.memAlloc(encoded.length);
-        try {
-            fileBuffer.put(encoded).flip();
-
-            int width, height;
-            ByteBuffer image;
-            try (MemoryStack stack = MemoryStack.stackPush()) {
-                IntBuffer w = stack.mallocInt(1);
-                IntBuffer h = stack.mallocInt(1);
-                IntBuffer comp = stack.mallocInt(1);
-
-                stbi_set_flip_vertically_on_load(true);
-                image = stbi_load_from_memory(fileBuffer, w, h, comp, 4);
-                if (image == null)
-                    throw new RuntimeException("stbi konnte Textur nicht laden: " + resourcePath + " , " + stbi_failure_reason());
-
-                width = w.get(0);
-                height = h.get(0);
-            }
-
-            int textureId = glGenTextures();
-            glBindTexture(GL_TEXTURE_2D, textureId);
-
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-            // texutr in gpu geladen
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-
-            stbi_image_free(image);
-
-            Log.debug("Textur geladen: " + path);
-            return textureId;
-        } finally {
-            MemoryUtil.memFree(fileBuffer);
-        }
-    }
 
     /*
 

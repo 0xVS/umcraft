@@ -1,11 +1,11 @@
 package um.craft.core.render;
 
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 import org.lwjgl.system.MemoryStack;
 import um.craft.core.util.Log;
 
 import static org.lwjgl.opengl.GL20.*;
-// Shader Klasse überarbeitet
 public class Shader {
     private final int programId;
 
@@ -26,6 +26,11 @@ public class Shader {
         } else {
             Log.warn("Uniform " + name + " nicht gefunden");
         }
+    }
+
+    public void setVec4(String name, Vector4f value){
+        int location = glGetUniformLocation(programId, name);
+        if (location != -1) glUniform4f(location, value.x, value.y, value.z, value.w);
     }
 
     public void setInt(String name, int value){

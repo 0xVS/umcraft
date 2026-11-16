@@ -1,4 +1,6 @@
+![umcraft_title.png](src/main/java/resources/assets/textures/gui/umcraft_title.png)
 # umcraft
+
 
 umcraft ist ein Hobbyprojekt, um Game Development mit der Java LWJGL-Library zu lernen.
 

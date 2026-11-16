@@ -227,6 +227,10 @@ public class RenderManager {
         hudShader.setFloat("aspect_r", (float) windowWidth / windowHeight);
     }
 
+    public NanoVGFontRenderer getFont() {
+        return font;
+    }
+
     private void buildCrosshair(int w, int h){
         float sizeX = 0.05f;
         //float sizeY = 0.05f * ((float) windowWidth / windowHeight); // aspect ratio korrektur

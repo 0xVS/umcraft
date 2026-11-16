@@ -40,7 +40,6 @@ public class InputHandler {
         // maus bindings
 
         String f3Key = Utils.readSettings("keybinds.json", "debug.info", "F3");
-        Log.debug("debug.info key: '" + f3Key + "'");
         bindKeySafe(f3Key, "DEBUG_INFO");
 
 

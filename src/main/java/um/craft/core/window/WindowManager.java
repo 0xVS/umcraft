@@ -11,7 +11,7 @@ import um.craft.core.render.RenderManager;
 import um.craft.core.util.Log;
 
 public class WindowManager {
-// neues Zeug für commit lol
+    // neues Zeug für commit lol
     private final Window window;
     private final Matrix4f projectionMatrix;
 
@@ -28,11 +28,11 @@ public class WindowManager {
 
     }
 
-    public void setPlayerController(PlayerController pc){
+    public void setPlayerController(PlayerController pc) {
         rm.setPlayerController(pc);
     }
 
-    public Camera getCamera(){
+    public Camera getCamera() {
         return rm.getCamera();
     }
 
@@ -65,7 +65,6 @@ public class WindowManager {
     }
 
 
-
     public void update() {
         // setzt farbe (temporär) für fenster
         //setClearColor(0, 0, 0, 1.0f);
@@ -85,6 +84,27 @@ public class WindowManager {
         //window.pollEvents();
     }
 
+    public boolean beginFrame() {
+        boolean resized = window.isResized();
+        if (resized) {
+            rm.onResize(window.getWidth(), window.getHeight());
+            window.resetResized();
+        }
+
+        GL11.glClearColor(0.2f, 0.4f, 0.8f, 1.0f);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
+
+        return resized;
+    }
+
+    public void endFrame() {
+        window.swapBuffers();
+    }
+
+    public void setCursorMode(int mode) {
+        GLFW.glfwSetInputMode(window.getHandle(), GLFW.GLFW_CURSOR, mode);
+    }
+
     public void cleanup() {
         window.destroy();
     }
@@ -96,6 +116,7 @@ public class WindowManager {
     public void setShouldClose() {
         GLFW.glfwSetWindowShouldClose(window.getHandle(), true);
     }
+
     public boolean windowShouldClose() {
         return window.shouldClose();
     }
@@ -110,7 +131,7 @@ public class WindowManager {
         projectionMatrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
     }
 
-    public Matrix4f updateProjectionMatrix(Matrix4f matrix, int width,  int height) {
+    public Matrix4f updateProjectionMatrix(Matrix4f matrix, int width, int height) {
         float aspectRatio = (float) width / height;
         return matrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
     }
@@ -119,9 +140,15 @@ public class WindowManager {
         return projectionMatrix;
     }
 
-    public int getWidth() { return window.getWidth(); }
+    public int getWidth() {
+        return window.getWidth();
+    }
 
-    public int getHeight() {        return window.getHeight();    }
+    public int getHeight() {
+        return window.getHeight();
+    }
 
-    public long getWindowHandle() {        return window.getHandle();    }
+    public long getWindowHandle() {
+        return window.getHandle();
+    }
 }

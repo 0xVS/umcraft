@@ -29,15 +29,14 @@ public class PlayerController implements InputListener {
     // test für sprint
     public boolean isSprinting;
 
-    public PlayerController(Inputs rawInput, WindowManager wm, Camera camera) {
-        this.inputHandler = new InputHandler(rawInput);
+    public PlayerController(Inputs rawInput, InputHandler inputHandler, WindowManager wm, Camera camera) {
+        this.inputHandler = inputHandler;
         this.inputHandler.addListener(this);
         this.window = wm;
         this.rawInput = rawInput;
         this.camera = camera;
         // custom bindings, z.B. aus dem load? jetzt erstmal als beispiel
         inputHandler.bindKey(GLFW.GLFW_KEY_F, "INVENTORY");
-
     }
     private enum PlayerAction {
         MOVING_FORWARD,
@@ -69,7 +68,7 @@ public class PlayerController implements InputListener {
                     case "MOVE_RIGHT" -> activeActions.add(PlayerAction.MOVING_RIGHT);
                     case "MOVE_UP" -> activeActions.add(PlayerAction.MOVING_UP);
                     case "MOVE_DOWN" -> activeActions.add(PlayerAction.MOVING_DOWN);
-                    case "QUIT" -> window.setShouldClose();
+                    //case "QUIT" -> window.setShouldClose();
                     case "DEBUG_INFO" -> window.rm.toggleF3();
                     case "SWITCH_PERSPECTIVE" -> camera.toggleCameraMode();
                 }
@@ -83,7 +82,7 @@ public class PlayerController implements InputListener {
                     case "MOVE_RIGHT" -> activeActions.add(PlayerAction.MOVING_RIGHT);
                     case "MOVE_UP" -> activeActions.add(PlayerAction.MOVING_UP);
                     case "MOVE_DOWN" -> activeActions.add(PlayerAction.MOVING_DOWN);
-                    case "QUIT" -> window.setShouldClose();
+                    //case "QUIT" -> window.setShouldClose();
                 }
             }
             case RELEASED -> {
@@ -98,15 +97,14 @@ public class PlayerController implements InputListener {
                     case "MOVE_RIGHT" -> activeActions.remove(PlayerAction.MOVING_RIGHT);
                     case "MOVE_UP" -> activeActions.remove(PlayerAction.MOVING_UP);
                     case "MOVE_DOWN" -> activeActions.remove(PlayerAction.MOVING_DOWN);
-                    case "QUIT" -> window.setShouldClose();
+                    //case "QUIT" -> window.setShouldClose();
                 }
             }
         }
     }
 
     public void update(float deltaTime) {
-        inputHandler.update();
-
+        // inputHandler.update();
         float dx = (float) rawInput.getMouseDeltaX();
         float dy = (float) rawInput.getMouseDeltaY();
         camera.handleMouseMovement(dx, dy);

@@ -57,6 +57,17 @@ public class Window {
         long window = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, MemoryUtil.NULL);
         if (window == MemoryUtil.NULL) throw new RuntimeException("Fehler beim erstellen vom GLFW window");
 
+        // Framebuf size kann von der Fenstergroesse ->  echte Pixelmaße
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer fw = stack.mallocInt(1);
+            IntBuffer fh = stack.mallocInt(1);
+            GLFW.glfwGetFramebufferSize(window, fw, fh);
+            if (fw.get(0) > 0 && fh.get(0) > 0) {
+                this.width = fw.get(0);
+                this.height = fh.get(0);
+            }
+        }
+
         // methode, um window size zu aktualisieren beim resizen
         GLFW.glfwSetFramebufferSizeCallback(window, this::onFramebufferResize);
 
